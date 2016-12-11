@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="dg_grounds32" tilewidth="32" tileheight="32">
+  <image source="AngbandTk/AngbandTk/dg_grounds32.gif" width="288" height="608"/>
+ </tileset>
+ <layer name="foreground" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzjYmBg4BrFwwIrDQI3jOJRPIpHDgYAZz8PuQ==
+  </data>
+ </layer>
+ <layer name="wall" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKRCcqQ8CggHQAAu0cBYw==
+  </data>
+ </layer>
+ <objectgroup name="triggers">
+  <object type="end" x="479" y="160" width="32" height="32">
+   <properties>
+    <property name="destX" value="0"/>
+    <property name="destY" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="items">
+  <object type="redkey" x="102" y="598" width="32" height="32">
+   <properties>
+    <property name="sprite" value="redkey"/>
+   </properties>
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="player">
+  <object type="player" x="28" y="598" width="32" height="32">
+   <properties>
+    <property name="sprite" value="player"/>
+   </properties>
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup name="objects">
+  <object type="door" x="168" y="567" width="32" height="32">
+   <properties>
+    <property name="key" value="redkey"/>
+    <property name="sprite" value="reddoor"/>
+   </properties>
+  </object>
+  <object type="crate" x="112" y="511" width="32" height="32">
+   <properties>
+    <property name="sprite" value="browncrate"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

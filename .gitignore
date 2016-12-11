@@ -1,0 +1,79 @@
+# Compiled Java files.
+*.class
+*.jar
+!gradle-wrapper.jar
+
+# Absolute path to android sdk.
+local.properties
+
+# Generated files.
+bin/
+gen/
+out/
+.gradle/
+*.bin
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+# Network Trash Folder
+# Temporary Items
+android/build/
+desktop/build/
+core/build/
+tests/build/
+build/
+.apdisk
+*.lock
+*.log
+android/.classpath
+android/.settings/org.eclipse.jdt.core.prefs
+core/.classpath
+core/.settings/org.eclipse.jdt.core.prefs
+desktop/.classpath
+desktop/.project
+desktop/.settings/org.eclipse.jdt.core.prefs
+tests/.classpath
+tests/.project
+tests/.settings/org.eclipse.jdt.core.prefs
