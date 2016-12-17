@@ -6,8 +6,6 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.google.inject.Inject;
 
 import net.mikegraf.game.states.play.Play;
@@ -20,12 +18,10 @@ import net.mikegraf.game.states.play.triggers.ITrigger;
 public class MyContactListener implements ContactListener {
 
     private static final String PLAYER_TYPE = "player";
-    private Array<Body> bodiesToDispose;
     private Play playState;
 
     @Inject
     public MyContactListener(Play playState) {
-        bodiesToDispose = new Array<Body>();
         this.playState = playState;
     }
 
@@ -91,21 +87,8 @@ public class MyContactListener implements ContactListener {
                     IOperable operable = (IOperable) spriteData;
                     operable.operate(p);
                 }
-
-                if (otherSprite.isReadyForDisposal()) {
-                    bodiesToDispose.add(otherBody);
-                }
             }
         }
-    }
-
-    public void removeDisposableBodies(World world) {
-
-        for (Body body : bodiesToDispose) {
-            world.destroyBody(body);
-        }
-
-        bodiesToDispose.clear();
     }
 
     @Override

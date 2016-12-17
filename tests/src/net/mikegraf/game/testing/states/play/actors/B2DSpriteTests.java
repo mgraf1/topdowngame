@@ -33,6 +33,7 @@ public class B2DSpriteTests {
         animationIndex = mock(AnimationIndex.class);
         when(animationIndex.getKeyFrame(0f)).thenReturn(textureRegion);
         body = mock(Body.class);
+        when(body.isActive()).thenReturn(true);
         sprite = new B2DSprite(animationIndex, body);
     }
 

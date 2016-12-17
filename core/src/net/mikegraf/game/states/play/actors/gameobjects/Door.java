@@ -7,23 +7,29 @@ import net.mikegraf.game.states.play.logic.ICondition;
 public class Door extends GameObject implements IOperable {
 
     private ICondition<Player> hasKeyCondition;
-    private String keyName;
 
-    public Door(B2DSprite b2dSprite, ICondition<Player> cond, String key) {
+    public Door(B2DSprite b2dSprite, ICondition<Player> cond) {
         super(b2dSprite);
-        keyName = key;
 
         // Create trigger so door can be unlocked.
         hasKeyCondition = cond;
     }
 
     @Override
-    public void operate(Player player) {
+    public boolean operate(Player player) {
 
         if (hasKeyCondition.accepts(player)) {
+            toggle();
+            return true;
+        }
+        return false;
+    }
 
-            sprite.prepareForDisposal();
-            player.removeItem(keyName);
+    private void toggle() {
+        if (sprite.isHidden()) {
+            sprite.show();
+        } else {
+            sprite.hide();
         }
     }
 

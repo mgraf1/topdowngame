@@ -6,19 +6,23 @@ import net.mikegraf.game.states.play.actors.Player;
 public class PlayerItemCondition implements ICondition<Player> {
 
     private String type;
+    private boolean consume;
 
-    public PlayerItemCondition(String itemType) {
+    public PlayerItemCondition(String itemType, boolean consumesItem) {
         type = itemType;
+        consume = consumesItem;
     }
 
     @Override
     public boolean accepts(Player entity) {
         if (entity != null) {
             if (entity.hasItem(type)) {
+                if (consume) {
+                    entity.removeItem(type);
+                }
                 return true;
             }
         }
-
         return false;
     }
 

@@ -15,6 +15,7 @@ public class B2DSprite {
     private float height;
     private Object userData;
     private boolean readyForDisposal;
+    private boolean readyForHiding;
 
     public B2DSprite(AnimationIndex animation, Body body) {
         this.animation = animation;
@@ -25,14 +26,25 @@ public class B2DSprite {
         this.width = region.getRegionWidth();
         this.height = region.getRegionHeight();
         this.readyForDisposal = false;
+        this.readyForHiding = false;
     }
 
     public void render(SpriteBatch sb, float totalTime) {
-        Vector2 position = body.getPosition();
-        sb.begin();
-        sb.draw(animation.getKeyFrame(totalTime), position.x * B2DVars.PPM - width / 2,
-                position.y * B2DVars.PPM - height / 2);
-        sb.end();
+        if (body.isActive()) {
+            Vector2 position = body.getPosition();
+            sb.begin();
+            sb.draw(animation.getKeyFrame(totalTime), position.x * B2DVars.PPM - width / 2,
+                    position.y * B2DVars.PPM - height / 2);
+            sb.end();
+        }
+    }
+
+    public void hide() {
+        readyForHiding = true;
+    }
+
+    public void show() {
+        readyForHiding = false;
     }
 
     public void setAnimation(String animationName) {
@@ -63,7 +75,15 @@ public class B2DSprite {
         return readyForDisposal;
     }
 
+    public boolean isReadyForHiding() {
+        return readyForHiding;
+    }
+
     public void prepareForDisposal() {
         readyForDisposal = true;
+    }
+
+    public boolean isHidden() {
+        return !body.isActive();
     }
 }

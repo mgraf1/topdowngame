@@ -4,5 +4,5 @@ import net.mikegraf.game.states.play.actors.Player;
 
 public interface IOperable {
 
-    public void operate(Player player);
+    public boolean operate(Player player);
 }

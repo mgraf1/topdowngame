@@ -66,7 +66,22 @@ public class Level {
     public void update(float dt) {
         world.step(dt, B2DVars.VEL_INTEGRATIONS, B2DVars.POS_INTEGRATIONS);
 
-        contactListener.removeDisposableBodies(world);
+        world.getBodies(actorBodies);
+        for (Body b : actorBodies) {
+            Object bodyData = b.getUserData();
+            if (bodyData instanceof B2DSprite) {
+                B2DSprite a = (B2DSprite) bodyData;
+                if (a != null) {
+                    if (a.isReadyForDisposal()) {
+                        b.setUserData(null);
+                        a.setUserData(null);
+                        world.destroyBody(b);
+                    } else if (a.isReadyForHiding()) {
+                        b.setActive(false);
+                    }
+                }
+            }
+        }
     }
 
     public void render(float totalTime) {
