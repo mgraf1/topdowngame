@@ -17,7 +17,7 @@ public class RemoveSpriteTrigger implements ITrigger {
     @Override
     public boolean execute(CollisionInfo info) {
         B2DSprite sprite = info.getOtherSprite();
-        sprite.prepareForDisposal();
+        sprite.readyForDisposal = true;
 
         return true;
     }

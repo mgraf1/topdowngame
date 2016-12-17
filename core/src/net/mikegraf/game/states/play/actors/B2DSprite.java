@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 
 import net.mikegraf.game.states.play.levels.B2DVars;
 
@@ -14,8 +15,10 @@ public class B2DSprite {
     private float width;
     private float height;
     private Object userData;
-    private boolean readyForDisposal;
-    private boolean readyForHiding;
+
+    public boolean readyForHiding;
+    public boolean readyForShowing;
+    public boolean readyForDisposal;
 
     public B2DSprite(AnimationIndex animation, Body body) {
         this.animation = animation;
@@ -27,6 +30,7 @@ public class B2DSprite {
         this.height = region.getRegionHeight();
         this.readyForDisposal = false;
         this.readyForHiding = false;
+        this.readyForShowing = false;
     }
 
     public void render(SpriteBatch sb, float totalTime) {
@@ -40,11 +44,22 @@ public class B2DSprite {
     }
 
     public void hide() {
-        readyForHiding = true;
+        readyForHiding = false;
+        body.setActive(false);
     }
 
     public void show() {
+        readyForShowing = false;
+        body.setActive(true);
+    }
+
+    public void dispose(World world) {
+        readyForDisposal = false;
         readyForHiding = false;
+        readyForShowing = false;
+        body.setUserData(null);
+        this.setUserData(null);
+        world.destroyBody(body);
     }
 
     public void setAnimation(String animationName) {
@@ -69,18 +84,6 @@ public class B2DSprite {
 
     public TextureRegion getTextureRegion() {
         return animation.getKeyFrame(0);
-    }
-
-    public boolean isReadyForDisposal() {
-        return readyForDisposal;
-    }
-
-    public boolean isReadyForHiding() {
-        return readyForHiding;
-    }
-
-    public void prepareForDisposal() {
-        readyForDisposal = true;
     }
 
     public boolean isHidden() {

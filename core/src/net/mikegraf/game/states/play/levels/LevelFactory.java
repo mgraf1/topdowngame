@@ -148,6 +148,7 @@ public class LevelFactory {
             B2DSprite sprite = createSpriteFromMapObject(mo, world);
             gameObjectFactory.createGameObject(sprite, mo.getProperties());
         }
+        gameObjectFactory.finalizeObjects();
     }
 
     // Helper method to build sprite.

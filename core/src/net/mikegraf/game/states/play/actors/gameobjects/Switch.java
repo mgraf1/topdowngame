@@ -5,15 +5,31 @@ import net.mikegraf.game.states.play.actors.Player;
 
 public class Switch extends GameObject implements IOperable {
 
-    private Door door;
+    public static final String ON_ANIMATION_NAME = "on";
+    public static final String OFF_ANIMATION_NAME = "off";
 
-    public Switch(B2DSprite b2dSprite) {
-        super(b2dSprite);
+    private Door door;
+    private boolean on;
+
+    public Switch(B2DSprite sprite, String name) {
+        super(sprite, name);
+        this.on = false;
     }
 
     @Override
     public boolean operate(Player player) {
-        return false;
+        if (on) {
+            sprite.setAnimation(OFF_ANIMATION_NAME);
+            on = false;
+        } else {
+            sprite.setAnimation(ON_ANIMATION_NAME);
+            on = true;
+        }
+        return door.operate(player);
+    }
+
+    public boolean isOn() {
+        return on;
     }
 
     public void setDoor(Door door) {

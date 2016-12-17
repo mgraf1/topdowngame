@@ -1,8 +1,6 @@
 package net.mikegraf.game.testing.states.play.actors.gameobjects;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Assert;
@@ -17,6 +15,7 @@ import net.mikegraf.game.states.play.logic.PlayerItemCondition;
 public class DoorTests {
 
     private final String ITEM_TYPE = "itemType";
+    private final String NAME = "name";
 
     @Test
     public void operateReturnsTrueIfPlayerCanOperate() {
@@ -24,7 +23,7 @@ public class DoorTests {
         ICondition<Player> cond = new PlayerItemCondition(ITEM_TYPE, false);
         Player player = mock(Player.class);
         when(player.hasItem(ITEM_TYPE)).thenReturn(true);
-        Door door = new Door(sprite, cond);
+        Door door = new Door(sprite, NAME, cond);
 
         Assert.assertTrue(door.operate(player));
     }
@@ -35,7 +34,7 @@ public class DoorTests {
         ICondition<Player> cond = new PlayerItemCondition(ITEM_TYPE, false);
         Player player = mock(Player.class);
         when(player.hasItem(ITEM_TYPE)).thenReturn(false);
-        Door door = new Door(sprite, cond);
+        Door door = new Door(sprite, NAME, cond);
 
         Assert.assertFalse(door.operate(player));
     }
@@ -47,11 +46,11 @@ public class DoorTests {
         ICondition<Player> cond = new PlayerItemCondition(ITEM_TYPE, false);
         Player player = mock(Player.class);
         when(player.hasItem(ITEM_TYPE)).thenReturn(true);
-        Door door = new Door(sprite, cond);
+        Door door = new Door(sprite, NAME, cond);
 
         door.operate(player);
 
-        verify(sprite, times(1)).hide();
+        Assert.assertTrue(sprite.readyForHiding);
     }
 
     @Test
@@ -61,10 +60,10 @@ public class DoorTests {
         ICondition<Player> cond = new PlayerItemCondition(ITEM_TYPE, false);
         Player player = mock(Player.class);
         when(player.hasItem(ITEM_TYPE)).thenReturn(true);
-        Door door = new Door(sprite, cond);
+        Door door = new Door(sprite, NAME, cond);
 
         door.operate(player);
 
-        verify(sprite, times(1)).show();
+        Assert.assertTrue(sprite.readyForShowing);
     }
 }

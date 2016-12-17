@@ -8,16 +8,13 @@ public class Door extends GameObject implements IOperable {
 
     private ICondition<Player> hasKeyCondition;
 
-    public Door(B2DSprite b2dSprite, ICondition<Player> cond) {
-        super(b2dSprite);
-
-        // Create trigger so door can be unlocked.
-        hasKeyCondition = cond;
+    public Door(B2DSprite sprite, String name, ICondition<Player> hasKeyCondition) {
+        super(sprite, name);
+        this.hasKeyCondition = hasKeyCondition;
     }
 
     @Override
     public boolean operate(Player player) {
-
         if (hasKeyCondition.accepts(player)) {
             toggle();
             return true;
@@ -27,10 +24,9 @@ public class Door extends GameObject implements IOperable {
 
     private void toggle() {
         if (sprite.isHidden()) {
-            sprite.show();
+            sprite.readyForShowing = true;
         } else {
-            sprite.hide();
+            sprite.readyForHiding = true;
         }
     }
-
 }

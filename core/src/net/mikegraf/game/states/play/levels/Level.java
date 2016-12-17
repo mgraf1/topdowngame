@@ -70,14 +70,14 @@ public class Level {
         for (Body b : actorBodies) {
             Object bodyData = b.getUserData();
             if (bodyData instanceof B2DSprite) {
-                B2DSprite a = (B2DSprite) bodyData;
-                if (a != null) {
-                    if (a.isReadyForDisposal()) {
-                        b.setUserData(null);
-                        a.setUserData(null);
-                        world.destroyBody(b);
-                    } else if (a.isReadyForHiding()) {
-                        b.setActive(false);
+                B2DSprite sprite = (B2DSprite) bodyData;
+                if (sprite != null) {
+                    if (sprite.readyForDisposal) {
+                        sprite.dispose(world);
+                    } else if (sprite.readyForHiding) {
+                        sprite.hide();
+                    } else if (sprite.readyForShowing) {
+                        sprite.show();
                     }
                 }
             }
