@@ -3,9 +3,12 @@ package net.mikegraf.game.testing.states.play.actors.gameobjects;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.actors.B2DSprite;
 import net.mikegraf.game.states.play.actors.Player;
 import net.mikegraf.game.states.play.actors.gameobjects.Door;
@@ -17,36 +20,48 @@ public class DoorTests {
     private final String ITEM_TYPE = "itemType";
     private final String NAME = "name";
 
+    private Door door;
+    private B2DSprite sprite;
+    private ICondition<Player> cond;
+    private SoundEffectIndex soundEffectIndex;
+    private Player player;
+
+    @Before
+    public void myBefore() {
+        soundEffectIndex = mock(SoundEffectIndex.class);
+        sprite = mock(B2DSprite.class);
+        cond = new PlayerItemCondition(ITEM_TYPE, false);
+        door = new Door(sprite, soundEffectIndex, NAME, cond);
+        player = mock(Player.class);
+    }
+
+    @After
+    public void myAfter() {
+        door = null;
+        sprite = null;
+        soundEffectIndex = null;
+        cond = null;
+        player = null;
+    }
+
     @Test
     public void operateReturnsTrueIfPlayerCanOperate() {
-        B2DSprite sprite = mock(B2DSprite.class);
-        ICondition<Player> cond = new PlayerItemCondition(ITEM_TYPE, false);
-        Player player = mock(Player.class);
         when(player.hasItem(ITEM_TYPE)).thenReturn(true);
-        Door door = new Door(sprite, NAME, cond);
 
         Assert.assertTrue(door.operate(player));
     }
 
     @Test
     public void operateReturnsFalseIfPlayerCantOperate() {
-        B2DSprite sprite = mock(B2DSprite.class);
-        ICondition<Player> cond = new PlayerItemCondition(ITEM_TYPE, false);
-        Player player = mock(Player.class);
         when(player.hasItem(ITEM_TYPE)).thenReturn(false);
-        Door door = new Door(sprite, NAME, cond);
 
         Assert.assertFalse(door.operate(player));
     }
 
     @Test
     public void operateHidesSpriteIfOperated() {
-        B2DSprite sprite = mock(B2DSprite.class);
         when(sprite.isHidden()).thenReturn(false);
-        ICondition<Player> cond = new PlayerItemCondition(ITEM_TYPE, false);
-        Player player = mock(Player.class);
         when(player.hasItem(ITEM_TYPE)).thenReturn(true);
-        Door door = new Door(sprite, NAME, cond);
 
         door.operate(player);
 
@@ -55,12 +70,8 @@ public class DoorTests {
 
     @Test
     public void operateShowsSpriteIfOperatedAndAlreadyHidden() {
-        B2DSprite sprite = mock(B2DSprite.class);
         when(sprite.isHidden()).thenReturn(true);
-        ICondition<Player> cond = new PlayerItemCondition(ITEM_TYPE, false);
-        Player player = mock(Player.class);
         when(player.hasItem(ITEM_TYPE)).thenReturn(true);
-        Door door = new Door(sprite, NAME, cond);
 
         door.operate(player);
 

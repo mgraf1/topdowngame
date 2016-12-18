@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objectsWithSound soundEffectPath="audio/sfx/">
+	<objectWithSound>
+		<type>switch</type>
+		<sounds>
+			<sound>
+				<name>turn</name>
+				<path>clank1.mp3</path>
+			</sound>
+		</sounds>
+	</objectWithSound>
+</objectsWithSound>

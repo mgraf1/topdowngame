@@ -1,4 +1,4 @@
-package net.mikegraf.game.parsers;
+package net.mikegraf.game.parsers.models;
 
 /* Represents the data necessary to instantiate a level */
 public class LevelData {

@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.actors.B2DSprite;
 import net.mikegraf.game.states.play.actors.Player;
 import net.mikegraf.game.states.play.actors.gameobjects.Door;
@@ -22,13 +23,15 @@ public class SwitchTests {
     private Player player;
     private B2DSprite sprite;
     private Door door;
+    private SoundEffectIndex soundEffectIndex;
 
     @Before
     public void myBefore() {
         sprite = mock(B2DSprite.class);
         player = mock(Player.class);
         door = mock(Door.class);
-        s = new Switch(sprite, NAME);
+        soundEffectIndex = mock(SoundEffectIndex.class);
+        s = new Switch(sprite, soundEffectIndex, NAME);
         s.setDoor(door);
     }
 
@@ -37,7 +40,25 @@ public class SwitchTests {
         sprite = null;
         player = null;
         door = null;
+        soundEffectIndex = null;
         s = null;
+    }
+
+    @Test
+    public void operatePlaysTurnSound() {
+        s.operate(player);
+
+        verify(soundEffectIndex, times(1)).playSound(Switch.TURN_SFX);
+        ;
+    }
+
+    @Test
+    public void operatePlaysTurnSoundOnEachTurn() {
+        s.operate(player);
+        s.operate(player);
+
+        verify(soundEffectIndex, times(2)).playSound(Switch.TURN_SFX);
+        ;
     }
 
     @Test

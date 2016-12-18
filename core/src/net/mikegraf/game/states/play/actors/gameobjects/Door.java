@@ -1,5 +1,6 @@
 package net.mikegraf.game.states.play.actors.gameobjects;
 
+import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.actors.B2DSprite;
 import net.mikegraf.game.states.play.actors.Player;
 import net.mikegraf.game.states.play.logic.ICondition;
@@ -8,8 +9,8 @@ public class Door extends GameObject implements IOperable {
 
     private ICondition<Player> condition;
 
-    public Door(B2DSprite sprite, String name, ICondition<Player> condition) {
-        super(sprite, name);
+    public Door(B2DSprite sprite, SoundEffectIndex soundEffectIndex, String name, ICondition<Player> condition) {
+        super(sprite, soundEffectIndex, name);
         this.condition = condition;
     }
 

@@ -10,6 +10,8 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
 import net.mikegraf.game.exceptions.ConfigFormatException;
+import net.mikegraf.game.parsers.models.AnimationData;
+import net.mikegraf.game.parsers.models.SpriteData;
 
 /* Responsible for parsing the Sprite Definition file. */
 public class SpriteParser extends Parser<HashMap<String, SpriteData>> {
@@ -47,9 +49,9 @@ public class SpriteParser extends Parser<HashMap<String, SpriteData>> {
             String spriteType = parseElement(sprite, T_SPRITE_T_TYPE, true);
             String spriteTexture = parseElement(sprite, T_SPRITE_T_TEXTUREPATH, true);
             String spriteBodytype = parseElement(sprite, T_SPRITE_T_BODYTYPE, true);
-            float spriteDamp = Float.parseFloat(parseElement(sprite, T_SPRITE_T_DAMP, true));
-            int spriteSheetWidth = Integer.parseInt(parseElement(sprite, T_SPRITE_T_SHEETWIDTH, true));
-            int spriteSheetHeight = Integer.parseInt(parseElement(sprite, T_SPRITE_T_SHEETHEIGHT, true));
+            float spriteDamp = parseFloatElement(sprite, T_SPRITE_T_DAMP, true);
+            int spriteSheetWidth = parseIntElement(sprite, T_SPRITE_T_SHEETWIDTH, true);
+            int spriteSheetHeight = parseIntElement(sprite, T_SPRITE_T_SHEETHEIGHT, true);
 
             List<AnimationData> animationData = null;
             Element animations = sprite.getChildByName(T_SPRITE_T_ANIMATIONS);
@@ -59,10 +61,9 @@ public class SpriteParser extends Parser<HashMap<String, SpriteData>> {
                 for (int i = 0; i < numAnimations; i++) {
                     Element animation = animations.getChild(i);
                     String animationName = parseElement(animation, T_SPRITE_T_ANIMATIONS_T_ANIMATION_T_NAME, true);
-                    int startingFrame = Integer
-                            .parseInt(parseElement(animation, T_SPRITE_T_ANIMATIONS_T_ANIMATION_T_STARTINGFRAME, true));
-                    int endingFrame = Integer
-                            .parseInt(parseElement(animation, T_SPRITE_T_ANIMATIONS_T_ANIMATION_T_ENDINGFRAME, true));
+                    int startingFrame = parseIntElement(animation, T_SPRITE_T_ANIMATIONS_T_ANIMATION_T_STARTINGFRAME,
+                            true);
+                    int endingFrame = parseIntElement(animation, T_SPRITE_T_ANIMATIONS_T_ANIMATION_T_ENDINGFRAME, true);
                     animationData.add(new AnimationData(animationName, startingFrame, endingFrame));
                 }
             }
@@ -78,5 +79,4 @@ public class SpriteParser extends Parser<HashMap<String, SpriteData>> {
         }
         return retVal;
     }
-
 }

@@ -1,20 +1,30 @@
 package net.mikegraf.game.states.play.actors.gameobjects;
 
+import com.badlogic.gdx.physics.box2d.World;
+
+import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.actors.B2DSprite;
 
 public class GameObject {
 
     protected B2DSprite sprite;
+    protected SoundEffectIndex soundEffectIndex;
     protected String name;
 
-    public GameObject(B2DSprite sprite, String name) {
+    public GameObject(B2DSprite sprite, SoundEffectIndex soundEffectIndex, String name) {
         this.name = name;
+        this.soundEffectIndex = soundEffectIndex;
         this.sprite = sprite;
         this.sprite.setUserData(this);
     }
 
     public String getName() {
         return name;
+    }
+
+    public void dispose(World world) {
+        sprite.dispose(world);
+        soundEffectIndex.dispose();
     }
 
     @Override

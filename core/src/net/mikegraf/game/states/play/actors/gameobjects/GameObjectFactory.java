@@ -3,7 +3,10 @@ package net.mikegraf.game.states.play.actors.gameobjects;
 import java.util.HashMap;
 
 import com.badlogic.gdx.maps.MapProperties;
+import com.google.inject.Inject;
 
+import net.mikegraf.game.audio.SoundEffectFactory;
+import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.actors.B2DSprite;
 import net.mikegraf.game.states.play.actors.Player;
 import net.mikegraf.game.states.play.logic.ICondition;
@@ -20,16 +23,20 @@ public class GameObjectFactory {
 
     private HashMap<Switch, String> switchToDoorNameMap;
     private HashMap<String, Door> doorNameToDoorMap;
+    private SoundEffectFactory soundEffectFactory;
 
-    public GameObjectFactory() {
-        switchToDoorNameMap = new HashMap<Switch, String>();
-        doorNameToDoorMap = new HashMap<String, Door>();
+    @Inject
+    public GameObjectFactory(SoundEffectFactory soundEffectFactory) {
+        this.soundEffectFactory = soundEffectFactory;
+        this.switchToDoorNameMap = new HashMap<Switch, String>();
+        this.doorNameToDoorMap = new HashMap<String, Door>();
     }
 
     public GameObject createGameObject(B2DSprite sprite, MapProperties props) {
 
         String type = props.get("type", String.class);
         String name = props.get("id", String.class);
+        SoundEffectIndex soundEffectIndex = soundEffectFactory.createSoundEffectIndex(type);
 
         if (type.equals(DOOR_TYPE)) {
             ICondition<Player> cond = null;
@@ -39,18 +46,18 @@ public class GameObjectFactory {
             } else {
                 cond = new NullCondition<Player>();
             }
-            Door door = new Door(sprite, name, cond);
+            Door door = new Door(sprite, soundEffectIndex, name, cond);
             doorNameToDoorMap.put(name, door);
             return door;
 
         } else if (type.equals(SWITCH_TYPE)) {
             String door = props.get(SWITCH_DOOR_PROP, String.class);
-            Switch switchToReturn = new Switch(sprite, name);
+            Switch switchToReturn = new Switch(sprite, soundEffectIndex, name);
             switchToDoorNameMap.put(switchToReturn, door);
             return switchToReturn;
 
         } else {
-            return new GameObject(sprite, name);
+            return new GameObject(sprite, soundEffectIndex, name);
         }
     }
 

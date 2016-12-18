@@ -46,5 +46,16 @@ public abstract class Parser<T> {
         return stringToReturn;
     }
 
+    protected int parseIntElement(Element parent, String elementName, boolean required) throws ConfigFormatException {
+        String parsedElement = parseElement(parent, elementName, required);
+        return Integer.parseInt(parsedElement);
+    }
+
+    protected float parseFloatElement(Element parent, String elementName, boolean required)
+            throws ConfigFormatException {
+        String parsedElement = parseElement(parent, elementName, required);
+        return Float.parseFloat(parsedElement);
+    }
+
     protected abstract T handleParsing(Element root) throws IOException, ConfigFormatException;
 }

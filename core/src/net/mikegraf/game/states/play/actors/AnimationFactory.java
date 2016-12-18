@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.mikegraf.game.parsers.AnimationData;
-import net.mikegraf.game.parsers.SpriteData;
+import net.mikegraf.game.parsers.models.AnimationData;
+import net.mikegraf.game.parsers.models.SpriteData;
 
 public class AnimationFactory {
 

@@ -12,8 +12,8 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.google.inject.Inject;
 
-import net.mikegraf.game.parsers.AnimationData;
-import net.mikegraf.game.parsers.SpriteData;
+import net.mikegraf.game.parsers.models.AnimationData;
+import net.mikegraf.game.parsers.models.SpriteData;
 
 /* Responsible for creating sprites. */
 public class SpriteFactory {

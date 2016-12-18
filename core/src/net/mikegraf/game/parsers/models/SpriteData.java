@@ -1,4 +1,4 @@
-package net.mikegraf.game.parsers;
+package net.mikegraf.game.parsers.models;
 
 import java.util.List;
 

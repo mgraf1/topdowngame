@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import net.mikegraf.game.exceptions.ConfigFormatException;
-import net.mikegraf.game.parsers.LevelData;
 import net.mikegraf.game.parsers.WorldParser;
+import net.mikegraf.game.parsers.models.LevelData;
 import net.mikegraf.game.states.play.levels.LevelFactory;
 import net.mikegraf.game.testing.GdxTestRunner;
 

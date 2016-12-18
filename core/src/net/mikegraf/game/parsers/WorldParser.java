@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
 import net.mikegraf.game.exceptions.ConfigFormatException;
+import net.mikegraf.game.parsers.models.LevelData;
 
 /* Responsible for parsing xml and obtaining world information. */
 public class WorldParser extends Parser<LevelData[][]> {

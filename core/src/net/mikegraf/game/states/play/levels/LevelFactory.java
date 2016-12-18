@@ -22,7 +22,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.google.inject.Inject;
 
-import net.mikegraf.game.parsers.LevelData;
+import net.mikegraf.game.parsers.models.LevelData;
 import net.mikegraf.game.states.play.actors.B2DSprite;
 import net.mikegraf.game.states.play.actors.Item;
 import net.mikegraf.game.states.play.actors.Player;
