@@ -14,7 +14,17 @@ public class PlayerController {
         movementVector = new Vector2(0, 0);
     }
 
-    public void handleInput(boolean upDown, boolean downDown, boolean leftDown, boolean rightDown) {
+    public void handleInput(boolean upDown, boolean downDown, boolean leftDown, boolean rightDown,
+            boolean operatePressed) {
+
+        handleMovement(upDown, downDown, leftDown, rightDown);
+
+        if (operatePressed) {
+            player.operateTouchedObjects();
+        }
+    }
+
+    private void handleMovement(boolean upDown, boolean downDown, boolean leftDown, boolean rightDown) {
 
         int numDirections = countInputs(upDown, downDown, leftDown, rightDown);
 
@@ -38,6 +48,7 @@ public class PlayerController {
         }
 
         player.move(movementVector);
+
     }
 
     private int countInputs(boolean one, boolean two, boolean three, boolean four) {

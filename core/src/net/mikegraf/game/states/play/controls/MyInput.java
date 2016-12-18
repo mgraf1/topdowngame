@@ -3,11 +3,12 @@ package net.mikegraf.game.states.play.controls;
 public class MyInput {
 
     // Constants.
-    public static final int NUM_KEYS = 4;
+    public static final int NUM_KEYS = 5;
     public static int WALK_LEFT = 0;
     public static int WALK_UP = 1;
     public static int WALK_RIGHT = 2;
     public static int WALK_DOWN = 3;
+    public static int OPERATE = 4;
 
     private static boolean[] keys = new boolean[NUM_KEYS];
     private static boolean[] prevKeys = new boolean[NUM_KEYS];

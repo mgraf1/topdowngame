@@ -73,7 +73,8 @@ public class Play extends GameState {
     public void handleInput() {
 
         playerController.handleInput(MyInput.isDown(MyInput.WALK_UP), MyInput.isDown(MyInput.WALK_DOWN),
-                MyInput.isDown(MyInput.WALK_LEFT), MyInput.isDown(MyInput.WALK_RIGHT));
+                MyInput.isDown(MyInput.WALK_LEFT), MyInput.isDown(MyInput.WALK_RIGHT),
+                MyInput.isPressed(MyInput.OPERATE));
     }
 
     @Override

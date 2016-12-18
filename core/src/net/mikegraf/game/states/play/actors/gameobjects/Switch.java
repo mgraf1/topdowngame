@@ -25,7 +25,12 @@ public class Switch extends GameObject implements IOperable {
             sprite.setAnimation(ON_ANIMATION_NAME);
             on = true;
         }
-        return door.operate(player);
+        return door.operate(null);
+    }
+
+    @Override
+    public String getId() {
+        return name;
     }
 
     public boolean isOn() {

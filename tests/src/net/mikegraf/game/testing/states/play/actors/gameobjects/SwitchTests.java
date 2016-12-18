@@ -59,7 +59,7 @@ public class SwitchTests {
     public void operateOperatesDoor() {
         s.operate(player);
 
-        verify(door, times(1)).operate(player);
+        verify(door, times(1)).operate(null);
     }
 
     @Test

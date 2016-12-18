@@ -5,7 +5,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.math.Vector2;
 import net.mikegraf.game.states.play.actors.B2DSprite;
 import net.mikegraf.game.states.play.actors.Item;
 import net.mikegraf.game.states.play.actors.Player;
+import net.mikegraf.game.states.play.actors.gameobjects.IOperable;
 import net.mikegraf.game.testing.GdxTestRunner;
 
 @RunWith(GdxTestRunner.class)
@@ -27,6 +30,12 @@ public class PlayerTests {
     public void myBefore() {
         sprite = mock(B2DSprite.class);
         player = new Player(sprite);
+    }
+
+    @After
+    public void myAfter() {
+        sprite = null;
+        player = null;
     }
 
     @Test
@@ -142,5 +151,43 @@ public class PlayerTests {
         player.move(movementVector2);
 
         verify(sprite, times(1)).setAnimation(animationName);
+    }
+
+    @Test
+    public void isTouchingReturnsTrueIfPlayerTouchedObject() {
+        String opId = "id";
+        IOperable operable = mock(IOperable.class);
+        when(operable.getId()).thenReturn(opId);
+        player.touch(operable);
+
+        assertTrue(player.isTouching(opId));
+    }
+
+    @Test
+    public void isTouchingReturnsFalseIfPlayerDidntTouchObject() {
+        String opId = "id";
+        IOperable operable = mock(IOperable.class);
+        when(operable.getId()).thenReturn(opId);
+        player.touch(operable);
+        player.stopTouching(operable);
+
+        assertFalse(player.isTouching(opId));
+    }
+
+    @Test
+    public void operableTouchedObjectsCallsOperateOnAll() {
+        String opId = "id";
+        String opId2 = "id2";
+        IOperable operable = mock(IOperable.class);
+        when(operable.getId()).thenReturn(opId);
+        IOperable operable2 = mock(IOperable.class);
+        when(operable.getId()).thenReturn(opId2);
+        player.touch(operable);
+        player.touch(operable2);
+
+        player.operateTouchedObjects();
+
+        verify(operable, times(1)).operate(player);
+        verify(operable2, times(1)).operate(player);
     }
 }

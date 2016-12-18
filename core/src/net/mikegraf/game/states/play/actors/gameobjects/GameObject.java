@@ -13,6 +13,10 @@ public class GameObject {
         this.sprite.setUserData(this);
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

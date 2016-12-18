@@ -1,7 +1,7 @@
 package net.mikegraf.game.states.play.controls;
 
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 
 public class MyInputHandler extends InputAdapter {
 
@@ -15,6 +15,8 @@ public class MyInputHandler extends InputAdapter {
             MyInput.setKey(MyInput.WALK_RIGHT, true);
         } else if (keycode == Keys.DOWN) {
             MyInput.setKey(MyInput.WALK_DOWN, true);
+        } else if (keycode == Keys.CONTROL_LEFT) {
+            MyInput.setKey(MyInput.OPERATE, true);
         }
         return true;
     }
@@ -29,6 +31,8 @@ public class MyInputHandler extends InputAdapter {
             MyInput.setKey(MyInput.WALK_RIGHT, false);
         } else if (keycode == Keys.DOWN) {
             MyInput.setKey(MyInput.WALK_DOWN, false);
+        } else if (keycode == Keys.CONTROL_LEFT) {
+            MyInput.setKey(MyInput.OPERATE, false);
         }
         return true;
     }

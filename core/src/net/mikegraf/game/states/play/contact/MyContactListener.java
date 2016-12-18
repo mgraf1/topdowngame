@@ -83,9 +83,8 @@ public class MyContactListener implements ContactListener {
                 }
 
                 else if (spriteData instanceof IOperable) {
-
                     IOperable operable = (IOperable) spriteData;
-                    operable.operate(p);
+                    p.touch(operable);
                 }
             }
         }
@@ -93,6 +92,51 @@ public class MyContactListener implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
+        Fixture a = contact.getFixtureA();
+        Fixture b = contact.getFixtureB();
+        Object aData = a.getUserData();
+        Object bData = b.getUserData();
+        Object otherObject = null;
+        Body otherBody = null;
+        Player p = null;
+
+        if (aData == null || bData == null) {
+            return;
+        }
+
+        // Determine if a player is part of the collision.
+        CollisionInfo info = new CollisionInfo();
+        info.setPlayState(playState);
+
+        if (aData.equals(PLAYER_TYPE)) {
+
+            B2DSprite sprite = (B2DSprite) a.getBody().getUserData();
+            p = (Player) sprite.getUserData();
+            otherBody = b.getBody();
+            otherObject = otherBody.getUserData();
+        } else if (bData.equals(PLAYER_TYPE)) {
+
+            B2DSprite sprite = (B2DSprite) b.getBody().getUserData();
+            p = (Player) sprite.getUserData();
+            otherBody = a.getBody();
+            otherObject = otherBody.getUserData();
+        }
+
+        if (p != null) {
+            info.setPlayer(p);
+
+            if (otherObject instanceof B2DSprite) {
+
+                B2DSprite otherSprite = (B2DSprite) otherObject;
+                info.setOtherSprite(otherSprite);
+                Object spriteData = otherSprite.getUserData();
+
+                if (spriteData instanceof IOperable) {
+                    IOperable operable = (IOperable) spriteData;
+                    p.stopTouching(operable);
+                }
+            }
+        }
     }
 
     @Override

@@ -1,9 +1,12 @@
 package net.mikegraf.game.states.play.actors;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+
+import net.mikegraf.game.states.play.actors.gameobjects.IOperable;
 
 /* Represents the Actor the user will control. */
 public class Player {
@@ -21,12 +24,14 @@ public class Player {
     private int inventorySize = STARTING_INVENTORY_SIZE;
     private B2DSprite sprite;
     private HashMap<String, String> vectorHashToAnimationMap;
+    private HashSet<IOperable> touchedObjects;
 
     public Player(B2DSprite b2dSprite) {
         sprite = b2dSprite;
         sprite.setUserData(this);
         inventory = new Array<Item>(STARTING_INVENTORY_SIZE);
         vectorHashToAnimationMap = createMovementAnimationMap();
+        touchedObjects = new HashSet<IOperable>();
     }
 
     private HashMap<String, String> createMovementAnimationMap() {
@@ -90,5 +95,28 @@ public class Player {
 
     public Array<Item> getInventory() {
         return inventory;
+    }
+
+    public void touch(IOperable operable) {
+        touchedObjects.add(operable);
+    }
+
+    public void stopTouching(IOperable operable) {
+        touchedObjects.remove(operable);
+    }
+
+    public void operateTouchedObjects() {
+        for (IOperable o : touchedObjects) {
+            o.operate(this);
+        }
+    }
+
+    public boolean isTouching(String objectId) {
+        for (IOperable obj : touchedObjects) {
+            if (objectId.equals(obj.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

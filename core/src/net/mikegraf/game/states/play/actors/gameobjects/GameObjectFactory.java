@@ -7,8 +7,8 @@ import com.badlogic.gdx.maps.MapProperties;
 import net.mikegraf.game.states.play.actors.B2DSprite;
 import net.mikegraf.game.states.play.actors.Player;
 import net.mikegraf.game.states.play.logic.ICondition;
+import net.mikegraf.game.states.play.logic.NullCondition;
 import net.mikegraf.game.states.play.logic.PlayerItemCondition;
-import net.mikegraf.game.states.play.logic.PlayerNoCondition;
 
 /* Responsible for the creation of GameObjects. */
 public class GameObjectFactory {
@@ -37,7 +37,7 @@ public class GameObjectFactory {
             if (key != null) {
                 cond = new PlayerItemCondition(key, true);
             } else {
-                cond = new PlayerNoCondition();
+                cond = new NullCondition<Player>();
             }
             Door door = new Door(sprite, name, cond);
             doorNameToDoorMap.put(name, door);
