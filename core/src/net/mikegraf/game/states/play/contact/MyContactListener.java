@@ -78,7 +78,7 @@ public class MyContactListener implements ContactListener {
                     Item item = (Item) spriteData;
 
                     if (p.pickupItem(item)) {
-                        otherSprite.readyForDisposal = true;
+                        otherSprite.readyForHiding = true;
                     }
                 }
 

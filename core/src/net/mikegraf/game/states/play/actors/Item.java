@@ -2,7 +2,6 @@ package net.mikegraf.game.states.play.actors;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.World;
 
 public class Item {
 
@@ -17,8 +16,9 @@ public class Item {
         type = itemType;
     }
 
-    public void dispose(World world) {
-        sprite.dispose(world);
+    public void prepareForDisposal() {
+        sprite.readyForDisposal = true;
+        sprite = null;
     }
 
     public void renderHud(SpriteBatch sb, float x, float y) {

@@ -23,7 +23,7 @@ public class AnimationFactory {
         TextureRegion[][] tempFrames = TextureRegion.split(texture, texture.getWidth() / sheetWidth,
                 texture.getHeight() / sheetHeight);
 
-        AnimationIndex retVal = new AnimationIndex();
+        AnimationIndex retVal = new AnimationIndex(texture);
         for (AnimationData data : animationData) {
             int startingFrame = data.getStartingFrame();
             int endingFrame = data.getEndingFrame();
@@ -42,8 +42,8 @@ public class AnimationFactory {
     }
 
     public AnimationIndex createDefaultSpriteAnimationIndex(SpriteData spriteData) {
-        AnimationIndex retVal = new AnimationIndex();
         Texture texture = new Texture(Gdx.files.internal(spriteData.getTexturePath()));
+        AnimationIndex retVal = new AnimationIndex(texture);
         TextureRegion[][] tempFrames = TextureRegion.split(texture, texture.getWidth(), texture.getHeight());
         TextureRegion[] frames = new TextureRegion[1];
         frames[0] = tempFrames[0][0];

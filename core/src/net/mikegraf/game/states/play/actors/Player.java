@@ -73,7 +73,9 @@ public class Player {
     }
 
     public void removeItem(String type) {
-        inventory.removeValue(getItemFromType(type), true);
+        Item item = getItemFromType(type);
+        inventory.removeValue(item, true);
+        item.prepareForDisposal();
     }
 
     private Item getItemFromType(String type) {

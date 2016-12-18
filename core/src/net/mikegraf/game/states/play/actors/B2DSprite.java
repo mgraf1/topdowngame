@@ -54,12 +54,18 @@ public class B2DSprite {
     }
 
     public void dispose(World world) {
+        if (userData != null && userData instanceof IDisposableActor) {
+            IDisposableActor disposable = (IDisposableActor) userData;
+            disposable.dispose();
+        }
+
         readyForDisposal = false;
         readyForHiding = false;
         readyForShowing = false;
         body.setUserData(null);
         this.setUserData(null);
         world.destroyBody(body);
+        animation.dispose();
     }
 
     public void setAnimation(String animationName) {

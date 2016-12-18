@@ -1,11 +1,10 @@
 package net.mikegraf.game.states.play.actors.gameobjects;
 
-import com.badlogic.gdx.physics.box2d.World;
-
 import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.actors.B2DSprite;
+import net.mikegraf.game.states.play.actors.IDisposableActor;
 
-public class GameObject {
+public class GameObject implements IDisposableActor {
 
     protected B2DSprite sprite;
     protected SoundEffectIndex soundEffectIndex;
@@ -22,9 +21,12 @@ public class GameObject {
         return name;
     }
 
-    public void dispose(World world) {
-        sprite.dispose(world);
-        soundEffectIndex.dispose();
+    @Override
+    public void dispose() {
+        if (soundEffectIndex != null) {
+            soundEffectIndex.dispose();
+        }
+        soundEffectIndex = null;
     }
 
     @Override

@@ -12,9 +12,7 @@ import com.badlogic.gdx.utils.Array;
 
 import net.mikegraf.game.main.BoundedOrthoCamera;
 import net.mikegraf.game.states.play.actors.B2DSprite;
-import net.mikegraf.game.states.play.actors.Item;
 import net.mikegraf.game.states.play.actors.Player;
-import net.mikegraf.game.states.play.actors.gameobjects.GameObject;
 import net.mikegraf.game.states.play.contact.MyContactListener;
 
 public class Level {
@@ -75,14 +73,7 @@ public class Level {
                 B2DSprite sprite = (B2DSprite) bodyData;
                 if (sprite != null) {
                     if (sprite.readyForDisposal) {
-                        Object userData = sprite.getUserData();
-                        if (userData instanceof GameObject) {
-                            GameObject gameObj = (GameObject) userData;
-                            gameObj.dispose(world);
-                        } else if (userData instanceof Item) {
-                            Item item = (Item) userData;
-                            item.dispose(world);
-                        }
+                        sprite.dispose(world);
                     } else if (sprite.readyForHiding) {
                         sprite.hide();
                     } else if (sprite.readyForShowing) {
