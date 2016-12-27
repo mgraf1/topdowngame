@@ -1,6 +1,6 @@
 package net.mikegraf.game.states.play.logic;
 
-import net.mikegraf.game.states.play.actors.Player;
+import net.mikegraf.game.states.play.entities.player.Player;
 
 public class PlayerNotTouchingCondition implements ICondition<Player> {
 

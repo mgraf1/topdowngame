@@ -11,9 +11,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import net.mikegraf.game.main.BoundedOrthoCamera;
-import net.mikegraf.game.states.play.actors.B2DSprite;
-import net.mikegraf.game.states.play.actors.Player;
+import net.mikegraf.game.main.constants.B2dConstants;
 import net.mikegraf.game.states.play.contact.MyContactListener;
+import net.mikegraf.game.states.play.entities.GameEntity;
+import net.mikegraf.game.states.play.entities.player.Player;
 
 public class Level {
 
@@ -23,7 +24,6 @@ public class Level {
     private TiledMap map;
     private Array<Body> actorBodies;
     private OrthogonalTiledMapRenderer tmr;
-    private Player player;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera b2dCam;
     private BoundedOrthoCamera cam;
@@ -32,12 +32,12 @@ public class Level {
     private MyContactListener contactListener;
     private boolean debugMode;
     private PlayHud hud;
+    private Player player;
 
-    public Level(String name, TiledMap tMap, World w, Player p, PlayHud h, MyContactListener contactListener) {
+    public Level(String name, TiledMap tMap, World w, PlayHud h, MyContactListener contactListener) {
         this.map = tMap;
         this.name = name;
         this.world = w;
-        this.player = p;
         this.hud = h;
         this.contactListener = contactListener;
     }
@@ -64,20 +64,29 @@ public class Level {
     }
 
     public void update(float dt) {
-        world.step(dt, B2DVars.VEL_INTEGRATIONS, B2DVars.POS_INTEGRATIONS);
+        world.step(dt, B2dConstants.VEL_INTEGRATIONS, B2dConstants.POS_INTEGRATIONS);
 
         world.getBodies(actorBodies);
         for (Body b : actorBodies) {
             Object bodyData = b.getUserData();
-            if (bodyData instanceof B2DSprite) {
-                B2DSprite sprite = (B2DSprite) bodyData;
-                if (sprite != null) {
-                    if (sprite.readyForDisposal) {
-                        sprite.dispose(world);
-                    } else if (sprite.readyForHiding) {
-                        sprite.hide();
-                    } else if (sprite.readyForShowing) {
-                        sprite.show();
+            if (bodyData instanceof GameEntity) {
+                GameEntity entity = (GameEntity) bodyData;
+                if (entity != null) {
+
+                    entity.update(dt);
+
+                    switch (entity.state) {
+                    case READY_TO_DISPOSE:
+                        entity.dispose(world);
+                        break;
+                    case READY_TO_HIDE:
+                        entity.hide();
+                        break;
+                    case READY_TO_SHOW:
+                        entity.show();
+                        break;
+                    default:
+                        break;
                     }
                 }
             }
@@ -88,8 +97,8 @@ public class Level {
 
         // Move the cameras.
         Vector2 pos = player.getPosition();
-        cam.moveTo(pos.x * B2DVars.PPM, pos.y * B2DVars.PPM);
-        b2dCam.position.set(cam.position.x / B2DVars.PPM, cam.position.y / B2DVars.PPM, 0);
+        cam.moveTo(pos.x * B2dConstants.PPM, pos.y * B2dConstants.PPM);
+        b2dCam.position.set(cam.position.x / B2dConstants.PPM, cam.position.y / B2dConstants.PPM, 0);
         cam.update();
 
         if (debugMode) {
@@ -106,10 +115,10 @@ public class Level {
         world.getBodies(actorBodies);
         for (Body b : actorBodies) {
             Object bodyData = b.getUserData();
-            if (bodyData instanceof B2DSprite) {
-                B2DSprite a = (B2DSprite) bodyData;
-                if (a != null)
-                    a.render(sb, totalTime);
+            if (bodyData instanceof GameEntity) {
+                GameEntity entity = (GameEntity) bodyData;
+                if (entity != null)
+                    entity.render(sb, totalTime);
             }
 
         }
@@ -130,10 +139,6 @@ public class Level {
     public void dispose() {
         world.dispose();
         map.dispose();
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public String getName() {

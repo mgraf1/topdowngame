@@ -8,21 +8,25 @@ import com.google.inject.Provides;
 
 import net.mikegraf.game.audio.SoundEffectFactory;
 import net.mikegraf.game.exceptions.ConfigFormatException;
+import net.mikegraf.game.parsers.AnimationParser;
+import net.mikegraf.game.parsers.BodyParser;
+import net.mikegraf.game.parsers.Parser;
 import net.mikegraf.game.parsers.SoundParser;
-import net.mikegraf.game.parsers.SpriteParser;
 import net.mikegraf.game.parsers.WorldParser;
+import net.mikegraf.game.parsers.models.AnimationIndexData;
+import net.mikegraf.game.parsers.models.BodyData;
 import net.mikegraf.game.parsers.models.LevelData;
 import net.mikegraf.game.parsers.models.SoundData;
-import net.mikegraf.game.parsers.models.SpriteData;
-import net.mikegraf.game.states.play.actors.AnimationFactory;
-import net.mikegraf.game.states.play.actors.ShapeFactory;
-import net.mikegraf.game.states.play.actors.gameobjects.GameObjectFactory;
+import net.mikegraf.game.states.play.entities.GameEntityBuilding;
+import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationFactory;
+import net.mikegraf.game.states.play.entities.bodies.BodyFactory;
+import net.mikegraf.game.states.play.entities.bodies.ShapeFactory;
 import net.mikegraf.game.states.play.levels.LevelFactory;
-import net.mikegraf.game.states.play.triggers.TriggerFactory;
 
 public class PlayModule extends AbstractModule {
 
-    private static final String SPRITE_DEF_PATH = "xml/spriteDef.xml";
+    private static final String ANIMATION_DEF_PATH = "xml/animationDef.xml";
+    private static final String BODY_DEF_PATH = "xml/bodyDef.xml";
     private static final String SOUND_DEF_PATH = "xml/soundDef.xml";
     private static final String WORLD_DEF_PATH = "xml/worldDef.xml";
 
@@ -34,56 +38,48 @@ public class PlayModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(TriggerFactory.class);
-        bind(GameObjectFactory.class);
+        bind(ShapeFactory.class);
+        bind(BodyFactory.class);
         bind(Play.class).toInstance(playState);
         bind(LevelFactory.class);
-        bind(ShapeFactory.class);
         bind(AnimationFactory.class);
         bind(SoundEffectFactory.class);
+        bind(GameEntityBuilding.class);
     }
 
     @Provides
-    public HashMap<String, SpriteData> provideStringToSpriteDatMap() {
-        SpriteParser ap = new SpriteParser();
-        HashMap<String, SpriteData> map = null;
-        try {
-            map = ap.parseFile(SPRITE_DEF_PATH);
-        } catch (ConfigFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return map;
+    public HashMap<String, AnimationIndexData> provideStringToAnimationIndexDataMap() {
+        AnimationParser animationParser = new AnimationParser();
+        return parseConfigFile(animationParser, ANIMATION_DEF_PATH);
+    }
+
+    @Provides
+    public HashMap<String, BodyData> provideStringToBodyDataMap() {
+        BodyParser bodyParser = new BodyParser();
+        return parseConfigFile(bodyParser, BODY_DEF_PATH);
     }
 
     @Provides
     public LevelData[][] provideLevelDataArray() {
         WorldParser worldParser = new WorldParser();
-        LevelData[][] levelData = null;
-        try {
-            levelData = worldParser.parseFile(WORLD_DEF_PATH);
-        } catch (ConfigFormatException e) {
-            e.printStackTrace();
-            System.exit(1);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(2);
-        }
-        return levelData;
+        return parseConfigFile(worldParser, WORLD_DEF_PATH);
     }
 
     @Provides
     public HashMap<String, SoundData> provideTypeToSoundDataMap() {
-        SoundParser sp = new SoundParser();
-        HashMap<String, SoundData> map = null;
+        SoundParser soundParser = new SoundParser();
+        return parseConfigFile(soundParser, SOUND_DEF_PATH);
+    }
+
+    private <T> T parseConfigFile(Parser<T> parser, String path) {
+        T data = null;
         try {
-            map = sp.parseFile(SOUND_DEF_PATH);
+            data = parser.parseFile(path);
         } catch (ConfigFormatException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return map;
+        return data;
     }
 }

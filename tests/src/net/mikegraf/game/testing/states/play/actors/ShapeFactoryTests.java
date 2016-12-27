@@ -18,8 +18,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import net.mikegraf.game.states.play.actors.ShapeFactory;
-import net.mikegraf.game.states.play.levels.B2DVars;
+import net.mikegraf.game.main.constants.B2dConstants;
+import net.mikegraf.game.states.play.entities.bodies.ShapeFactory;
 import net.mikegraf.game.testing.GdxTestRunner;
 
 @RunWith(GdxTestRunner.class)
@@ -72,7 +72,7 @@ public class ShapeFactoryTests {
 
         shape = shapeFactory.createShape(mapObject);
 
-        assertEquals(WIDTH / B2DVars.PPM, shape.getRadius() * 2, DELTA);
+        assertEquals(WIDTH / B2dConstants.PPM, shape.getRadius() * 2, DELTA);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class ShapeFactoryTests {
 
         shape = shapeFactory.createShape(mapObject);
 
-        assertEquals(WIDTH / B2DVars.PPM, shape.getRadius() * 2, DELTA);
+        assertEquals(WIDTH / B2dConstants.PPM, shape.getRadius() * 2, DELTA);
     }
 
     @Test

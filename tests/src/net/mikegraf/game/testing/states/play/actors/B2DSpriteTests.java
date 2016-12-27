@@ -14,8 +14,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
-import net.mikegraf.game.states.play.actors.AnimationIndex;
 import net.mikegraf.game.states.play.actors.B2DSprite;
+import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationIndex;
 
 @RunWith(net.mikegraf.game.testing.GdxTestRunner.class)
 public class B2DSpriteTests {

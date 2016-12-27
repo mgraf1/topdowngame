@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities>
+	<entity>
+		<type>player</type>
+		<damp>0</damp>
+		<bodytype>dynamic</bodytype>
+	</entity>
+	<entity>
+		<type>redkey</type>
+		<damp>0</damp>
+		<bodytype>dynamic</bodytype>
+	</entity>
+	<entity>
+		<type>reddoor</type>
+		<damp>0</damp>
+		<bodytype>static</bodytype>
+	</entity>
+	<entity>
+		<type>bluedoor</type>
+		<damp>0</damp>
+		<bodytype>static</bodytype>
+	</entity>
+	<entity>
+		<type>browncrate</type>
+		<damp>100</damp>
+		<bodytype>dynamic</bodytype>
+	</entity>
+	<entity>
+		<type>blueswitch</type>
+		<damp>0</damp>
+		<bodytype>static</bodytype>
+	</entity>
+</entities>
