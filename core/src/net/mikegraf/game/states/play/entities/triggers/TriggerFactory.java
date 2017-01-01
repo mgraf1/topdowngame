@@ -33,8 +33,8 @@ public class TriggerFactory extends GameEntityFactory {
         ICondition<Player> condition = new PlayerNoCondition();
 
         if (type.equals(END_TRIGGER_TYPE)) {
-            int dX = props.get(END_TRIGGER_DEST_X, Integer.class);
-            int dY = props.get(END_TRIGGER_DEST_Y, Integer.class);
+            int dX = Integer.parseInt(props.get(END_TRIGGER_DEST_X, String.class));
+            int dY = Integer.parseInt(props.get(END_TRIGGER_DEST_Y, String.class));
             return new EndTrigger(id, collisionB, moveB, renderB, body, condition, dX, dY);
         } else {
             throw new IllegalArgumentException("No type: " + type);

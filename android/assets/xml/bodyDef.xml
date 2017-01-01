@@ -11,22 +11,17 @@
 		<bodytype>dynamic</bodytype>
 	</entity>
 	<entity>
-		<type>reddoor</type>
+		<type>door</type>
 		<damp>0</damp>
 		<bodytype>static</bodytype>
 	</entity>
 	<entity>
-		<type>bluedoor</type>
-		<damp>0</damp>
-		<bodytype>static</bodytype>
-	</entity>
-	<entity>
-		<type>browncrate</type>
+		<type>crate</type>
 		<damp>100</damp>
 		<bodytype>dynamic</bodytype>
 	</entity>
 	<entity>
-		<type>blueswitch</type>
+		<type>switch</type>
 		<damp>0</damp>
 		<bodytype>static</bodytype>
 	</entity>

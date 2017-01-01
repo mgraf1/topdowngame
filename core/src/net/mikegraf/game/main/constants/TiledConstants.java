@@ -4,10 +4,13 @@ public final class TiledConstants {
 
     public final static String ENTITY_ID = "id";
     public final static String ENTITY_TYPE = "type";
+    public final static String ENTITY_BODYTYPE = "bodytype";
     public final static String ENTITY_TYPE_DOOR = "door";
     public final static String ENTITY_TYPE_SWITCH = "switch";
     public final static String ENTITY_DOOR_PROP_KEY = "key";
     public final static String ENTITY_SWITCH_PROP_DOOR = "door";
+
+    public final static String ID_PLAYER = "player";
 
     public final static String LAYER_ITEM = "items";
     public final static String LAYER_OBJECT = "objects";

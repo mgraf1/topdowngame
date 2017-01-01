@@ -23,6 +23,7 @@ public abstract class GameEntity {
 
     public GameEntity(String id, ICollisionBehavior collisionBehavior, IMovementBehavior movementBehavior,
             IRenderBehavior renderBehavior, Body body) {
+        this.id = id;
         this.collisionBehavior = collisionBehavior;
         this.renderBehavior = renderBehavior;
         this.movementBehavior = movementBehavior;
@@ -83,6 +84,11 @@ public abstract class GameEntity {
 
     public void setVelocity(float value) {
         velocity = value;
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 
     @Override

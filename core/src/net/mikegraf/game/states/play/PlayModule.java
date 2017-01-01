@@ -18,8 +18,9 @@ import net.mikegraf.game.parsers.models.BodyData;
 import net.mikegraf.game.parsers.models.LevelData;
 import net.mikegraf.game.parsers.models.SoundData;
 import net.mikegraf.game.states.play.entities.GameEntityBuilding;
+import net.mikegraf.game.states.play.entities.behavior.BehaviorBuilding;
 import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationFactory;
-import net.mikegraf.game.states.play.entities.bodies.BodyFactory;
+import net.mikegraf.game.states.play.entities.bodies.BodyBuilding;
 import net.mikegraf.game.states.play.entities.bodies.ShapeFactory;
 import net.mikegraf.game.states.play.levels.LevelFactory;
 
@@ -38,8 +39,9 @@ public class PlayModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(BehaviorBuilding.class);
+        bind(BodyBuilding.class);
         bind(ShapeFactory.class);
-        bind(BodyFactory.class);
         bind(Play.class).toInstance(playState);
         bind(LevelFactory.class);
         bind(AnimationFactory.class);

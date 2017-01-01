@@ -20,12 +20,10 @@ public class SensorBodyFactory extends BodyFactory {
     public Body createBody(World world, MapObject mapObject) {
         Shape shape = shapeFactory.createShape(mapObject);
         MapProperties props = mapObject.getProperties();
-        float x = props.get(BODY_X, Float.class);
-        float y = props.get(BODY_Y, Float.class);
 
         bodyDef = new BodyDef();
+        setBodyDefPosition(props);
         bodyDef.type = BodyType.DynamicBody;
-        bodyDef.position.set(x, y);
         Body body = world.createBody(bodyDef);
 
         fixtureDef.isSensor = true;

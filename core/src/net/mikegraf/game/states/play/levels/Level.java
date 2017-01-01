@@ -34,8 +34,9 @@ public class Level {
     private PlayHud hud;
     private Player player;
 
-    public Level(String name, TiledMap tMap, World w, PlayHud h, MyContactListener contactListener) {
+    public Level(String name, Player player, TiledMap tMap, World w, PlayHud h, MyContactListener contactListener) {
         this.map = tMap;
+        this.player = player;
         this.name = name;
         this.world = w;
         this.hud = h;

@@ -14,54 +14,56 @@
   </data>
  </layer>
  <objectgroup name="triggers">
-  <object type="end" x="479" y="160" width="32" height="32">
+  <object name="et1" type="end" x="479" y="160" width="32" height="32">
    <properties>
     <property name="destX" value="0"/>
     <property name="destY" value="0"/>
+    <property name="id" value="et1"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="items">
-  <object type="redkey" x="102" y="598" width="32" height="32">
+  <object name="rk1" type="redkey" x="102" y="598" width="32" height="32">
    <properties>
-    <property name="sprite" value="redkey"/>
+    <property name="id" value="rk1"/>
    </properties>
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="player">
-  <object type="player" x="28" y="598" width="32" height="32">
+  <object name="player" type="player" x="28" y="598" width="32" height="32">
    <properties>
-    <property name="sprite" value="player"/>
+    <property name="bodytype" value="player"/>
+    <property name="id" value="player"/>
    </properties>
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="objects">
-  <object name="rd1" type="door" x="168" y="567" width="32" height="32">
+  <object name="rd1" type="reddoor" x="168" y="567" width="32" height="32">
    <properties>
+    <property name="bodytype" value="door"/>
     <property name="id" value="rd1"/>
     <property name="key" value="redkey"/>
-    <property name="sprite" value="reddoor"/>
    </properties>
   </object>
-  <object name="cr1" type="crate" x="112" y="511" width="32" height="32">
+  <object name="cr1" type="browncrate" x="112" y="511" width="32" height="32">
    <properties>
+    <property name="bodytype" value="crate"/>
     <property name="id" value="cr1"/>
-    <property name="sprite" value="browncrate"/>
    </properties>
   </object>
-  <object name="bd1" type="door" x="295" y="532" width="32" height="32">
+  <object name="bd1" type="bluedoor" x="295" y="532" width="32" height="32">
    <properties>
+    <property name="bodytype" value="door"/>
     <property name="id" value="bd1"/>
-    <property name="sprite" value="bluedoor"/>
    </properties>
   </object>
-  <object name="bsw1" type="switch" x="295" y="590" width="32" height="32">
+  <object name="bsw1" type="blueswitch" x="295" y="590" width="32" height="32">
    <properties>
+    <property name="bodytype" value="switch"/>
     <property name="door" value="bd1"/>
     <property name="id" value="bsw1"/>
-    <property name="sprite" value="blueswitch"/>
    </properties>
   </object>
  </objectgroup>

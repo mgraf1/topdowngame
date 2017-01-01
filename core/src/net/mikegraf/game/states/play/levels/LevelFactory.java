@@ -1,5 +1,7 @@
 package net.mikegraf.game.states.play.levels;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -25,17 +27,16 @@ import net.mikegraf.game.main.constants.B2dConstants;
 import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.parsers.models.LevelData;
 import net.mikegraf.game.states.play.contact.MyContactListener;
+import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.GameEntityBuilding;
 import net.mikegraf.game.states.play.entities.GameEntityFactory;
 import net.mikegraf.game.states.play.entities.player.Player;
 
 public class LevelFactory {
 
-    // Constants.
-
     public static final String INVENTORY_TEXTURE_PATH = "textures/hud/inventory_slot.png";
+    public static final Vector2 GRAVITY_VECTOR = new Vector2(0f, 0f);
 
-    // Instance variables.
     private LevelData[][] levelData;
     private GameEntityBuilding gameEntityBuilding;
     private MyContactListener contactListener;
@@ -62,19 +63,24 @@ public class LevelFactory {
         }
 
         // Build the level based on the data.
-        World world = new World(new Vector2(0f, 0f), true);
+        World world = new World(GRAVITY_VECTOR, true);
         LevelData data = levelData[y][x];
+        String name = data.getName();
 
         // TiledMapRenderer for the level.
         TiledMap map = new TmxMapLoader().load(data.getFileName());
 
         // Place all game entities.
-        Player player = null;
+        HashMap<String, GameEntity> idToEntityMap = new HashMap<String, GameEntity>();
         MapLayers layers = map.getLayers();
         for (MapLayer layer : layers) {
-            GameEntityFactory factory = gameEntityBuilding.getGameEntityFactory(layer);
-            for (MapObject mo : layer.getObjects()) {
-                factory.createGameEntity(world, mo);
+            if (!(layer instanceof TiledMapTileLayer)) {
+                GameEntityFactory factory = gameEntityBuilding.getGameEntityFactory(layer);
+                for (MapObject mo : layer.getObjects()) {
+                    GameEntity entity = factory.createGameEntity(world, mo);
+                    String id = entity.getId();
+                    idToEntityMap.put(id, entity);
+                }
             }
         }
 
@@ -94,10 +100,11 @@ public class LevelFactory {
         // Create border around the level.
         placeBorder(mapWidth, mapHeight, tileWidth, tileHeight, world, bDef, fDef);
 
-        // Create hud.
+        // Create HUD.
+        Player player = (Player) idToEntityMap.get(TiledConstants.ID_PLAYER);
         PlayHud hud = createHud(player);
 
-        return new Level(data.getName(), map, world, hud, contactListener);
+        return new Level(name, player, map, world, hud, contactListener);
     }
 
     // Create the PlayState's HUD.
