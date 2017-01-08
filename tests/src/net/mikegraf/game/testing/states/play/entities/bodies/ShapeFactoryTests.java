@@ -1,4 +1,4 @@
-package net.mikegraf.game.testing.states.play.actors;
+package net.mikegraf.game.testing.states.play.entities.bodies;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

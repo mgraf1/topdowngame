@@ -1,4 +1,4 @@
-package net.mikegraf.game.testing.states.play.actors.gameobjects;
+package net.mikegraf.game.testing.states.play.entities.gameObjects;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -8,7 +8,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.badlogic.gdx.physics.box2d.Body;
+
 import net.mikegraf.game.audio.SoundEffectIndex;
+import net.mikegraf.game.states.play.entities.GameEntityState;
+import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
+import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
+import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
 import net.mikegraf.game.states.play.entities.gameObjects.Door;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.logic.ICondition;
@@ -17,10 +23,13 @@ import net.mikegraf.game.states.play.logic.PlayerItemCondition;
 public class DoorTests {
 
     private final String ITEM_TYPE = "itemType";
-    private final String NAME = "name";
+    private final String ID = "d1";
 
     private Door door;
-    private B2DSprite sprite;
+    private ICollisionBehavior collB;
+    private IMovementBehavior moveB;
+    private IRenderBehavior rendB;
+    private Body body;
     private ICondition<Player> cond;
     private SoundEffectIndex soundEffectIndex;
     private Player player;
@@ -28,16 +37,22 @@ public class DoorTests {
     @Before
     public void myBefore() {
         soundEffectIndex = mock(SoundEffectIndex.class);
-        sprite = mock(B2DSprite.class);
+        collB = mock(ICollisionBehavior.class);
+        moveB = mock(IMovementBehavior.class);
+        rendB = mock(IRenderBehavior.class);
+        body = mock(Body.class);
         cond = new PlayerItemCondition(ITEM_TYPE, false);
-        door = new Door(sprite, soundEffectIndex, NAME, cond);
+        door = new Door(ID, collB, moveB, rendB, body, soundEffectIndex, cond);
         player = mock(Player.class);
     }
 
     @After
     public void myAfter() {
         door = null;
-        sprite = null;
+        collB = null;
+        moveB = null;
+        rendB = null;
+        body = null;
         soundEffectIndex = null;
         cond = null;
         player = null;
@@ -58,22 +73,21 @@ public class DoorTests {
     }
 
     @Test
-    public void operateHidesSpriteIfOperated() {
-        when(sprite.isHidden()).thenReturn(false);
+    public void operateHidesEntityIfOperated() {
         when(player.hasItem(ITEM_TYPE)).thenReturn(true);
 
         door.operate(player);
 
-        Assert.assertTrue(sprite.readyForHiding);
+        Assert.assertEquals(GameEntityState.READY_TO_HIDE, door.state);
     }
 
     @Test
     public void operateShowsSpriteIfOperatedAndAlreadyHidden() {
-        when(sprite.isHidden()).thenReturn(true);
+        door.state = GameEntityState.HIDDEN;
         when(player.hasItem(ITEM_TYPE)).thenReturn(true);
 
         door.operate(player);
 
-        Assert.assertTrue(sprite.readyForShowing);
+        Assert.assertEquals(GameEntityState.READY_TO_SHOW, door.state);
     }
 }

@@ -72,10 +72,6 @@ public abstract class GameEntity {
         return id;
     }
 
-    public void setState(GameEntityState state) {
-        this.state = state;
-    }
-
     public void beforeMove(Vector2 movementVector) {
     }
 

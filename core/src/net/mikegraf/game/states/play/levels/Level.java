@@ -73,9 +73,7 @@ public class Level {
             if (bodyData instanceof GameEntity) {
                 GameEntity entity = (GameEntity) bodyData;
                 if (entity != null) {
-
                     entity.update(dt);
-
                     switch (entity.state) {
                     case READY_TO_DISPOSE:
                         entity.dispose(world);

@@ -17,6 +17,7 @@ import net.mikegraf.game.parsers.models.AnimationIndexData;
 import net.mikegraf.game.parsers.models.BodyData;
 import net.mikegraf.game.parsers.models.LevelData;
 import net.mikegraf.game.parsers.models.SoundData;
+import net.mikegraf.game.states.play.controls.PlayerInputHandler;
 import net.mikegraf.game.states.play.entities.GameEntityBuilding;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorBuilding;
 import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationFactory;
@@ -44,9 +45,10 @@ public class PlayModule extends AbstractModule {
         bind(ShapeFactory.class);
         bind(Play.class).toInstance(playState);
         bind(LevelFactory.class);
-        bind(AnimationFactory.class);
-        bind(SoundEffectFactory.class);
+        bind(AnimationFactory.class).asEagerSingleton();
+        bind(SoundEffectFactory.class).asEagerSingleton();
         bind(GameEntityBuilding.class);
+        bind(PlayerInputHandler.class);
     }
 
     @Provides

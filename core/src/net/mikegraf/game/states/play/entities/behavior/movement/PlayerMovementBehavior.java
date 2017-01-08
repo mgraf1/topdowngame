@@ -2,22 +2,26 @@ package net.mikegraf.game.states.play.entities.behavior.movement;
 
 import com.badlogic.gdx.math.Vector2;
 
-import net.mikegraf.game.states.play.controls.MyInput;
+import net.mikegraf.game.states.play.controls.PlayerInputData;
+import net.mikegraf.game.states.play.controls.PlayerInputHandler;
 
 public class PlayerMovementBehavior implements IMovementBehavior {
 
     private Vector2 movementVector;
+    private PlayerInputHandler inputHandler;
 
-    public PlayerMovementBehavior() {
-        movementVector = new Vector2();
+    public PlayerMovementBehavior(PlayerInputHandler inputHandler) {
+        this.movementVector = new Vector2();
+        this.inputHandler = inputHandler;
     }
 
     @Override
     public Vector2 createMovementVector() {
-        boolean upDown = MyInput.isDown(MyInput.WALK_UP);
-        boolean downDown = MyInput.isDown(MyInput.WALK_DOWN);
-        boolean leftDown = MyInput.isDown(MyInput.WALK_LEFT);
-        boolean rightDown = MyInput.isDown(MyInput.WALK_RIGHT);
+        PlayerInputData inputData = inputHandler.getPlayerInput();
+        boolean upDown = inputData.upDown;
+        boolean downDown = inputData.downDown;
+        boolean leftDown = inputData.leftDown;
+        boolean rightDown = inputData.rightDown;
 
         int numDirections = countInputs(upDown, downDown, leftDown, rightDown);
 
