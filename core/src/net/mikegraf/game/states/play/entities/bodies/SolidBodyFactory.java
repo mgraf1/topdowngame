@@ -40,7 +40,7 @@ public class SolidBodyFactory extends BodyFactory {
         if (bodyType.equals(BODYTYPE_DYNAMIC)) {
             bodyDef.type = BodyType.DynamicBody;
         } else if (bodyType.equals(BODYTYPE_STATIC)) {
-            bodyDef.type = BodyType.DynamicBody;
+            bodyDef.type = BodyType.StaticBody;
         }
         bodyDef.linearDamping = data.getDamp();
         Body body = world.createBody(bodyDef);

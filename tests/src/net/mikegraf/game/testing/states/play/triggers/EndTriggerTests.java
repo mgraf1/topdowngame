@@ -15,11 +15,11 @@ import org.junit.runner.RunWith;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.states.play.Play;
-import net.mikegraf.game.states.play.actors.Player;
 import net.mikegraf.game.states.play.contact.CollisionInfo;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
 import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.triggers.EndTrigger;
 import net.mikegraf.game.states.play.logic.ICondition;
 import net.mikegraf.game.states.play.logic.PlayerNoCondition;
@@ -52,9 +52,7 @@ public class EndTriggerTests {
 
         playState = mock(Play.class);
         player = mock(Player.class);
-        info = new CollisionInfo();
-        info.setPlayer(player);
-        info.setPlayState(playState);
+        info = new CollisionInfo(playState, player);
         condition = mock(PlayerNoCondition.class);
         trigger = new EndTrigger(ID, collisionBehavior, movementBehavior, renderBehavior, body, condition, DEST_X,
                 DEST_Y);
@@ -69,9 +67,8 @@ public class EndTriggerTests {
         playState = null;
         player = null;
         info = null;
-        condition = mock(PlayerNoCondition.class);
-        trigger = new EndTrigger(ID, collisionBehavior, movementBehavior, renderBehavior, body, condition, DEST_X,
-                DEST_Y);
+        condition = null;
+        trigger = null;
     }
 
     @Test

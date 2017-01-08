@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Assert;
 import org.junit.Test;
 
-import net.mikegraf.game.states.play.actors.Player;
+import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.logic.PlayerNotTouchingCondition;
 
 public class PlayerNotTouchingConditionTests {
