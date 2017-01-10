@@ -41,10 +41,10 @@ public class PlayHud {
 
         for (int i = 0; i < playerInventory.size; i++) {
 
-            // Item item = playerInventory.get(i);
-            // if (item != null) {
-            // item.renderHud(sb, inventoryLocations[i], INVENTORY_SPACER);
-            // }
+            Item item = playerInventory.get(i);
+            if (item != null) {
+            	item.renderHud(sb, inventoryLocations[i], INVENTORY_SPACER);
+            }
         }
 
         sb.end();

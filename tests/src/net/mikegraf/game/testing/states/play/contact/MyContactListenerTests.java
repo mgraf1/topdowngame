@@ -14,16 +14,16 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-import net.mikegraf.game.states.play.Play;
 import net.mikegraf.game.states.play.contact.CollisionInfo;
 import net.mikegraf.game.states.play.contact.MyContactListener;
 import net.mikegraf.game.states.play.entities.GameEntity;
+import net.mikegraf.game.states.play.levels.Level;
 
 public class MyContactListenerTests {
 
     private MyContactListener cl;
     private Contact contact;
-    private Play playState;
+    private Level level;
     private Fixture fixA;
     private Fixture fixB;
     private Body bodA;
@@ -36,8 +36,8 @@ public class MyContactListenerTests {
         bodA = mock(Body.class);
         bodB = mock(Body.class);
         contact = mock(Contact.class);
-        playState = mock(Play.class);
-        cl = new MyContactListener(playState);
+        level = mock(Level.class);
+        cl = new MyContactListener(level);
 
         when(contact.getFixtureA()).thenReturn(fixA);
         when(contact.getFixtureB()).thenReturn(fixB);
@@ -52,7 +52,7 @@ public class MyContactListenerTests {
         bodA = null;
         bodB = null;
         contact = null;
-        playState = null;
+        level = null;
         cl = null;
     }
 

@@ -39,13 +39,11 @@ public class LevelFactory {
 
     private LevelData[][] levelData;
     private GameEntityBuilding gameEntityBuilding;
-    private MyContactListener contactListener;
 
     @Inject
-    public LevelFactory(LevelData[][] data, GameEntityBuilding gameEntityBuilding, MyContactListener cl) {
+    public LevelFactory(LevelData[][] data, GameEntityBuilding gameEntityBuilding) {
         this.levelData = data;
         this.gameEntityBuilding = gameEntityBuilding;
-        this.contactListener = cl;
     }
 
     // Create the level at the given coordinates.
@@ -103,8 +101,12 @@ public class LevelFactory {
         // Create HUD.
         Player player = (Player) idToEntityMap.get(TiledConstants.ID_PLAYER);
         PlayHud hud = createHud(player);
+        
+        Level level = new Level(name, player, map, world, hud, idToEntityMap);        
+        MyContactListener contactListener = new MyContactListener(level);
+        world.setContactListener(contactListener);
 
-        return new Level(name, player, map, world, hud, contactListener);
+        return level;
     }
 
     // Create the PlayState's HUD.

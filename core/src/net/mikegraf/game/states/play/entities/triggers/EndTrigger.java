@@ -2,12 +2,12 @@ package net.mikegraf.game.states.play.entities.triggers;
 
 import com.badlogic.gdx.physics.box2d.Body;
 
-import net.mikegraf.game.states.play.Play;
 import net.mikegraf.game.states.play.contact.CollisionInfo;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
 import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
 import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.levels.Level;
 import net.mikegraf.game.states.play.logic.ICondition;
 
 public class EndTrigger extends Trigger {
@@ -24,8 +24,8 @@ public class EndTrigger extends Trigger {
 
     @Override
     public void execute(CollisionInfo info) {
-        Play playState = info.getPlayState();
-        playState.setNextLevel(destX, destY);
+        Level level = info.getLevel();
+        level.setNextLevel(destX, destY);
     }
 
 }

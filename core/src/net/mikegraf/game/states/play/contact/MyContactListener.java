@@ -4,19 +4,17 @@ import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.google.inject.Inject;
 
-import net.mikegraf.game.states.play.Play;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import net.mikegraf.game.states.play.entities.GameEntity;
+import net.mikegraf.game.states.play.levels.Level;
 
 public class MyContactListener implements ContactListener {
 
-    private Play playState;
+    private Level level;
 
-    @Inject
-    public MyContactListener(Play playState) {
-        this.playState = playState;
+    public MyContactListener(Level level) {
+        this.level = level;
     }
 
     @Override
@@ -24,7 +22,7 @@ public class MyContactListener implements ContactListener {
         GameEntity aEntity = getEntityAFromContact(contact);
         GameEntity bEntity = getEntityBFromContact(contact);
         if (aEntity != null && bEntity != null) {
-            CollisionInfo info = new CollisionInfo(playState, bEntity);
+            CollisionInfo info = new CollisionInfo(level, aEntity, bEntity);
             aEntity.handleCollision(info);
         }
     }
@@ -34,7 +32,7 @@ public class MyContactListener implements ContactListener {
         GameEntity aEntity = getEntityAFromContact(contact);
         GameEntity bEntity = getEntityBFromContact(contact);
         if (aEntity != null && bEntity != null) {
-            CollisionInfo info = new CollisionInfo(playState, bEntity);
+            CollisionInfo info = new CollisionInfo(level, aEntity, bEntity);
             aEntity.handleEndCollision(info);
         }
     }

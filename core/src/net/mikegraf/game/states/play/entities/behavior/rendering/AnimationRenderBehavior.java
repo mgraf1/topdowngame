@@ -30,6 +30,12 @@ public class AnimationRenderBehavior implements IRenderBehavior {
         batch.draw(region, renderVector.x, renderVector.y);
         batch.end();
     }
+    
+    @Override
+    public void render(SpriteBatch batch, float x, float y) {
+    	TextureRegion region = animationIndex.getKeyFrame(0);
+        batch.draw(region, x, y);
+    }
 
     @Override
     public void setMode(String mode) {

@@ -14,13 +14,13 @@ import org.junit.runner.RunWith;
 
 import com.badlogic.gdx.physics.box2d.Body;
 
-import net.mikegraf.game.states.play.Play;
 import net.mikegraf.game.states.play.contact.CollisionInfo;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
 import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.triggers.EndTrigger;
+import net.mikegraf.game.states.play.levels.Level;
 import net.mikegraf.game.states.play.logic.ICondition;
 import net.mikegraf.game.states.play.logic.PlayerNoCondition;
 import net.mikegraf.game.testing.GdxTestRunner;
@@ -37,7 +37,7 @@ public class EndTriggerTests {
     private IRenderBehavior renderBehavior;
     private Body body;
 
-    private Play playState;
+    private Level level;
     private Player player;
     private CollisionInfo info;
     private ICondition<Player> condition;
@@ -50,12 +50,12 @@ public class EndTriggerTests {
         renderBehavior = mock(IRenderBehavior.class);
         body = mock(Body.class);
 
-        playState = mock(Play.class);
+        level = mock(Level.class);
         player = mock(Player.class);
-        info = new CollisionInfo(playState, player);
         condition = mock(PlayerNoCondition.class);
         trigger = new EndTrigger(ID, collisionBehavior, movementBehavior, renderBehavior, body, condition, DEST_X,
                 DEST_Y);
+        info = new CollisionInfo(level, trigger, player);
     }
 
     @After
@@ -64,7 +64,7 @@ public class EndTriggerTests {
         movementBehavior = null;
         renderBehavior = null;
         body = null;
-        playState = null;
+        level = null;
         player = null;
         info = null;
         condition = null;
@@ -95,6 +95,6 @@ public class EndTriggerTests {
 
         trigger.execute(info);
 
-        verify(playState, times(1)).setNextLevel(DEST_X, DEST_Y);
+        verify(level, times(1)).setNextLevel(DEST_X, DEST_Y);
     }
 }

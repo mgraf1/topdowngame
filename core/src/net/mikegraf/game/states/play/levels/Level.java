@@ -1,5 +1,7 @@
 package net.mikegraf.game.states.play.levels;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -12,7 +14,6 @@ import com.badlogic.gdx.utils.Array;
 
 import net.mikegraf.game.main.BoundedOrthoCamera;
 import net.mikegraf.game.main.constants.B2dConstants;
-import net.mikegraf.game.states.play.contact.MyContactListener;
 import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.player.Player;
 
@@ -29,18 +30,22 @@ public class Level {
     private BoundedOrthoCamera cam;
     private OrthographicCamera hudCam;
     private SpriteBatch sb;
-    private MyContactListener contactListener;
     private boolean debugMode;
     private PlayHud hud;
     private Player player;
-
-    public Level(String name, Player player, TiledMap tMap, World w, PlayHud h, MyContactListener contactListener) {
+    private HashMap<String, GameEntity> idToEntityMap;
+    private int nextLevelX;
+    private int nextLevelY;
+    
+    public Level(String name, Player player, TiledMap tMap, World w, PlayHud h, HashMap<String, GameEntity> idToEntityMap) {
         this.map = tMap;
         this.player = player;
         this.name = name;
         this.world = w;
         this.hud = h;
-        this.contactListener = contactListener;
+        this.idToEntityMap = idToEntityMap;
+        this.nextLevelX = -1;
+        this.nextLevelY = -1;
     }
 
     /* Passes level all required objects to begin rendering. */
@@ -55,7 +60,6 @@ public class Level {
         actorBodies = new Array<Body>();
         cam = c;
         hudCam = hudC;
-        world.setContactListener(contactListener);
 
         int mapWidth = map.getProperties().get("width", Integer.class);
         int mapHeight = map.getProperties().get("height", Integer.class);
@@ -134,6 +138,19 @@ public class Level {
         sb.setProjectionMatrix(hudCam.combined);
         hud.render(sb);
     }
+    
+    public boolean isComplete() {
+    	return nextLevelX != -1 && nextLevelY != -1;
+    }
+    
+    public void setNextLevel(int x, int y) {
+    	nextLevelX = x;
+    	nextLevelY = y;
+    }
+    
+    public Vector2 getNextLevel() {
+    	return new Vector2(nextLevelX, nextLevelY);
+    }
 
     public void dispose() {
         world.dispose();
@@ -142,5 +159,12 @@ public class Level {
 
     public String getName() {
         return name;
+    }
+    
+    public GameEntity getEntity(String id) {
+    	if (idToEntityMap.containsKey(id)) {
+    		return idToEntityMap.get(id);
+    	}
+    	return null;
     }
 }

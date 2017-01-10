@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 public interface IRenderBehavior {
 
     public void render(SpriteBatch batch, float totalTime, Vector2 position);
+    
+    public void render(SpriteBatch batch, float x, float y);
 
     public void dispose();
 

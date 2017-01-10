@@ -3,6 +3,7 @@ package net.mikegraf.game.states.play;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -25,9 +26,6 @@ public class Play extends GameState {
     private Level level;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera b2dCam;
-    private boolean levelComplete;
-    private int nextLevelX;
-    private int nextLevelY;
 
     public Play(MyGdxGame g) {
         super(g);
@@ -58,7 +56,6 @@ public class Play extends GameState {
 
         // Prepare the level to be rendered.
         level.prepare(b2dr, b2dCam, cam, hudCam, sb, DEBUG_MODE);
-        levelComplete = false;
     }
 
     @Override
@@ -72,8 +69,9 @@ public class Play extends GameState {
 
         level.update(dt);
 
-        if (levelComplete) {
-            setCurrentLevel(nextLevelX, nextLevelY);
+        if (level.isComplete()) {
+        	Vector2 levelCoords = level.getNextLevel();
+            setCurrentLevel((int)levelCoords.x, (int)levelCoords.y);
         }
     }
 
@@ -93,11 +91,4 @@ public class Play extends GameState {
         }
         b2dr.dispose();
     }
-
-    public void setNextLevel(int x, int y) {
-        levelComplete = true;
-        nextLevelX = x;
-        nextLevelY = y;
-    }
-
 }

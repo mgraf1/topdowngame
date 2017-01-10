@@ -8,6 +8,11 @@ public class NoRenderBehavior implements IRenderBehavior {
     @Override
     public void render(SpriteBatch batch, float totalTime, Vector2 position) {
     }
+    
+    @Override
+    public void render(SpriteBatch batch, float x, float y) {	
+    }
+    
 
     @Override
     public void dispose() {
