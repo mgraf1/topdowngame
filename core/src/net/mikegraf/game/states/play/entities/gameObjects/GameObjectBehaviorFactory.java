@@ -4,8 +4,9 @@ import com.badlogic.gdx.maps.MapProperties;
 
 import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
-import net.mikegraf.game.states.play.entities.behavior.collision.GameObjectCollisionBehavior;
+import net.mikegraf.game.states.play.entities.behavior.collision.OperableCollisionBehavior;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
+import net.mikegraf.game.states.play.entities.behavior.collision.NoCollisionBehavior;
 import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
 import net.mikegraf.game.states.play.entities.behavior.movement.NoMovementBehavior;
 import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationFactory;
@@ -30,7 +31,13 @@ public class GameObjectBehaviorFactory extends BehaviorFactory {
 
     @Override
     public ICollisionBehavior createCollisionBehavior(MapProperties props) {
-        return new GameObjectCollisionBehavior();
+    	String type = props.get(TiledConstants.ENTITY_TYPE, String.class); 
+    	if (type.equals(TiledConstants.ENTITY_TYPE_DOOR)) {
+    		return new OperableCollisionBehavior();
+    	} else if (type.equals(TiledConstants.ENTITY_TYPE_SWITCH)) {
+    		return new OperableCollisionBehavior();
+    	}
+        return new NoCollisionBehavior();
     }
 
     @Override
