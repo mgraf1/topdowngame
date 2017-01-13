@@ -16,10 +16,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.states.play.contact.CollisionInfo;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.triggers.EndTrigger;
+import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.levels.Level;
 import net.mikegraf.game.states.play.logic.ICondition;
 import net.mikegraf.game.states.play.logic.PlayerNoCondition;
@@ -28,13 +28,12 @@ import net.mikegraf.game.testing.GdxTestRunner;
 @RunWith(GdxTestRunner.class)
 public class EndTriggerTests {
 
-    private static final String ID = "id";
     private static final int DEST_X = 2;
     private static final int DEST_Y = 1;
 
     private ICollisionBehavior collisionBehavior;
-    private IMovementBehavior movementBehavior;
-    private IRenderBehavior renderBehavior;
+    private IController controller;
+    private IView view;
     private Body body;
 
     private Level level;
@@ -46,14 +45,14 @@ public class EndTriggerTests {
     @Before
     public void myBefore() {
         collisionBehavior = mock(ICollisionBehavior.class);
-        movementBehavior = mock(IMovementBehavior.class);
-        renderBehavior = mock(IRenderBehavior.class);
+        controller = mock(IController.class);
+        view = mock(IView.class);
         body = mock(Body.class);
 
         level = mock(Level.class);
         player = mock(Player.class);
         condition = mock(PlayerNoCondition.class);
-        trigger = new EndTrigger(ID, collisionBehavior, movementBehavior, renderBehavior, body, condition, DEST_X,
+        trigger = new EndTrigger(collisionBehavior, controller, view, body, condition, DEST_X,
                 DEST_Y);
         info = new CollisionInfo(level, trigger, player);
     }
@@ -61,8 +60,8 @@ public class EndTriggerTests {
     @After
     public void myAfter() {
         collisionBehavior = null;
-        movementBehavior = null;
-        renderBehavior = null;
+        controller = null;
+        view = null;
         body = null;
         level = null;
         player = null;

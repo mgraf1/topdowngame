@@ -20,9 +20,9 @@ import net.mikegraf.game.parsers.models.SoundData;
 import net.mikegraf.game.states.play.controls.PlayerInputHandler;
 import net.mikegraf.game.states.play.entities.GameEntityBuilding;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorBuilding;
-import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationFactory;
 import net.mikegraf.game.states.play.entities.bodies.BodyBuilding;
 import net.mikegraf.game.states.play.entities.bodies.ShapeFactory;
+import net.mikegraf.game.states.play.entities.view.AnimationFactory;
 import net.mikegraf.game.states.play.levels.LevelFactory;
 
 public class PlayModule extends AbstractModule {

@@ -12,10 +12,10 @@ import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.GameEntityFactory;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
 import net.mikegraf.game.states.play.entities.bodies.BodyFactory;
+import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.logic.ICondition;
 import net.mikegraf.game.states.play.logic.NullCondition;
 import net.mikegraf.game.states.play.logic.PlayerItemCondition;
@@ -36,8 +36,8 @@ public class GameObjectFactory extends GameEntityFactory {
     }
 
     @Override
-    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IMovementBehavior moveB,
-            IRenderBehavior renderB, Body body, MapProperties props) {
+    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
+            IView view, Body body, MapProperties props) {
         String type = props.get("type", String.class);
         String id = props.get("id", String.class);
         SoundEffectIndex soundEffectIndex = soundEffectFactory.createSoundEffectIndex(type);
@@ -50,18 +50,18 @@ public class GameObjectFactory extends GameEntityFactory {
             } else {
                 cond = new NullCondition<Player>();
             }
-            Door door = new Door(id, collisionB, moveB, renderB, body, soundEffectIndex, cond);
+            Door door = new Door(collisionB, controller, view, body, soundEffectIndex, cond);
             doorIdToDoorMap.put(id, door);
             return door;
 
         } else if (type.equals(TiledConstants.ENTITY_TYPE_SWITCH)) {
             String door = props.get(TiledConstants.ENTITY_SWITCH_PROP_DOOR, String.class);
-            Switch switchToReturn = new Switch(id, collisionB, moveB, renderB, body, soundEffectIndex);
+            Switch switchToReturn = new Switch(collisionB, controller, view, body, soundEffectIndex);
             switchToDoorIdMap.put(switchToReturn, door);
             return switchToReturn;
 
         } else {
-            return new GameObject(id, collisionB, moveB, renderB, body, soundEffectIndex);
+            return new GameObject(collisionB, controller, view, body, soundEffectIndex);
         }
     }
 

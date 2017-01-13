@@ -1,9 +1,9 @@
-package net.mikegraf.game.states.play.entities.behavior.rendering;
+package net.mikegraf.game.states.play.entities.view;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class NoRenderBehavior implements IRenderBehavior {
+public class NoRenderView implements IView {
 
     @Override
     public void render(SpriteBatch batch, float totalTime, Vector2 position) {

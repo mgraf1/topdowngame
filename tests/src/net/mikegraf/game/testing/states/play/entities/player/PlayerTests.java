@@ -15,74 +15,72 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.OperableGameEntity;
 import net.mikegraf.game.states.play.entities.items.Item;
 import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.view.IView;
 
 public class PlayerTests {
 
-    private static final String ID = "player";
-
     private Player player;
     private ICollisionBehavior collB;
-    private IMovementBehavior moveB;
-    private IRenderBehavior rendB;
+    private IController controller;
+    private IView view;
     private Body body;
 
     @Before
     public void myBefore() {
         collB = mock(ICollisionBehavior.class);
-        moveB = mock(IMovementBehavior.class);
-        rendB = mock(IRenderBehavior.class);
+        controller = mock(IController.class);
+        view = mock(IView.class);
         body = mock(Body.class);
-        player = new Player(ID, collB, moveB, rendB, body);
+        player = new Player(collB, controller, view, body);
     }
 
     @After
     public void myAfter() {
         collB = null;
-        moveB = null;
-        rendB = null;
+        controller = null;
+        view = null;
         body = null;
         player = null;
     }
 
     @Test
-    public void beforeMoveWalkUpAnimationCalled() {
+    public void afterUpdateWalkUpAnimationCalled() {
         Vector2 moveVector = new Vector2(0, 1);
 
-        player.beforeMove(moveVector);
+        player.afterUpdate(moveVector);
 
-        verify(rendB).setMode(Player.MOVE_UP_ANIMATION_NAME);
+        verify(view).setMode(Player.MOVE_UP_ANIMATION_NAME);
     }
 
     @Test
-    public void beforeMoveWalkDownAnimationCalled() {
+    public void afterUpdateWalkDownAnimationCalled() {
         Vector2 moveVector = new Vector2(0, -1);
 
-        player.beforeMove(moveVector);
+        player.afterUpdate(moveVector);
 
-        verify(rendB).setMode(Player.MOVE_DOWN_ANIMATION_NAME);
+        verify(view).setMode(Player.MOVE_DOWN_ANIMATION_NAME);
     }
 
     @Test
-    public void beforeMoveWalkLeftAnimationCalled() {
+    public void afterUpdateWalkLeftAnimationCalled() {
         Vector2 moveVector = new Vector2(-1, 0);
 
-        player.beforeMove(moveVector);
+        player.afterUpdate(moveVector);
 
-        verify(rendB).setMode(Player.MOVE_LEFT_ANIMATION_NAME);
+        verify(view).setMode(Player.MOVE_LEFT_ANIMATION_NAME);
     }
 
     @Test
-    public void beforeMoveWalkRightAnimationCalled() {
+    public void afterUpdateWalkRightAnimationCalled() {
         Vector2 moveVector = new Vector2(1, 0);
 
-        player.beforeMove(moveVector);
+        player.afterUpdate(moveVector);
 
-        verify(rendB).setMode(Player.MOVE_RIGHT_ANIMATION_NAME);
+        verify(view).setMode(Player.MOVE_RIGHT_ANIMATION_NAME);
     }
 
     @Test

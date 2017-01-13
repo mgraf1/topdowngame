@@ -5,16 +5,16 @@ import com.badlogic.gdx.maps.MapProperties;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.behavior.collision.TriggerCollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.NoMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.NoRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.DefaultController;
+import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.view.IView;
+import net.mikegraf.game.states.play.entities.view.NoRenderView;
 
 public class TriggerBehaviorFactory extends BehaviorFactory {
 
     @Override
-    public IRenderBehavior createRenderBehavior(MapProperties props) {
-        return new NoRenderBehavior();
+    public IView createView(MapProperties props) {
+        return new NoRenderView();
     }
 
     @Override
@@ -23,8 +23,8 @@ public class TriggerBehaviorFactory extends BehaviorFactory {
     }
 
     @Override
-    public IMovementBehavior createMovementBehavior(MapProperties props) {
-        return new NoMovementBehavior();
+    public IController createController(MapProperties props) {
+        return new DefaultController();
     }
 
 }

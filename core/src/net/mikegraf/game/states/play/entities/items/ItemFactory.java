@@ -8,9 +8,9 @@ import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.GameEntityFactory;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
 import net.mikegraf.game.states.play.entities.bodies.BodyFactory;
+import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.view.IView;
 
 public class ItemFactory extends GameEntityFactory {
 
@@ -19,11 +19,10 @@ public class ItemFactory extends GameEntityFactory {
     }
 
     @Override
-    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IMovementBehavior moveB,
-            IRenderBehavior renderB, Body body, MapProperties props) {
-        String id = props.get(TiledConstants.ENTITY_ID, String.class);
+    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
+            IView view, Body body, MapProperties props) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
-        return new Item(id, collisionB, moveB, renderB, body, type);
+        return new Item(collisionB, controller, view, body, type);
     }
 
 }

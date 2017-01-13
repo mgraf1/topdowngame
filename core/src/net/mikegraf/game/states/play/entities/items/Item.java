@@ -5,21 +5,21 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.view.IView;
 
 public class Item extends GameEntity {
 
     private String type;
 
-    public Item(String id, ICollisionBehavior collisionBehavior, IMovementBehavior movementBehavior,
-            IRenderBehavior renderBehavior, Body body, String type) {
-        super(id, collisionBehavior, movementBehavior, renderBehavior, body);
+    public Item(ICollisionBehavior collisionBehavior, IController controller,
+            IView view, Body body, String type) {
+        super(collisionBehavior, controller, view, body);
         this.type = type;
     }
     
     public void renderHud(SpriteBatch batch, float x, float y) {
-    	renderBehavior.render(batch, x, y);
+    	view.render(batch, x, y);
     }
 
     public String getType() {

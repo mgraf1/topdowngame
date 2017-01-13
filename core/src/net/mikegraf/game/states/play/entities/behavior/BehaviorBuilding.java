@@ -4,11 +4,11 @@ import com.google.inject.Inject;
 
 import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.states.play.controls.PlayerInputHandler;
-import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationFactory;
 import net.mikegraf.game.states.play.entities.gameObjects.GameObjectBehaviorFactory;
 import net.mikegraf.game.states.play.entities.items.ItemBehaviorFactory;
 import net.mikegraf.game.states.play.entities.player.PlayerBehaviorFactory;
 import net.mikegraf.game.states.play.entities.triggers.TriggerBehaviorFactory;
+import net.mikegraf.game.states.play.entities.view.AnimationFactory;
 
 public class BehaviorBuilding {
 

@@ -8,10 +8,10 @@ import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.GameEntityFactory;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
 import net.mikegraf.game.states.play.entities.bodies.BodyFactory;
+import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.logic.ICondition;
 import net.mikegraf.game.states.play.logic.PlayerNoCondition;
 
@@ -26,16 +26,15 @@ public class TriggerFactory extends GameEntityFactory {
     }
 
     @Override
-    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IMovementBehavior moveB,
-            IRenderBehavior renderB, Body body, MapProperties props) {
+    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController moveB,
+            IView renderB, Body body, MapProperties props) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
-        String id = props.get(TiledConstants.ENTITY_ID, String.class);
         ICondition<Player> condition = new PlayerNoCondition();
 
         if (type.equals(END_TRIGGER_TYPE)) {
             int dX = Integer.parseInt(props.get(END_TRIGGER_DEST_X, String.class));
             int dY = Integer.parseInt(props.get(END_TRIGGER_DEST_Y, String.class));
-            return new EndTrigger(id, collisionB, moveB, renderB, body, condition, dX, dY);
+            return new EndTrigger(collisionB, moveB, renderB, body, condition, dX, dY);
         } else {
             throw new IllegalArgumentException("No type: " + type);
         }

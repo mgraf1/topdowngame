@@ -5,11 +5,12 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
+import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
 import net.mikegraf.game.states.play.entities.bodies.BodyFactory;
+import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.view.IView;
 
 public abstract class GameEntityFactory {
 
@@ -25,15 +26,18 @@ public abstract class GameEntityFactory {
         MapProperties props = mapObject.getProperties();
         Body body = bodyFactory.createBody(world, mapObject);
         ICollisionBehavior collisionB = behaviorFactory.createCollisionBehavior(props);
-        IMovementBehavior moveB = behaviorFactory.createMovementBehavior(props);
-        IRenderBehavior renderB = behaviorFactory.createRenderBehavior(props);
+        IController controller = behaviorFactory.createController(props);
+        IView view = behaviorFactory.createView(props);
+        String id = props.get(TiledConstants.ENTITY_ID, String.class);
 
-        return constructGameEntity(collisionB, moveB, renderB, body, props);
+        GameEntity entity = constructGameEntity(collisionB, controller, view, body, props);
+        entity.setId(id);
+        return entity;
     }
 
     public void finalizeEntities() {
     }
 
-    protected abstract GameEntity constructGameEntity(ICollisionBehavior collisionB, IMovementBehavior moveB,
-            IRenderBehavior renderB, Body body, MapProperties props);
+    protected abstract GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
+            IView view, Body body, MapProperties props);
 }

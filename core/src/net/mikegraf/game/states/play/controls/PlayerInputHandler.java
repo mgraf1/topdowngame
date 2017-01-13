@@ -13,6 +13,7 @@ public class PlayerInputHandler {
         data.upDown = MyInput.isDown(MyInput.WALK_UP);
         data.leftDown = MyInput.isDown(MyInput.WALK_LEFT);
         data.rightDown = MyInput.isDown(MyInput.WALK_RIGHT);
+        data.operatePressed = MyInput.isPressed(MyInput.OPERATE);
         return data;
     }
 }

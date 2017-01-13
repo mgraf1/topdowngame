@@ -10,10 +10,10 @@ import com.badlogic.gdx.utils.Array;
 import net.mikegraf.game.states.play.controls.MyInput;
 import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.OperableGameEntity;
 import net.mikegraf.game.states.play.entities.items.Item;
+import net.mikegraf.game.states.play.entities.view.IView;
 
 public class Player extends GameEntity {
 
@@ -29,9 +29,9 @@ public class Player extends GameEntity {
     private HashMap<String, String> vectorHashToAnimationMap;
     private HashSet<OperableGameEntity> touchedObjects;
 
-    public Player(String id, ICollisionBehavior collisionBehavior, IMovementBehavior movementBehavior,
-            IRenderBehavior renderBehavior, Body body) {
-        super(id, collisionBehavior, movementBehavior, renderBehavior, body);
+    public Player(ICollisionBehavior collisionBehavior, IController controller,
+            IView view, Body body) {
+        super(collisionBehavior, controller, view, body);
 
         this.inventorySize = STARTING_INVENTORY_SIZE;
         this.velocity = MAX_VELOCITY;
@@ -50,10 +50,10 @@ public class Player extends GameEntity {
     }
 
     @Override
-    public void beforeMove(Vector2 movementVector) {
+    public void afterUpdate(Vector2 movementVector) {
         String animation = vectorHashToAnimationMap.get(movementVector.toString());
         if (animation != null) {
-            renderBehavior.setMode(animation);
+            view.setMode(animation);
         }
 
         if (MyInput.isPressed(MyInput.OPERATE)) {

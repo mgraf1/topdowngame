@@ -1,22 +1,24 @@
-package net.mikegraf.game.states.play.entities.behavior.movement;
+package net.mikegraf.game.states.play.entities.controller;
 
 import com.badlogic.gdx.math.Vector2;
 
 import net.mikegraf.game.states.play.controls.PlayerInputData;
 import net.mikegraf.game.states.play.controls.PlayerInputHandler;
+import net.mikegraf.game.states.play.entities.GameEntity;
+import net.mikegraf.game.states.play.entities.player.Player;
 
-public class PlayerMovementBehavior implements IMovementBehavior {
+public class PlayerController implements IController {
 
     private Vector2 movementVector;
     private PlayerInputHandler inputHandler;
 
-    public PlayerMovementBehavior(PlayerInputHandler inputHandler) {
+    public PlayerController(PlayerInputHandler inputHandler) {
         this.movementVector = new Vector2();
         this.inputHandler = inputHandler;
     }
 
     @Override
-    public Vector2 createMovementVector() {
+    public Vector2 update(GameEntity entity, float deltaTime) {
         PlayerInputData inputData = inputHandler.getPlayerInput();
         boolean upDown = inputData.upDown;
         boolean downDown = inputData.downDown;
@@ -44,6 +46,12 @@ public class PlayerMovementBehavior implements IMovementBehavior {
             movementVector.x = 1;
         }
 
+        entity.move(movementVector);
+        
+        if (inputData.operatePressed) {
+        	((Player)entity).operateTouchedObjects();
+        }
+        
         return movementVector;
     }
 

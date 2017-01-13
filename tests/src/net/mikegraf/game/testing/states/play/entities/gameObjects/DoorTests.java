@@ -13,22 +13,21 @@ import com.badlogic.gdx.physics.box2d.Body;
 import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.entities.GameEntityState;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.Door;
 import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.logic.ICondition;
 import net.mikegraf.game.states.play.logic.PlayerItemCondition;
 
 public class DoorTests {
 
     private final String ITEM_TYPE = "itemType";
-    private final String ID = "d1";
 
     private Door door;
     private ICollisionBehavior collB;
-    private IMovementBehavior moveB;
-    private IRenderBehavior rendB;
+    private IController controller;
+    private IView view;
     private Body body;
     private ICondition<Player> cond;
     private SoundEffectIndex soundEffectIndex;
@@ -38,11 +37,11 @@ public class DoorTests {
     public void myBefore() {
         soundEffectIndex = mock(SoundEffectIndex.class);
         collB = mock(ICollisionBehavior.class);
-        moveB = mock(IMovementBehavior.class);
-        rendB = mock(IRenderBehavior.class);
+        controller = mock(IController.class);
+        view = mock(IView.class);
         body = mock(Body.class);
         cond = new PlayerItemCondition(ITEM_TYPE, false);
-        door = new Door(ID, collB, moveB, rendB, body, soundEffectIndex, cond);
+        door = new Door(collB, controller, view, body, soundEffectIndex, cond);
         player = mock(Player.class);
     }
 
@@ -50,8 +49,8 @@ public class DoorTests {
     public void myAfter() {
         door = null;
         collB = null;
-        moveB = null;
-        rendB = null;
+        controller = null;
+        view = null;
         body = null;
         soundEffectIndex = null;
         cond = null;

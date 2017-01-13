@@ -6,12 +6,12 @@ import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.behavior.collision.ItemCollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.NoMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationFactory;
-import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationIndex;
-import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationRenderBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.DefaultController;
+import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.view.AnimationFactory;
+import net.mikegraf.game.states.play.entities.view.AnimationIndex;
+import net.mikegraf.game.states.play.entities.view.AnimationView;
+import net.mikegraf.game.states.play.entities.view.IView;
 
 public class ItemBehaviorFactory extends BehaviorFactory {
 
@@ -22,10 +22,10 @@ public class ItemBehaviorFactory extends BehaviorFactory {
     }
 
     @Override
-    public IRenderBehavior createRenderBehavior(MapProperties props) {
+    public IView createView(MapProperties props) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
         AnimationIndex animationIndex = animationFactory.createAnimationIndex(type);
-        return new AnimationRenderBehavior(animationIndex);
+        return new AnimationView(animationIndex);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class ItemBehaviorFactory extends BehaviorFactory {
     }
 
     @Override
-    public IMovementBehavior createMovementBehavior(MapProperties props) {
-        return new NoMovementBehavior();
+    public IController createController(MapProperties props) {
+        return new DefaultController();
     }
 
 }

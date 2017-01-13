@@ -13,20 +13,18 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.Door;
 import net.mikegraf.game.states.play.entities.gameObjects.Switch;
 import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.view.IView;
 
 public class SwitchTests {
 
-    private final String ID = "sw1";
-
     private Switch s;
     private ICollisionBehavior collB;
-    private IMovementBehavior moveB;
-    private IRenderBehavior rendB;
+    private IController controller;
+    private IView view;
     private Body body;
     private Player player;
     private Door door;
@@ -36,20 +34,20 @@ public class SwitchTests {
     public void myBefore() {
         player = mock(Player.class);
         collB = mock(ICollisionBehavior.class);
-        moveB = mock(IMovementBehavior.class);
-        rendB = mock(IRenderBehavior.class);
+        controller = mock(IController.class);
+        view = mock(IView.class);
         body = mock(Body.class);
         door = mock(Door.class);
         soundEffectIndex = mock(SoundEffectIndex.class);
-        s = new Switch(ID, collB, moveB, rendB, body, soundEffectIndex);
+        s = new Switch(collB, controller, view, body, soundEffectIndex);
         s.setDoor(door);
     }
 
     @After
     public void myAfter() {
         collB = null;
-        moveB = null;
-        rendB = null;
+        controller = null;
+        view = null;
         body = null;
         player = null;
         door = null;
@@ -98,7 +96,7 @@ public class SwitchTests {
     public void operateSetsOnAnimation() {
         s.operate(player);
 
-        verify(rendB, times(1)).setMode(Switch.ON_ANIMATION_NAME);
+        verify(view, times(1)).setMode(Switch.ON_ANIMATION_NAME);
     }
 
     @Test
@@ -106,6 +104,6 @@ public class SwitchTests {
         s.operate(player);
         s.operate(player);
 
-        verify(rendB, times(1)).setMode(Switch.OFF_ANIMATION_NAME);
+        verify(view, times(1)).setMode(Switch.OFF_ANIMATION_NAME);
     }
 }

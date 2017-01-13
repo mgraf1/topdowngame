@@ -1,4 +1,4 @@
-package net.mikegraf.game.states.play.entities.behavior.rendering;
+package net.mikegraf.game.states.play.entities.view;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -6,14 +6,14 @@ import com.badlogic.gdx.math.Vector2;
 
 import net.mikegraf.game.main.helpers.Box2dHelper;
 
-public class AnimationRenderBehavior implements IRenderBehavior {
+public class AnimationView implements IView {
 
     private AnimationIndex animationIndex;
     private float height;
     private float width;
     private Vector2 renderVector;
 
-    public AnimationRenderBehavior(AnimationIndex animationIndex) {
+    public AnimationView(AnimationIndex animationIndex) {
         this.animationIndex = animationIndex;
         this.renderVector = new Vector2();
 

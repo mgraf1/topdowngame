@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import net.mikegraf.game.states.play.contact.CollisionInfo;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.view.IView;
 
 public abstract class GameEntity {
 
@@ -16,34 +16,36 @@ public abstract class GameEntity {
 
     private String id;
     protected ICollisionBehavior collisionBehavior;
-    protected IRenderBehavior renderBehavior;
-    protected IMovementBehavior movementBehavior;
+    protected IView view;
+    protected IController controller;
     protected Body body;
     protected float velocity;
 
-    public GameEntity(String id, ICollisionBehavior collisionBehavior, IMovementBehavior movementBehavior,
-            IRenderBehavior renderBehavior, Body body) {
-        this.id = id;
+    public GameEntity(ICollisionBehavior collisionBehavior, IController controller,
+            IView view, Body body) {
         this.collisionBehavior = collisionBehavior;
-        this.renderBehavior = renderBehavior;
-        this.movementBehavior = movementBehavior;
+        this.view = view;
+        this.controller = controller;
         this.state = GameEntityState.VISIBLE;
         this.body = body;
         body.setUserData(this);
     }
 
     public void update(float deltaTime) {
-        Vector2 movementVector = movementBehavior.createMovementVector();
-        beforeMove(movementVector);
-        body.setLinearVelocity(movementVector.x * velocity, movementVector.y * velocity);
+        Vector2 movementVector = controller.update(this, deltaTime);
+        afterUpdate(movementVector);
     }
 
     public void render(SpriteBatch batch, float totalTime) {
         if (body.isActive()) {
             beforeRender(totalTime);
             Vector2 position = body.getPosition();
-            renderBehavior.render(batch, totalTime, position);
+            view.render(batch, totalTime, position);
         }
+    }
+    
+    public void move(Vector2 movementVector) {
+    	body.setLinearVelocity(movementVector.x * velocity, movementVector.y * velocity);
     }
 
     public void handleCollision(CollisionInfo info) {
@@ -72,7 +74,7 @@ public abstract class GameEntity {
         return id;
     }
 
-    public void beforeMove(Vector2 movementVector) {
+    public void afterUpdate(Vector2 movementVector) {
     }
 
     public void beforeRender(float totalTime) {
@@ -80,6 +82,10 @@ public abstract class GameEntity {
 
     public void setVelocity(float value) {
         velocity = value;
+    }
+    
+    public void setId(String id) {
+    	this.id = id;
     }
 
     @Override

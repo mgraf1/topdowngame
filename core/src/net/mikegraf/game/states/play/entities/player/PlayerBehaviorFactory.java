@@ -7,12 +7,12 @@ import net.mikegraf.game.states.play.controls.PlayerInputHandler;
 import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.behavior.collision.PlayerCollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.IMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.movement.PlayerMovementBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationFactory;
-import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationIndex;
-import net.mikegraf.game.states.play.entities.behavior.rendering.AnimationRenderBehavior;
-import net.mikegraf.game.states.play.entities.behavior.rendering.IRenderBehavior;
+import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.controller.PlayerController;
+import net.mikegraf.game.states.play.entities.view.AnimationFactory;
+import net.mikegraf.game.states.play.entities.view.AnimationIndex;
+import net.mikegraf.game.states.play.entities.view.AnimationView;
+import net.mikegraf.game.states.play.entities.view.IView;
 
 public class PlayerBehaviorFactory extends BehaviorFactory {
 
@@ -25,10 +25,10 @@ public class PlayerBehaviorFactory extends BehaviorFactory {
     }
 
     @Override
-    public IRenderBehavior createRenderBehavior(MapProperties props) {
+    public IView createView(MapProperties props) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
         AnimationIndex animationIndex = animationFactory.createAnimationIndex(type);
-        return new AnimationRenderBehavior(animationIndex);
+        return new AnimationView(animationIndex);
     }
 
     @Override
@@ -37,8 +37,9 @@ public class PlayerBehaviorFactory extends BehaviorFactory {
     }
 
     @Override
-    public IMovementBehavior createMovementBehavior(MapProperties props) {
-        return new PlayerMovementBehavior(inputHandler);
+    public IController createController(MapProperties props) {
+        PlayerController controller = new PlayerController(inputHandler);
+        return controller;
     }
 
 }

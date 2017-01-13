@@ -1,4 +1,4 @@
-package net.mikegraf.game.states.play.entities.behavior.rendering;
+package net.mikegraf.game.states.play.entities.view;
 
 import java.util.HashMap;
 import java.util.List;
