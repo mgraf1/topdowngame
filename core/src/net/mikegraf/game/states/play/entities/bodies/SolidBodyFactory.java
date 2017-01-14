@@ -31,7 +31,7 @@ public class SolidBodyFactory extends BodyFactory {
     public Body createBody(World world, MapObject mapObject) {
         MapProperties props = mapObject.getProperties();
         Shape shape = shapeFactory.createShape(mapObject);
-        String type = props.get(TiledConstants.ENTITY_BODYTYPE, String.class);
+        String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
         BodyData data = typeToBodyDataMap.get(type);
         bodyDef = new BodyDef();
 

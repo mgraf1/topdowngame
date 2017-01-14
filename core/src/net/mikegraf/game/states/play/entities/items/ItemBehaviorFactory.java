@@ -23,8 +23,8 @@ public class ItemBehaviorFactory extends BehaviorFactory {
 
     @Override
     public IView createView(MapProperties props) {
-        String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
-        AnimationIndex animationIndex = animationFactory.createAnimationIndex(type);
+        String texture = props.get(TiledConstants.ENTITY_TEXTURE, String.class);
+        AnimationIndex animationIndex = animationFactory.createAnimationIndex(texture);
         return new AnimationView(animationIndex);
     }
 

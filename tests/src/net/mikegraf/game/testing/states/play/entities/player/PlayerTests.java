@@ -103,7 +103,7 @@ public class PlayerTests {
 
     @Test
     public void isTouchingReturnsTrueIfPlayerTouchedObject() {
-        String opId = "id";
+        int opId = 6;
         OperableGameEntity operable = mock(OperableGameEntity.class);
         when(operable.getId()).thenReturn(opId);
         player.touch(operable);
@@ -113,7 +113,7 @@ public class PlayerTests {
 
     @Test
     public void isTouchingReturnsFalseIfPlayerDidntTouchObject() {
-        String opId = "id";
+    	int opId = 6;
         OperableGameEntity operable = mock(OperableGameEntity.class);
         when(operable.getId()).thenReturn(opId);
         player.touch(operable);
@@ -124,8 +124,8 @@ public class PlayerTests {
 
     @Test
     public void operableTouchedObjectsCallsOperateOnAll() {
-        String opId = "id";
-        String opId2 = "id2";
+    	int opId = 6;
+        int opId2 = 7;
         OperableGameEntity operable = mock(OperableGameEntity.class);
         when(operable.getId()).thenReturn(opId);
         OperableGameEntity operable2 = mock(OperableGameEntity.class);

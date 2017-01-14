@@ -33,11 +33,11 @@ public class Level {
     private boolean debugMode;
     private PlayHud hud;
     private Player player;
-    private HashMap<String, GameEntity> idToEntityMap;
+    private HashMap<Integer, GameEntity> idToEntityMap;
     private int nextLevelX;
     private int nextLevelY;
     
-    public Level(String name, Player player, TiledMap tMap, World w, PlayHud h, HashMap<String, GameEntity> idToEntityMap) {
+    public Level(String name, Player player, TiledMap tMap, World w, PlayHud h, HashMap<Integer, GameEntity> idToEntityMap) {
         this.map = tMap;
         this.player = player;
         this.name = name;

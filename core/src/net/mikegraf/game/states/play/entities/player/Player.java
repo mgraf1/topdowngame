@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 
-import net.mikegraf.game.states.play.controls.MyInput;
 import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
@@ -54,10 +53,6 @@ public class Player extends GameEntity {
         String animation = vectorHashToAnimationMap.get(movementVector.toString());
         if (animation != null) {
             view.setMode(animation);
-        }
-
-        if (MyInput.isPressed(MyInput.OPERATE)) {
-            operateTouchedObjects();
         }
     }
 
@@ -115,9 +110,9 @@ public class Player extends GameEntity {
         }
     }
 
-    public boolean isTouching(String objectId) {
+    public boolean isTouching(int objectId) {
         for (OperableGameEntity obj : touchedObjects) {
-            if (objectId.equals(obj.getId())) {
+            if (objectId == obj.getId()) {
                 return true;
             }
         }

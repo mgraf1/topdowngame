@@ -69,16 +69,17 @@ public class LevelFactory {
         TiledMap map = new TmxMapLoader().load(data.getFileName());
 
         // Place all game entities.
-        HashMap<String, GameEntity> idToEntityMap = new HashMap<String, GameEntity>();
+        HashMap<Integer, GameEntity> idToEntityMap = new HashMap<Integer, GameEntity>();
         MapLayers layers = map.getLayers();
         for (MapLayer layer : layers) {
             if (!(layer instanceof TiledMapTileLayer)) {
                 GameEntityFactory factory = gameEntityBuilding.getGameEntityFactory(layer);
                 for (MapObject mo : layer.getObjects()) {
                     GameEntity entity = factory.createGameEntity(world, mo);
-                    String id = entity.getId();
+                    int id = entity.getId();
                     idToEntityMap.put(id, entity);
                 }
+                factory.finalizeEntities();
             }
         }
 
@@ -99,7 +100,13 @@ public class LevelFactory {
         placeBorder(mapWidth, mapHeight, tileWidth, tileHeight, world, bDef, fDef);
 
         // Create HUD.
-        Player player = (Player) idToEntityMap.get(TiledConstants.ID_PLAYER);
+        Player player = null;
+        for (int id : idToEntityMap.keySet()) {
+        	GameEntity entity = idToEntityMap.get(id);
+        	if (entity instanceof Player) {
+        		player = (Player)entity;
+        	}
+        }
         PlayHud hud = createHud(player);
         
         Level level = new Level(name, player, map, world, hud, idToEntityMap);        

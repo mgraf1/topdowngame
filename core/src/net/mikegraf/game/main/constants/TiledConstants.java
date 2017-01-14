@@ -4,7 +4,7 @@ public final class TiledConstants {
 
     public final static String ENTITY_ID = "id";
     public final static String ENTITY_TYPE = "type";
-    public final static String ENTITY_BODYTYPE = "bodytype";
+    public final static String ENTITY_TEXTURE = "texture";
     public final static String ENTITY_TYPE_DOOR = "door";
     public final static String ENTITY_TYPE_SWITCH = "switch";
     public final static String ENTITY_DOOR_PROP_KEY = "key";

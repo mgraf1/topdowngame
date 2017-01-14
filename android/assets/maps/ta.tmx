@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32">
- <tileset firstgid="1" name="dg_grounds32" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="8">
+ <tileset firstgid="1" name="dg_grounds32" tilewidth="32" tileheight="32" tilecount="171" columns="9">
   <image source="AngbandTk/AngbandTk/dg_grounds32.gif" width="288" height="608"/>
  </tileset>
  <layer name="foreground" width="20" height="20">
@@ -14,56 +14,50 @@
   </data>
  </layer>
  <objectgroup name="triggers">
-  <object name="et1" type="end" x="479" y="160" width="32" height="32">
+  <object id="1" name="et1" type="end" x="479" y="160" width="32" height="32">
    <properties>
     <property name="destX" value="0"/>
     <property name="destY" value="0"/>
-    <property name="id" value="et1"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="items">
-  <object name="rk1" type="redkey" x="102" y="598" width="32" height="32">
+  <object id="2" name="rk1" type="redkey" x="102" y="598" width="32" height="32">
    <properties>
-    <property name="id" value="rk1"/>
+    <property name="texture" value="redkey"/>
    </properties>
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="player">
-  <object name="player" type="player" x="28" y="598" width="32" height="32">
+  <object id="3" name="player" type="player" x="28" y="598" width="32" height="32">
    <properties>
-    <property name="bodytype" value="player"/>
-    <property name="id" value="player"/>
+    <property name="texture" value="player"/>
    </properties>
    <ellipse/>
   </object>
  </objectgroup>
  <objectgroup name="objects">
-  <object name="rd1" type="reddoor" x="168" y="567" width="32" height="32">
+  <object id="4" name="rd1" type="door" x="168" y="567" width="32" height="32">
    <properties>
-    <property name="bodytype" value="door"/>
-    <property name="id" value="rd1"/>
     <property name="key" value="redkey"/>
+    <property name="texture" value="reddoor"/>
    </properties>
   </object>
-  <object name="cr1" type="browncrate" x="112" y="511" width="32" height="32">
+  <object id="5" name="cr1" type="crate" x="112" y="511" width="32" height="32">
    <properties>
-    <property name="bodytype" value="crate"/>
-    <property name="id" value="cr1"/>
+    <property name="texture" value="browncrate"/>
    </properties>
   </object>
-  <object name="bd1" type="bluedoor" x="295" y="532" width="32" height="32">
+  <object id="6" name="bd1" type="door" x="245" y="504" width="32" height="32">
    <properties>
-    <property name="bodytype" value="door"/>
-    <property name="id" value="bd1"/>
+    <property name="texture" value="bluedoor"/>
    </properties>
   </object>
-  <object name="bsw1" type="blueswitch" x="295" y="590" width="32" height="32">
+  <object id="7" name="bsw1" type="switch" x="295" y="590" width="32" height="32">
    <properties>
-    <property name="bodytype" value="switch"/>
-    <property name="door" value="bd1"/>
-    <property name="id" value="bsw1"/>
+    <property name="door" value="6"/>
+    <property name="texture" value="blueswitch"/>
    </properties>
   </object>
  </objectgroup>

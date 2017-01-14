@@ -28,8 +28,8 @@ public abstract class GameEntityFactory {
         ICollisionBehavior collisionB = behaviorFactory.createCollisionBehavior(props);
         IController controller = behaviorFactory.createController(props);
         IView view = behaviorFactory.createView(props);
-        String id = props.get(TiledConstants.ENTITY_ID, String.class);
-
+        int id = props.get(TiledConstants.ENTITY_ID, Integer.class);
+        
         GameEntity entity = constructGameEntity(collisionB, controller, view, body, props);
         entity.setId(id);
         return entity;

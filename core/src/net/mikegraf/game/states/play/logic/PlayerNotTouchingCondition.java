@@ -4,9 +4,9 @@ import net.mikegraf.game.states.play.entities.player.Player;
 
 public class PlayerNotTouchingCondition implements ICondition<Player> {
 
-    private String objectId;
+    private int objectId;
 
-    public PlayerNotTouchingCondition(String objectId) {
+    public PlayerNotTouchingCondition(int objectId) {
         this.objectId = objectId;
     }
 
