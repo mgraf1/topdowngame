@@ -1,4 +1,4 @@
-package net.mikegraf.game.states.play.entities.behavior.collision;
+package net.mikegraf.game.states.play.entities.collision;
 
 import net.mikegraf.game.states.play.contact.CollisionInfo;
 import net.mikegraf.game.states.play.entities.GameEntity;

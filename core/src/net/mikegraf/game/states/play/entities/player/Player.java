@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 
 import net.mikegraf.game.states.play.entities.GameEntity;
-import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
+import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.OperableGameEntity;
 import net.mikegraf.game.states.play.entities.items.Item;

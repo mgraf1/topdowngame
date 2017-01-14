@@ -1,8 +1,8 @@
-package net.mikegraf.game.states.play.entities.behavior;
+package net.mikegraf.game.states.play.entities;
 
 import com.badlogic.gdx.maps.MapProperties;
 
-import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
+import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.view.IView;
 

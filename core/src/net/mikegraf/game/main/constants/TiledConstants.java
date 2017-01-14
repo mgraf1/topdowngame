@@ -9,6 +9,8 @@ public final class TiledConstants {
     public final static String ENTITY_TYPE_SWITCH = "switch";
     public final static String ENTITY_DOOR_PROP_KEY = "key";
     public final static String ENTITY_SWITCH_PROP_DOOR = "door";
+    public static final String ENTITY_HEIGHT = "height";
+    public static final String ENTITY_WIDTH = "width";
 
     public final static String ID_PLAYER = "player";
 

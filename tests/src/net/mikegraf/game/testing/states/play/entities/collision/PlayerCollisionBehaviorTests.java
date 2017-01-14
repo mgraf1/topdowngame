@@ -1,4 +1,4 @@
-package net.mikegraf.game.testing.states.play.entities.behavior.collision;
+package net.mikegraf.game.testing.states.play.entities.collision;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import net.mikegraf.game.states.play.contact.CollisionInfo;
 import net.mikegraf.game.states.play.entities.GameEntity;
-import net.mikegraf.game.states.play.entities.behavior.collision.PlayerCollisionBehavior;
+import net.mikegraf.game.states.play.entities.collision.PlayerCollisionBehavior;
 import net.mikegraf.game.states.play.entities.gameObjects.OperableGameEntity;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.levels.Level;

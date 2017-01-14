@@ -1,4 +1,4 @@
-package net.mikegraf.game.testing.states.play.entities.behavior.collision;
+package net.mikegraf.game.testing.states.play.entities.collision;
 
 import org.junit.Test;
 

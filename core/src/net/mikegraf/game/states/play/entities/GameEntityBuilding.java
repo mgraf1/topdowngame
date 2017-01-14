@@ -5,8 +5,6 @@ import com.google.inject.Inject;
 
 import net.mikegraf.game.audio.SoundEffectFactory;
 import net.mikegraf.game.main.constants.TiledConstants;
-import net.mikegraf.game.states.play.entities.behavior.BehaviorBuilding;
-import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
 import net.mikegraf.game.states.play.entities.bodies.BodyBuilding;
 import net.mikegraf.game.states.play.entities.bodies.BodyFactory;
 import net.mikegraf.game.states.play.entities.gameObjects.GameObjectFactory;

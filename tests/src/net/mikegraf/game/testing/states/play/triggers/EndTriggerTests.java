@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.states.play.contact.CollisionInfo;
-import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
+import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.triggers.EndTrigger;

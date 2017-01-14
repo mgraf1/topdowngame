@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="8">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="10">
  <tileset firstgid="1" name="dg_grounds32" tilewidth="32" tileheight="32" tilecount="171" columns="9">
   <image source="AngbandTk/AngbandTk/dg_grounds32.gif" width="288" height="608"/>
  </tileset>
@@ -44,7 +44,7 @@
     <property name="texture" value="reddoor"/>
    </properties>
   </object>
-  <object id="5" name="cr1" type="crate" x="112" y="511" width="32" height="32">
+  <object id="5" name="cr1" type="crate" x="98" y="513" width="32" height="32">
    <properties>
     <property name="texture" value="browncrate"/>
    </properties>
@@ -58,6 +58,11 @@
    <properties>
     <property name="door" value="6"/>
     <property name="texture" value="blueswitch"/>
+   </properties>
+  </object>
+  <object id="8" name="cr2" type="crate" x="482" y="226" width="32" height="32">
+   <properties>
+    <property name="texture" value="browncrate"/>
    </properties>
   </object>
  </objectgroup>

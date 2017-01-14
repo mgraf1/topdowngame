@@ -19,7 +19,7 @@ public class Play extends GameState {
     // Constants.
     private static final int START_WORLD_X = 0;
     private static final int START_WORLD_Y = 0;
-    private static final boolean DEBUG_MODE = false;
+    private static final boolean DEBUG_MODE = true;
 
     // Instance variables.
     private LevelFactory levelFactory;
@@ -58,9 +58,6 @@ public class Play extends GameState {
         level.prepare(b2dr, b2dCam, cam, hudCam, sb, DEBUG_MODE);
     }
 
-    @Override
-    public void handleInput() {
-    }
 
     @Override
     public void update(float dt) {
@@ -91,4 +88,7 @@ public class Play extends GameState {
         }
         b2dr.dispose();
     }
+    
+    @Override
+    public void handleInput() { }
 }

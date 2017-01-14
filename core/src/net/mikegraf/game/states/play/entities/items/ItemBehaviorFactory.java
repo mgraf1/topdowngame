@@ -3,9 +3,9 @@ package net.mikegraf.game.states.play.entities.items;
 import com.badlogic.gdx.maps.MapProperties;
 
 import net.mikegraf.game.main.constants.TiledConstants;
-import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
-import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.collision.ItemCollisionBehavior;
+import net.mikegraf.game.states.play.entities.BehaviorFactory;
+import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
+import net.mikegraf.game.states.play.entities.collision.ItemCollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.DefaultController;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.view.AnimationFactory;

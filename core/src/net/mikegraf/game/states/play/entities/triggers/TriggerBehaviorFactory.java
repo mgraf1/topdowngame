@@ -2,9 +2,9 @@ package net.mikegraf.game.states.play.entities.triggers;
 
 import com.badlogic.gdx.maps.MapProperties;
 
-import net.mikegraf.game.states.play.entities.behavior.BehaviorFactory;
-import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
-import net.mikegraf.game.states.play.entities.behavior.collision.TriggerCollisionBehavior;
+import net.mikegraf.game.states.play.entities.BehaviorFactory;
+import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
+import net.mikegraf.game.states.play.entities.collision.TriggerCollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.DefaultController;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.view.IView;

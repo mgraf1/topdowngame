@@ -1,4 +1,4 @@
-package net.mikegraf.game.states.play.entities.behavior;
+package net.mikegraf.game.states.play.entities;
 
 import com.google.inject.Inject;
 

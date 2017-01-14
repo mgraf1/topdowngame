@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.audio.SoundEffectIndex;
-import net.mikegraf.game.states.play.entities.behavior.collision.ICollisionBehavior;
+import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.Door;
 import net.mikegraf.game.states.play.entities.gameObjects.Switch;
