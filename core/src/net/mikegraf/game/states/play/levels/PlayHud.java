@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 import net.mikegraf.game.main.MyGdxGame;
-import net.mikegraf.game.states.play.actors.Item;
-import net.mikegraf.game.states.play.actors.Player;
+import net.mikegraf.game.states.play.entities.items.Item;
+import net.mikegraf.game.states.play.entities.player.Player;
 
 public class PlayHud {
 
@@ -42,8 +42,9 @@ public class PlayHud {
         for (int i = 0; i < playerInventory.size; i++) {
 
             Item item = playerInventory.get(i);
-            if (item != null)
-                item.renderHud(sb, inventoryLocations[i], INVENTORY_SPACER);
+            if (item != null) {
+            	item.renderHud(sb, inventoryLocations[i], INVENTORY_SPACER);
+            }
         }
 
         sb.end();

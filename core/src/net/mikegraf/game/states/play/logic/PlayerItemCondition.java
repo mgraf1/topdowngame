@@ -1,6 +1,6 @@
 package net.mikegraf.game.states.play.logic;
 
-import net.mikegraf.game.states.play.actors.Player;
+import net.mikegraf.game.states.play.entities.player.Player;
 
 /* This condition will accept the player if a specific item is in the inventory. */
 public class PlayerItemCondition implements ICondition<Player> {

@@ -3,16 +3,14 @@ package net.mikegraf.game.states.play;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import net.mikegraf.game.main.MyGdxGame;
+import net.mikegraf.game.main.constants.B2dConstants;
 import net.mikegraf.game.states.GameState;
-import net.mikegraf.game.states.play.actors.Player;
-import net.mikegraf.game.states.play.controls.MyInput;
-import net.mikegraf.game.states.play.controls.PlayerController;
-import net.mikegraf.game.states.play.levels.B2DVars;
 import net.mikegraf.game.states.play.levels.Level;
 import net.mikegraf.game.states.play.levels.LevelFactory;
 
@@ -28,11 +26,6 @@ public class Play extends GameState {
     private Level level;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera b2dCam;
-    private Player player;
-    private PlayerController playerController;
-    private boolean levelComplete;
-    private int nextLevelX;
-    private int nextLevelY;
 
     public Play(MyGdxGame g) {
         super(g);
@@ -46,7 +39,7 @@ public class Play extends GameState {
 
         // Set up box2d camera.
         b2dCam = new OrthographicCamera();
-        b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / B2DVars.PPM, MyGdxGame.V_HEIGHT / B2DVars.PPM);
+        b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / B2dConstants.PPM, MyGdxGame.V_HEIGHT / B2dConstants.PPM);
 
         // Get first level.
         setCurrentLevel(START_WORLD_X, START_WORLD_Y);
@@ -61,21 +54,10 @@ public class Play extends GameState {
 
         this.level = levelFactory.buildLevel(x, y);
 
-        player = level.getPlayer();
-        playerController = new PlayerController(player);
-
         // Prepare the level to be rendered.
         level.prepare(b2dr, b2dCam, cam, hudCam, sb, DEBUG_MODE);
-        levelComplete = false;
     }
 
-    @Override
-    public void handleInput() {
-
-        playerController.handleInput(MyInput.isDown(MyInput.WALK_UP), MyInput.isDown(MyInput.WALK_DOWN),
-                MyInput.isDown(MyInput.WALK_LEFT), MyInput.isDown(MyInput.WALK_RIGHT),
-                MyInput.isPressed(MyInput.OPERATE));
-    }
 
     @Override
     public void update(float dt) {
@@ -84,8 +66,9 @@ public class Play extends GameState {
 
         level.update(dt);
 
-        if (levelComplete) {
-            setCurrentLevel(nextLevelX, nextLevelY);
+        if (level.isComplete()) {
+        	Vector2 levelCoords = level.getNextLevel();
+            setCurrentLevel((int)levelCoords.x, (int)levelCoords.y);
         }
     }
 
@@ -105,11 +88,7 @@ public class Play extends GameState {
         }
         b2dr.dispose();
     }
-
-    public void setNextLevel(int x, int y) {
-        levelComplete = true;
-        nextLevelX = x;
-        nextLevelY = y;
-    }
-
+    
+    @Override
+    public void handleInput() { }
 }

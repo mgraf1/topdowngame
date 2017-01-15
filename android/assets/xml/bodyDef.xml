@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities>
+	<entity>
+		<type>player</type>
+		<damp>0</damp>
+		<bodytype>dynamic</bodytype>
+	</entity>
+	<entity>
+		<type>redkey</type>
+		<damp>0</damp>
+		<bodytype>dynamic</bodytype>
+	</entity>
+	<entity>
+		<type>door</type>
+		<damp>0</damp>
+		<bodytype>static</bodytype>
+	</entity>
+	<entity>
+		<type>crate</type>
+		<damp>100</damp>
+		<bodytype>dynamic</bodytype>
+	</entity>
+	<entity>
+		<type>switch</type>
+		<damp>0</damp>
+		<bodytype>static</bodytype>
+	</entity>
+</entities>

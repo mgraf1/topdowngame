@@ -1,97 +1,99 @@
 package net.mikegraf.game.testing.states.play.triggers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.mockito.Mockito.*;
 
-import net.mikegraf.game.states.play.Play;
-import net.mikegraf.game.states.play.actors.Player;
+import com.badlogic.gdx.physics.box2d.Body;
+
 import net.mikegraf.game.states.play.contact.CollisionInfo;
+import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
+import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.triggers.EndTrigger;
+import net.mikegraf.game.states.play.entities.view.IView;
+import net.mikegraf.game.states.play.levels.Level;
 import net.mikegraf.game.states.play.logic.ICondition;
 import net.mikegraf.game.states.play.logic.PlayerNoCondition;
-import net.mikegraf.game.states.play.triggers.EndTrigger;
 import net.mikegraf.game.testing.GdxTestRunner;
 
 @RunWith(GdxTestRunner.class)
 public class EndTriggerTests {
 
-	@Test
-	public void canExecuteConditionFail() {
-		
-		Play playState = mock(Play.class);
-		Player player = mock(Player.class);
-		CollisionInfo info = new CollisionInfo();
-		info.setPlayer(player);
-		info.setPlayState(playState);
-		ICondition<Player> condition = mock(PlayerNoCondition.class);
-		when(condition.accepts(player)).thenReturn(false);
-		
-		EndTrigger trigger = new EndTrigger(condition, 0, 0);
-		assertFalse(trigger.canExecute(info));
-	}
-	
-	@Test
-	public void canExecuteConditionPass() {
-		
-		Play playState = mock(Play.class);
-		Player player = mock(Player.class);
-		CollisionInfo info = new CollisionInfo();
-		info.setPlayer(player);
-		info.setPlayState(playState);
-		ICondition<Player> condition = mock(PlayerNoCondition.class);
-		when(condition.accepts(player)).thenReturn(true);
-		
-		EndTrigger trigger = new EndTrigger(condition, 0, 0);
-		assertTrue(trigger.canExecute(info));
-	}
-	
-	@Test
-	public void executeSetNextLevelCalled() {
-		
-		Play playState = mock(Play.class);
-		Player player = mock(Player.class);
-		CollisionInfo info = new CollisionInfo();
-		info.setPlayer(player);
-		info.setPlayState(playState);
-		ICondition<Player> condition = mock(PlayerNoCondition.class);
-		when(condition.accepts(player)).thenReturn(true);
-		
-		EndTrigger trigger = new EndTrigger(condition, 0, 0);
-		trigger.execute(info);
-		verify(playState, times(1)).setNextLevel(anyInt(), anyInt());
-	}
-	
-	@Test
-	public void executeSetNextLevelCalledX() {
-		
-		Play playState = mock(Play.class);
-		Player player = mock(Player.class);
-		CollisionInfo info = new CollisionInfo();
-		info.setPlayer(player);
-		info.setPlayState(playState);
-		ICondition<Player> condition = mock(PlayerNoCondition.class);
-		when(condition.accepts(player)).thenReturn(true);
-		
-		EndTrigger trigger = new EndTrigger(condition, 3, 0);
-		trigger.execute(info);
-		verify(playState, times(1)).setNextLevel(eq(3), anyInt());
-	}
-	
-	@Test
-	public void executeSetNextLevelCalledY() {
-		
-		Play playState = mock(Play.class);
-		Player player = mock(Player.class);
-		CollisionInfo info = new CollisionInfo();
-		info.setPlayer(player);
-		info.setPlayState(playState);
-		ICondition<Player> condition = mock(PlayerNoCondition.class);
-		when(condition.accepts(player)).thenReturn(true);
-		
-		EndTrigger trigger = new EndTrigger(condition, 3, 7);
-		trigger.execute(info);
-		verify(playState, times(1)).setNextLevel(anyInt(), eq(7));
-	}
+    private static final int DEST_X = 2;
+    private static final int DEST_Y = 1;
+
+    private ICollisionBehavior collisionBehavior;
+    private IController controller;
+    private IView view;
+    private Body body;
+
+    private Level level;
+    private Player player;
+    private CollisionInfo info;
+    private ICondition<Player> condition;
+    private EndTrigger trigger;
+
+    @Before
+    public void myBefore() {
+        collisionBehavior = mock(ICollisionBehavior.class);
+        controller = mock(IController.class);
+        view = mock(IView.class);
+        body = mock(Body.class);
+
+        level = mock(Level.class);
+        player = mock(Player.class);
+        condition = mock(PlayerNoCondition.class);
+        trigger = new EndTrigger(collisionBehavior, controller, view, body, condition, DEST_X,
+                DEST_Y);
+        info = new CollisionInfo(level, trigger, player);
+    }
+
+    @After
+    public void myAfter() {
+        collisionBehavior = null;
+        controller = null;
+        view = null;
+        body = null;
+        level = null;
+        player = null;
+        info = null;
+        condition = null;
+        trigger = null;
+    }
+
+    @Test
+    public void canExecuteConditionFail() {
+        when(condition.accepts(player)).thenReturn(false);
+
+        boolean result = trigger.canExecute(info);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void canExecuteConditionPass() {
+        when(condition.accepts(player)).thenReturn(true);
+
+        boolean result = trigger.canExecute(info);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void executeSetNextLevelCalled() {
+        when(condition.accepts(player)).thenReturn(true);
+
+        trigger.execute(info);
+
+        verify(level, times(1)).setNextLevel(DEST_X, DEST_Y);
+    }
 }

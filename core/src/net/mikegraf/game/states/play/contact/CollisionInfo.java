@@ -1,36 +1,33 @@
 package net.mikegraf.game.states.play.contact;
 
-import net.mikegraf.game.states.play.Play;
-import net.mikegraf.game.states.play.actors.B2DSprite;
-import net.mikegraf.game.states.play.actors.Player;
+import net.mikegraf.game.states.play.entities.GameEntity;
+import net.mikegraf.game.states.play.levels.Level;
 
 public class CollisionInfo {
 
-    private Play playState;
-    private Player player;
-    private B2DSprite otherSprite;
+    private Level level;
+    private GameEntity thisEntity;
+    private GameEntity otherEntity;
 
-    public Play getPlayState() {
-        return playState;
+    public CollisionInfo(Level level, GameEntity thisEntity, GameEntity otherEntity) {
+    	this.level = level;
+    	this.thisEntity = thisEntity;
+        this.otherEntity = otherEntity;
+    }
+    
+    public void setOtherEntity(GameEntity entity) {
+    	this.otherEntity = entity;
     }
 
-    public void setPlayState(Play playState) {
-        this.playState = playState;
+    public Level getLevel() {
+        return level;
+    }
+    
+    public GameEntity getThisEntity() {
+    	return thisEntity;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public B2DSprite getOtherSprite() {
-        return otherSprite;
-    }
-
-    public void setOtherSprite(B2DSprite otherSprite) {
-        this.otherSprite = otherSprite;
+    public GameEntity getOtherEntity() {
+        return otherEntity;
     }
 }
