@@ -19,7 +19,7 @@ public class Play extends GameState {
     // Constants.
     private static final int START_WORLD_X = 0;
     private static final int START_WORLD_Y = 0;
-    private static final boolean DEBUG_MODE = true;
+    private static final boolean DEBUG_MODE = false;
 
     // Instance variables.
     private LevelFactory levelFactory;
