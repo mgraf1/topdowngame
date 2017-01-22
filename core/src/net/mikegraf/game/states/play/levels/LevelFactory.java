@@ -25,6 +25,7 @@ import com.google.inject.Inject;
 
 import net.mikegraf.game.main.constants.B2dConstants;
 import net.mikegraf.game.main.constants.TiledConstants;
+import net.mikegraf.game.menus.FontFactory;
 import net.mikegraf.game.parsers.models.LevelData;
 import net.mikegraf.game.states.play.contact.MyContactListener;
 import net.mikegraf.game.states.play.entities.GameEntity;
@@ -39,11 +40,13 @@ public class LevelFactory {
 
     private LevelData[][] levelData;
     private GameEntityBuilding gameEntityBuilding;
+    private FontFactory fontFactory;
 
     @Inject
-    public LevelFactory(LevelData[][] data, GameEntityBuilding gameEntityBuilding) {
+    public LevelFactory(LevelData[][] data, GameEntityBuilding gameEntityBuilding, FontFactory fontFactory) {
         this.levelData = data;
         this.gameEntityBuilding = gameEntityBuilding;
+        this.fontFactory = fontFactory;
     }
 
     // Create the level at the given coordinates.
@@ -119,7 +122,7 @@ public class LevelFactory {
     // Create the PlayState's HUD.
     private PlayHud createHud(Player player) {
         Texture texture = new Texture(Gdx.files.internal(INVENTORY_TEXTURE_PATH));
-        return new PlayHud(new TextureRegion(texture), player);
+        return new PlayHud(new TextureRegion(texture), player, fontFactory);
     }
 
     // Create bodies for tiles within the wall layer.

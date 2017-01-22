@@ -8,6 +8,7 @@ import com.google.inject.Provides;
 
 import net.mikegraf.game.audio.SoundEffectFactory;
 import net.mikegraf.game.exceptions.ConfigFormatException;
+import net.mikegraf.game.menus.FontFactory;
 import net.mikegraf.game.parsers.AnimationParser;
 import net.mikegraf.game.parsers.BodyParser;
 import net.mikegraf.game.parsers.Parser;
@@ -49,6 +50,7 @@ public class PlayModule extends AbstractModule {
         bind(SoundEffectFactory.class).asEagerSingleton();
         bind(GameEntityBuilding.class);
         bind(PlayerInputHandler.class);
+        bind(FontFactory.class).asEagerSingleton();
     }
 
     @Provides

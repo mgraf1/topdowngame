@@ -12,12 +12,13 @@ public class AnimationView implements IView {
     private float height;
     private float width;
     private Vector2 renderVector;
+    private TextureRegion region;
 
     public AnimationView(AnimationIndex animationIndex) {
         this.animationIndex = animationIndex;
         this.renderVector = new Vector2();
 
-        TextureRegion region = animationIndex.getKeyFrame(0);
+        this.region = animationIndex.getKeyFrame(0);
         this.height = region.getRegionHeight();
         this.width = region.getRegionWidth();
     }
@@ -32,9 +33,13 @@ public class AnimationView implements IView {
     }
     
     @Override
+    public void render(SpriteBatch batch, float x, float y, float scale) {
+    	batch.draw(region, x, y, width * scale, height * scale); 
+    }
+    
+    @Override
     public void render(SpriteBatch batch, float x, float y) {
-    	TextureRegion region = animationIndex.getKeyFrame(0);
-        batch.draw(region, x, y);
+    	batch.draw(region, x, y);
     }
 
     @Override

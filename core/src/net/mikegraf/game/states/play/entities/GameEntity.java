@@ -44,6 +44,10 @@ public abstract class GameEntity {
         }
     }
     
+    public void renderHud(SpriteBatch batch, float x, float y, float scale) {
+    	view.render(batch, x, y, scale);
+    }
+    
     public void move(Vector2 movementVector) {
     	body.setLinearVelocity(movementVector.x * velocity, movementVector.y * velocity);
     }

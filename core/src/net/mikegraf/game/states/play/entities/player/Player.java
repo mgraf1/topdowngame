@@ -22,11 +22,13 @@ public class Player extends GameEntity {
     public static final String MOVE_RIGHT_ANIMATION_NAME = "moveRight";
     public static final String MOVE_DOWN_ANIMATION_NAME = "moveDown";
     public static final float MAX_VELOCITY = 1.2f;
+    public static final int STARTING_LIVES = 3;
 
     private Array<Item> inventory;
     private int inventorySize;
     private HashMap<String, String> vectorHashToAnimationMap;
     private HashSet<OperableGameEntity> touchedObjects;
+    private int numLives;
 
     public Player(ICollisionBehavior collisionBehavior, IController controller,
             IView view, Body body) {
@@ -37,6 +39,7 @@ public class Player extends GameEntity {
         this.vectorHashToAnimationMap = createMovementAnimationMap();
         this.touchedObjects = new HashSet<OperableGameEntity>();
         this.inventory = new Array<Item>(STARTING_INVENTORY_SIZE);
+        this.numLives = STARTING_LIVES;
     }
 
     private HashMap<String, String> createMovementAnimationMap() {
@@ -121,5 +124,9 @@ public class Player extends GameEntity {
 
     public Vector2 getPosition() {
         return body.getPosition();
+    }
+    
+    public int getNumLives() {
+    	return numLives;
     }
 }

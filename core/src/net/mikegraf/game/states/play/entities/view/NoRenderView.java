@@ -22,4 +22,8 @@ public class NoRenderView implements IView {
     public void setMode(String mode) {
     }
 
+	@Override
+	public void render(SpriteBatch batch, float x, float y, float scale) {	
+	}
+
 }

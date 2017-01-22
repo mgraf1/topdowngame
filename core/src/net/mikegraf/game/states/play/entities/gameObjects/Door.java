@@ -11,6 +11,8 @@ import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.logic.ICondition;
 
 public class Door extends OperableGameEntity {
+	
+	private static final String UNLOCK_SFX = "unlock";
 
     private ICondition<Player> condition;
 
@@ -25,6 +27,9 @@ public class Door extends OperableGameEntity {
     public boolean operate(Player player) {
         if (condition.accepts(player)) {
             toggle();
+            if (player != null) {
+            	soundEffectIndex.playSound(UNLOCK_SFX);
+            }
             return true;
         }
         return false;

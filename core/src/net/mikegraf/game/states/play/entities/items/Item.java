@@ -1,6 +1,5 @@
 package net.mikegraf.game.states.play.entities.items;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.states.play.entities.GameEntity;
@@ -16,10 +15,6 @@ public class Item extends GameEntity {
             IView view, Body body, String type) {
         super(collisionBehavior, controller, view, body);
         this.type = type;
-    }
-    
-    public void renderHud(SpriteBatch batch, float x, float y) {
-    	view.render(batch, x, y);
     }
 
     public String getType() {

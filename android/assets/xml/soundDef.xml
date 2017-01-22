@@ -9,4 +9,13 @@
 			</sound>
 		</sounds>
 	</objectWithSound>
+	<objectWithSound>
+		<type>door</type>
+		<sounds>
+			<sound>
+				<name>unlock</name>
+				<path>unlock1.mp3</path>
+			</sound>
+		</sounds>
+	</objectWithSound>
 </objectsWithSound>
