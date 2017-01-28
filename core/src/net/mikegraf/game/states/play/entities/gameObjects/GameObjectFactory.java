@@ -2,6 +2,7 @@ package net.mikegraf.game.states.play.entities.gameObjects;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -37,10 +38,10 @@ public class GameObjectFactory extends GameEntityFactory {
 
     @Override
     protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
-            IView view, Body body, MapProperties props) {
+            IView view, Body body, MapProperties props, AssetManager assetManager) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
         int id = props.get(TiledConstants.ENTITY_ID, Integer.class);
-        SoundEffectIndex soundEffectIndex = soundEffectFactory.createSoundEffectIndex(type);
+        SoundEffectIndex soundEffectIndex = soundEffectFactory.createSoundEffectIndex(type, assetManager);
 
         if (type.equals(TiledConstants.ENTITY_TYPE_DOOR)) {
             ICondition<Player> cond = null;

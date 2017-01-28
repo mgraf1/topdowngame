@@ -62,16 +62,18 @@ public abstract class GameEntity {
 
     public void hide() {
         body.setActive(false);
-        this.state = GameEntityState.HIDDEN;
+        state = GameEntityState.HIDDEN;
     }
 
     public void show() {
         body.setActive(true);
-        this.state = GameEntityState.VISIBLE;
+        state = GameEntityState.VISIBLE;
     }
 
     public void dispose(World world) {
-        this.state = GameEntityState.DISPOSED;
+        state = GameEntityState.DISPOSED;
+        world.destroyBody(body);
+        view.dispose();
     }
 
     public int getId() {

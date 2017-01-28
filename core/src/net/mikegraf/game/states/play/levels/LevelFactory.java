@@ -3,6 +3,7 @@ package net.mikegraf.game.states.play.levels;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
@@ -41,12 +42,15 @@ public class LevelFactory {
     private LevelData[][] levelData;
     private GameEntityBuilding gameEntityBuilding;
     private FontFactory fontFactory;
+    private LevelAssetLoader levelAssetLoader;
 
     @Inject
-    public LevelFactory(LevelData[][] data, GameEntityBuilding gameEntityBuilding, FontFactory fontFactory) {
+    public LevelFactory(LevelData[][] data, GameEntityBuilding gameEntityBuilding, FontFactory fontFactory,
+    		LevelAssetLoader levelAssetLoader) {
         this.levelData = data;
         this.gameEntityBuilding = gameEntityBuilding;
         this.fontFactory = fontFactory;
+        this.levelAssetLoader = levelAssetLoader;
     }
 
     // Create the level at the given coordinates.
@@ -56,16 +60,20 @@ public class LevelFactory {
         	String errString = String.format("Cannot build level at invalid coods" + "x: %s, y: %s", x, y);
         	throw new IllegalArgumentException(errString);
         }
+        
+        AssetManager assetManager = new AssetManager();
 
         World world = new World(GRAVITY_VECTOR, true);
         LevelData data = levelData[y][x];
         String name = data.getName();
-
+        
         TiledMap map = new TmxMapLoader().load(data.getFileName());
         MapLayers layers = map.getLayers();
         MapProperties mapProps = map.getProperties();
 
-        HashMap<Integer, GameEntity> idToEntityMap = placeGameEntities(layers, world);
+        levelAssetLoader.loadAssets(layers, assetManager);
+        assetManager.finishLoading();
+        HashMap<Integer, GameEntity> idToEntityMap = placeGameEntities(layers, world, assetManager);
 
         placeMapStructures(layers, mapProps, world);
 
@@ -79,7 +87,7 @@ public class LevelFactory {
         }
         PlayHud hud = createHud(player);
         
-        Level level = new Level(name, player, map, world, hud, idToEntityMap);        
+        Level level = new Level(name, player, map, world, hud, idToEntityMap, assetManager);        
         MyContactListener contactListener = new MyContactListener(level);
         world.setContactListener(contactListener);
 
@@ -110,13 +118,13 @@ public class LevelFactory {
         placeBorder(mapWidth, mapHeight, tileWidth, tileHeight, world, bDef, fDef);
     }
     
-    private HashMap<Integer, GameEntity> placeGameEntities(MapLayers layers, World world) {
+    private HashMap<Integer, GameEntity> placeGameEntities(MapLayers layers, World world, AssetManager assetManager) {
     	HashMap<Integer, GameEntity> idToEntityMap = new HashMap<Integer, GameEntity>();
         for (MapLayer layer : layers) {
             if (!(layer instanceof TiledMapTileLayer)) {
                 GameEntityFactory factory = gameEntityBuilding.getGameEntityFactory(layer);
                 for (MapObject mo : layer.getObjects()) {
-                    GameEntity entity = factory.createGameEntity(world, mo);
+                    GameEntity entity = factory.createGameEntity(world, mo, assetManager);
                     int id = entity.getId();
                     idToEntityMap.put(id, entity);
                 }

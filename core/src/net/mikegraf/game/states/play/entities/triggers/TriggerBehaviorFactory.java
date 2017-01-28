@@ -1,5 +1,6 @@
 package net.mikegraf.game.states.play.entities.triggers;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapProperties;
 
 import net.mikegraf.game.states.play.entities.BehaviorFactory;
@@ -13,7 +14,7 @@ import net.mikegraf.game.states.play.entities.view.NoRenderView;
 public class TriggerBehaviorFactory extends BehaviorFactory {
 
     @Override
-    public IView createView(MapProperties props) {
+    public IView createView(MapProperties props, AssetManager assetManager) {
         return new NoRenderView();
     }
 

@@ -1,5 +1,6 @@
 package net.mikegraf.game.states.play.entities.triggers;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -27,7 +28,7 @@ public class TriggerFactory extends GameEntityFactory {
 
     @Override
     protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController moveB,
-            IView renderB, Body body, MapProperties props) {
+            IView renderB, Body body, MapProperties props, AssetManager assetManager) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
         ICondition<Player> condition = new PlayerNoCondition();
 

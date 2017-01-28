@@ -2,6 +2,7 @@ package net.mikegraf.game.states.play.levels;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -36,8 +37,10 @@ public class Level {
     private HashMap<Integer, GameEntity> idToEntityMap;
     private int nextLevelX;
     private int nextLevelY;
+    private AssetManager assetManager;
     
-    public Level(String name, Player player, TiledMap tMap, World w, PlayHud h, HashMap<Integer, GameEntity> idToEntityMap) {
+    public Level(String name, Player player, TiledMap tMap, World w, PlayHud h, HashMap<Integer, 
+    		GameEntity> idToEntityMap, AssetManager assetManager) {
         this.map = tMap;
         this.player = player;
         this.name = name;
@@ -46,6 +49,7 @@ public class Level {
         this.idToEntityMap = idToEntityMap;
         this.nextLevelX = -1;
         this.nextLevelY = -1;
+        this.assetManager = assetManager;
     }
 
     /* Passes level all required objects to begin rendering. */
@@ -155,6 +159,11 @@ public class Level {
     public void dispose() {
         world.dispose();
         map.dispose();
+        assetManager.dispose();
+        
+        world = null;
+        map = null;
+        assetManager = null;
     }
 
     public String getName() {

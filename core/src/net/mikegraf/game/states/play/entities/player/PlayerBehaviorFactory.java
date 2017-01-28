@@ -1,5 +1,6 @@
 package net.mikegraf.game.states.play.entities.player;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapProperties;
 
 import net.mikegraf.game.main.constants.TiledConstants;
@@ -25,9 +26,9 @@ public class PlayerBehaviorFactory extends BehaviorFactory {
     }
 
     @Override
-    public IView createView(MapProperties props) {
+    public IView createView(MapProperties props, AssetManager assetManager) {
         String texture = props.get(TiledConstants.ENTITY_TEXTURE, String.class);
-        AnimationIndex animationIndex = animationFactory.createAnimationIndex(texture);
+        AnimationIndex animationIndex = animationFactory.createAnimationIndex(texture, assetManager);
         return new AnimationView(animationIndex);
     }
 

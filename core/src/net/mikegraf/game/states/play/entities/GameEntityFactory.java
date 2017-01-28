@@ -1,5 +1,6 @@
 package net.mikegraf.game.states.play.entities;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -21,15 +22,15 @@ public abstract class GameEntityFactory {
         this.behaviorFactory = behaviorFactory;
     }
 
-    public GameEntity createGameEntity(World world, MapObject mapObject) {
+    public GameEntity createGameEntity(World world, MapObject mapObject, AssetManager assetManager) {
         MapProperties props = mapObject.getProperties();
         Body body = bodyFactory.createBody(world, mapObject);
         ICollisionBehavior collisionB = behaviorFactory.createCollisionBehavior(props);
         IController controller = behaviorFactory.createController(props);
-        IView view = behaviorFactory.createView(props);
+        IView view = behaviorFactory.createView(props, assetManager);
         int id = props.get(TiledConstants.ENTITY_ID, Integer.class);
         
-        GameEntity entity = constructGameEntity(collisionB, controller, view, body, props);
+        GameEntity entity = constructGameEntity(collisionB, controller, view, body, props, assetManager);
         entity.setId(id);
         return entity;
     }
@@ -38,5 +39,5 @@ public abstract class GameEntityFactory {
     }
 
     protected abstract GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
-            IView view, Body body, MapProperties props);
+            IView view, Body body, MapProperties props, AssetManager assetManager);
 }

@@ -1,5 +1,6 @@
 package net.mikegraf.game.states.play.entities.player;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -19,7 +20,7 @@ public class PlayerFactory extends GameEntityFactory {
 
     @Override
     protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
-            IView view, Body body, MapProperties props) {
+            IView view, Body body, MapProperties props, AssetManager assetManager) {
         return new Player(collisionB, controller, view, body);
     }
 

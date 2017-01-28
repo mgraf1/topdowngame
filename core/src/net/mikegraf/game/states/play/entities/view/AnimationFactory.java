@@ -3,7 +3,7 @@ package net.mikegraf.game.states.play.entities.view;
 import java.util.HashMap;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,18 +24,18 @@ public class AnimationFactory {
         this.typeToAnimationIndexDataMap = typeToAnimationIndexDataMap;
     }
 
-    public AnimationIndex createAnimationIndex(String type) {
+    public AnimationIndex createAnimationIndex(String type, AssetManager assetManager) {
         AnimationIndexData data = typeToAnimationIndexDataMap.get(type);
         List<AnimationData> animationData = data.getAnimationData();
         if (animationData == null) {
-            return createDefaultSpriteAnimationIndex(data);
+            return createDefaultSpriteAnimationIndex(data, assetManager);
         } else {
-            return createSpriteAnimationIndex(data, animationData);
+            return createSpriteAnimationIndex(data, animationData, assetManager);
         }
     }
 
-    private AnimationIndex createSpriteAnimationIndex(AnimationIndexData indexData, List<AnimationData> animationData) {
-        Texture texture = new Texture(Gdx.files.internal(indexData.getTexturePath()));
+    private AnimationIndex createSpriteAnimationIndex(AnimationIndexData indexData, List<AnimationData> animationData, AssetManager assetManager) {
+        Texture texture = assetManager.get(indexData.getTexturePath(), Texture.class);
         int sheetWidth = indexData.getSheetWidth();
         int sheetHeight = indexData.getSheetHeight();
 
@@ -60,8 +60,8 @@ public class AnimationFactory {
         return retVal;
     }
 
-    private AnimationIndex createDefaultSpriteAnimationIndex(AnimationIndexData indexData) {
-        Texture texture = new Texture(Gdx.files.internal(indexData.getTexturePath()));
+    private AnimationIndex createDefaultSpriteAnimationIndex(AnimationIndexData indexData, AssetManager assetManager) {
+    	Texture texture = assetManager.get(indexData.getTexturePath(), Texture.class);
         AnimationIndex retVal = new AnimationIndex(texture);
         TextureRegion[][] tempFrames = TextureRegion.split(texture, texture.getWidth(), texture.getHeight());
         TextureRegion[] frames = new TextureRegion[1];
