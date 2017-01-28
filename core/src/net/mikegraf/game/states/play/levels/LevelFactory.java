@@ -52,57 +52,24 @@ public class LevelFactory {
     // Create the level at the given coordinates.
     public Level buildLevel(int x, int y) throws IllegalArgumentException {
 
-        // Validate arguments.
-        if (x < 0) {
-            throw new IllegalArgumentException("Cannot build level at invalid" + "x: " + x);
-        } else if (y < 0) {
-            throw new IllegalArgumentException("Cannot build level at invalid" + "y: " + y);
-        } else if (y > levelData.length - 1) {
-            throw new IllegalArgumentException("Cannot build level at invalid" + "y: " + y);
-        } else if (x > levelData[y].length - 1) {
-            throw new IllegalArgumentException("Cannot build level at invalid" + "x: " + x);
+        if (!levelArgsAreValid(x, y)) {
+        	String errString = String.format("Cannot build level at invalid coods" + "x: %s, y: %s", x, y);
+        	throw new IllegalArgumentException(errString);
         }
 
-        // Build the level based on the data.
         World world = new World(GRAVITY_VECTOR, true);
         LevelData data = levelData[y][x];
         String name = data.getName();
 
-        // TiledMapRenderer for the level.
         TiledMap map = new TmxMapLoader().load(data.getFileName());
-
-        // Place all game entities.
-        HashMap<Integer, GameEntity> idToEntityMap = new HashMap<Integer, GameEntity>();
         MapLayers layers = map.getLayers();
-        for (MapLayer layer : layers) {
-            if (!(layer instanceof TiledMapTileLayer)) {
-                GameEntityFactory factory = gameEntityBuilding.getGameEntityFactory(layer);
-                for (MapObject mo : layer.getObjects()) {
-                    GameEntity entity = factory.createGameEntity(world, mo);
-                    int id = entity.getId();
-                    idToEntityMap.put(id, entity);
-                }
-                factory.finalizeEntities();
-            }
-        }
-
-        // Create bodies for map structures.
         MapProperties mapProps = map.getProperties();
-        float tileWidth = mapProps.get(TiledConstants.MAP_TILE_WIDTH, Integer.class) / B2dConstants.PPM;
-        float tileHeight = mapProps.get(TiledConstants.MAP_TILE_HEIGHT, Integer.class) / B2dConstants.PPM;
-        int mapHeight = mapProps.get(TiledConstants.MAP_HEIGHT, Integer.class);
-        int mapWidth = mapProps.get(TiledConstants.MAP_WIDTH, Integer.class);
-        BodyDef bDef = new BodyDef();
-        FixtureDef fDef = new FixtureDef();
 
-        // Create walls within the map.
-        TiledMapTileLayer wallLayer = (TiledMapTileLayer) layers.get(TiledConstants.LAYER_WALL);
-        placeWalls(wallLayer, tileWidth, tileHeight, bDef, fDef, world);
+        HashMap<Integer, GameEntity> idToEntityMap = placeGameEntities(layers, world);
 
-        // Create border around the level.
-        placeBorder(mapWidth, mapHeight, tileWidth, tileHeight, world, bDef, fDef);
+        placeMapStructures(layers, mapProps, world);
 
-        // Create HUD.
+        // Get player reference.
         Player player = null;
         for (int id : idToEntityMap.keySet()) {
         	GameEntity entity = idToEntityMap.get(id);
@@ -117,6 +84,46 @@ public class LevelFactory {
         world.setContactListener(contactListener);
 
         return level;
+    }
+    
+    private boolean levelArgsAreValid(int x, int y) {
+    	if (x < 0 || y < 0 || x > levelData[y].length - 1 || y > levelData.length - 1) {
+            return false;
+        } else {
+        	return true;
+        }
+    }
+    
+    private void placeMapStructures(MapLayers layers, MapProperties mapProps, World world) {
+        float tileWidth = mapProps.get(TiledConstants.MAP_TILE_WIDTH, Integer.class) / B2dConstants.PPM;
+        float tileHeight = mapProps.get(TiledConstants.MAP_TILE_HEIGHT, Integer.class) / B2dConstants.PPM;
+        int mapHeight = mapProps.get(TiledConstants.MAP_HEIGHT, Integer.class);
+        int mapWidth = mapProps.get(TiledConstants.MAP_WIDTH, Integer.class);
+        BodyDef bDef = new BodyDef();
+        FixtureDef fDef = new FixtureDef();
+
+        // Create walls within the map.
+        TiledMapTileLayer wallLayer = (TiledMapTileLayer) layers.get(TiledConstants.LAYER_WALL);
+        placeWalls(wallLayer, tileWidth, tileHeight, bDef, fDef, world);
+
+        // Create border around the level.
+        placeBorder(mapWidth, mapHeight, tileWidth, tileHeight, world, bDef, fDef);
+    }
+    
+    private HashMap<Integer, GameEntity> placeGameEntities(MapLayers layers, World world) {
+    	HashMap<Integer, GameEntity> idToEntityMap = new HashMap<Integer, GameEntity>();
+        for (MapLayer layer : layers) {
+            if (!(layer instanceof TiledMapTileLayer)) {
+                GameEntityFactory factory = gameEntityBuilding.getGameEntityFactory(layer);
+                for (MapObject mo : layer.getObjects()) {
+                    GameEntity entity = factory.createGameEntity(world, mo);
+                    int id = entity.getId();
+                    idToEntityMap.put(id, entity);
+                }
+                factory.finalizeEntities();
+            }
+        }
+        return idToEntityMap;
     }
 
     // Create the PlayState's HUD.
