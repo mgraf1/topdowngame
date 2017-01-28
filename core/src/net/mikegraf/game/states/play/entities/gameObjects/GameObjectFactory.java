@@ -16,8 +16,8 @@ import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.view.IView;
+import net.mikegraf.game.states.play.logic.FailCondition;
 import net.mikegraf.game.states.play.logic.ICondition;
-import net.mikegraf.game.states.play.logic.NullCondition;
 import net.mikegraf.game.states.play.logic.PlayerItemCondition;
 
 public class GameObjectFactory extends GameEntityFactory {
@@ -48,7 +48,7 @@ public class GameObjectFactory extends GameEntityFactory {
             if (key != null) {
                 cond = new PlayerItemCondition(key, true);
             } else {
-                cond = new NullCondition<Player>();
+                cond = new FailCondition<Player>();
             }
             Door door = new Door(collisionB, controller, view, body, soundEffectIndex, cond);
             doorIdToDoorMap.put(id, door);

@@ -33,7 +33,9 @@ public class Switch extends OperableGameEntity {
             on = true;
         }
         soundEffectIndex.playSound(TURN_SFX);
-        return door.operate(null);
+        door.toggle();
+        
+        return true;
     }
 
     public boolean isOn() {

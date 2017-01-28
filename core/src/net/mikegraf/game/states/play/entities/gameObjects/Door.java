@@ -27,15 +27,13 @@ public class Door extends OperableGameEntity {
     public boolean operate(Player player) {
         if (condition.accepts(player)) {
             toggle();
-            if (player != null) {
-            	soundEffectIndex.playSound(UNLOCK_SFX);
-            }
+            soundEffectIndex.playSound(UNLOCK_SFX);
             return true;
         }
         return false;
     }
 
-    private void toggle() {
+    public void toggle() {
         if (state == GameEntityState.HIDDEN) {
             state = GameEntityState.READY_TO_SHOW;
         } else if (state == GameEntityState.VISIBLE) {

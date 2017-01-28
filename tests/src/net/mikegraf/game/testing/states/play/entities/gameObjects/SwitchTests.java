@@ -86,10 +86,10 @@ public class SwitchTests {
     }
 
     @Test
-    public void operateOperatesDoor() {
+    public void operateTogglesDoor() {
         s.operate(player);
 
-        verify(door, times(1)).operate(null);
+        verify(door, times(1)).toggle();
     }
 
     @Test
