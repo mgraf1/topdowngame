@@ -77,21 +77,24 @@ public class LevelFactory {
 
         placeMapStructures(layers, mapProps, world);
 
-        // Get player reference.
-        Player player = null;
-        for (int id : idToEntityMap.keySet()) {
-        	GameEntity entity = idToEntityMap.get(id);
-        	if (entity instanceof Player) {
-        		player = (Player)entity;
-        	}
-        }
-        PlayHud hud = createHud(player);
+        Player player = getPlayerReference(idToEntityMap);
+        PlayHud hud = createHud(player, assetManager);
         
         Level level = new Level(name, player, map, world, hud, idToEntityMap, assetManager);        
         MyContactListener contactListener = new MyContactListener(level);
         world.setContactListener(contactListener);
 
         return level;
+    }
+    
+    private Player getPlayerReference(HashMap<Integer, GameEntity> idToEntityMap) {
+        for (int id : idToEntityMap.keySet()) {
+        	GameEntity entity = idToEntityMap.get(id);
+        	if (entity instanceof Player) {
+        		return (Player)entity;
+        	}
+        }
+        throw new IllegalStateException("No player found");
     }
     
     private boolean levelArgsAreValid(int x, int y) {
@@ -135,9 +138,9 @@ public class LevelFactory {
     }
 
     // Create the PlayState's HUD.
-    private PlayHud createHud(Player player) {
+    private PlayHud createHud(Player player, AssetManager assetManager) {
         Texture texture = new Texture(Gdx.files.internal(INVENTORY_TEXTURE_PATH));
-        return new PlayHud(new TextureRegion(texture), player, fontFactory);
+        return new PlayHud(new TextureRegion(texture), player, fontFactory, assetManager);
     }
 
     // Create bodies for tiles within the wall layer.

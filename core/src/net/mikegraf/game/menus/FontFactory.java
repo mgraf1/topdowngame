@@ -1,24 +1,32 @@
 package net.mikegraf.game.menus;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
+import java.util.HashMap;
+
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.google.inject.Inject;
+
+import net.mikegraf.game.parsers.models.FontData;
 
 public class FontFactory {
-
-	private static final String FONT_PATH = "fonts/";
-	private static final String NOVEMBER_FILE_NAME = "november.fnt";
 	
-	public BitmapFont createFont(FontType type) { 
-		FileHandle handle = null;
-		switch (type) {
-		
-		case NOVEMBER:
-			handle = Gdx.files.internal(FONT_PATH + NOVEMBER_FILE_NAME);
-			break;
+	public static final String NOVEMBER = "november";
+	
+	private HashMap<String, FontData> nameToFontDataMap;
+	
+	@Inject
+	public FontFactory(HashMap<String, FontData> nameToFontDataMap) {
+		this.nameToFontDataMap = nameToFontDataMap;
+	}
+	
+	public BitmapFont createFont(String fontName, AssetManager assetManager) { 
+	
+		if (nameToFontDataMap.containsKey(fontName)) {
+			FontData data = nameToFontDataMap.get(fontName);
+			return assetManager.get(data.getPath());
+		} else {			
+			throw new IllegalArgumentException("No font " + fontName);
 		}
-		
-		return new BitmapFont(handle);
 	}
 	
 }

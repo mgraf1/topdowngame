@@ -1,5 +1,6 @@
 package net.mikegraf.game.states.play.levels;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,7 +9,6 @@ import com.badlogic.gdx.utils.Array;
 
 import net.mikegraf.game.main.MyGdxGame;
 import net.mikegraf.game.menus.FontFactory;
-import net.mikegraf.game.menus.FontType;
 import net.mikegraf.game.states.play.entities.items.Item;
 import net.mikegraf.game.states.play.entities.player.Player;
 
@@ -27,7 +27,7 @@ public class PlayHud {
     private Player player;
     private BitmapFont hudFont;
 
-    public PlayHud(TextureRegion iventoryTexture, Player player, FontFactory fontFactory) {
+    public PlayHud(TextureRegion iventoryTexture, Player player, FontFactory fontFactory, AssetManager assetManager) {
         this.inventorySquareTexture = iventoryTexture;
         this.inventoryLocations = new float[Player.STARTING_INVENTORY_SIZE];
 
@@ -38,7 +38,7 @@ public class PlayHud {
 
         this.playerInventory = player.getInventory();
         this.player = player;
-        this.hudFont = fontFactory.createFont(FontType.NOVEMBER);
+        this.hudFont = fontFactory.createFont(FontFactory.NOVEMBER, assetManager);
         this.hudFont.getData().setScale(.5f);
     }
 
