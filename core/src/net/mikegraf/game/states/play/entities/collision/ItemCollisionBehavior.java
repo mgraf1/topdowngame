@@ -12,15 +12,16 @@ public class ItemCollisionBehavior implements ICollisionBehavior {
     public void handleCollision(CollisionInfo info) {
         GameEntity entity = info.getOtherEntity();
         if (entity instanceof Player) {
-        	Player player = (Player) entity;
-        	Item item = (Item)info.getThisEntity();
-        	if (player.pickupItem(item)) {
-        		item.state = GameEntityState.READY_TO_HIDE;
-        	}
+            Player player = (Player) entity;
+            Item item = (Item) info.getThisEntity();
+            if (player.pickupItem(item)) {
+                item.state = GameEntityState.READY_TO_HIDE;
+            }
         }
     }
 
     @Override
-    public void handleEndCollision(CollisionInfo info) { }
+    public void handleEndCollision(CollisionInfo info) {
+    }
 
 }

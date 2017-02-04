@@ -11,14 +11,15 @@ public class TriggerCollisionBehavior implements ICollisionBehavior {
     public void handleCollision(CollisionInfo info) {
         GameEntity otherEntity = info.getOtherEntity();
         if (otherEntity instanceof Player) {
-        	Trigger trigger = (Trigger)info.getThisEntity();
-        	if (trigger.canExecute(info)) {
-        		trigger.execute(info);
-        	}
+            Trigger trigger = (Trigger) info.getThisEntity();
+            if (trigger.canExecute(info)) {
+                trigger.execute(info);
+            }
         }
     }
 
     @Override
-    public void handleEndCollision(CollisionInfo info) { }
+    public void handleEndCollision(CollisionInfo info) {
+    }
 
 }

@@ -21,8 +21,7 @@ public abstract class GameEntity {
     protected Body body;
     protected float velocity;
 
-    public GameEntity(ICollisionBehavior collisionBehavior, IController controller,
-            IView view, Body body) {
+    public GameEntity(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body) {
         this.collisionBehavior = collisionBehavior;
         this.view = view;
         this.controller = controller;
@@ -43,13 +42,13 @@ public abstract class GameEntity {
             view.render(batch, totalTime, position);
         }
     }
-    
+
     public void renderHud(SpriteBatch batch, float x, float y, float scale) {
-    	view.render(batch, x, y, scale);
+        view.render(batch, x, y, scale);
     }
-    
+
     public void move(Vector2 movementVector) {
-    	body.setLinearVelocity(movementVector.x * velocity, movementVector.y * velocity);
+        body.setLinearVelocity(movementVector.x * velocity, movementVector.y * velocity);
     }
 
     public void handleCollision(CollisionInfo info) {
@@ -89,30 +88,30 @@ public abstract class GameEntity {
     public void setVelocity(float value) {
         velocity = value;
     }
-    
+
     public void setId(int id) {
-    	this.id = id;
+        this.id = id;
     }
 
-	@Override
-	public int hashCode() {
-		final int prime = 37;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 37;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		GameEntity other = (GameEntity) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        GameEntity other = (GameEntity) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 }

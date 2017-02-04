@@ -10,8 +10,8 @@ import net.mikegraf.game.states.play.entities.view.IView;
 
 public abstract class OperableGameEntity extends GameObject {
 
-    public OperableGameEntity(ICollisionBehavior collisionBehavior, IController controller,
-            IView view, Body body, SoundEffectIndex soundEffectIndex) {
+    public OperableGameEntity(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
+            SoundEffectIndex soundEffectIndex) {
         super(collisionBehavior, controller, view, body, soundEffectIndex);
     }
 

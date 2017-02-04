@@ -12,8 +12,8 @@ public class GameObject extends GameEntity {
 
     protected SoundEffectIndex soundEffectIndex;
 
-    public GameObject(ICollisionBehavior collisionBehavior, IController controller,
-            IView view, Body body, SoundEffectIndex soundEffectIndex) {
+    public GameObject(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
+            SoundEffectIndex soundEffectIndex) {
         super(collisionBehavior, controller, view, body);
         this.soundEffectIndex = soundEffectIndex;
     }

@@ -14,8 +14,8 @@ public abstract class Trigger extends GameEntity {
 
     private ICondition<Player> condition;
 
-    public Trigger(ICollisionBehavior collisionBehavior, IController movementBehavior,
-            IView renderBehavior, Body body, ICondition<Player> condition) {
+    public Trigger(ICollisionBehavior collisionBehavior, IController movementBehavior, IView renderBehavior, Body body,
+            ICondition<Player> condition) {
         super(collisionBehavior, movementBehavior, renderBehavior, body);
         this.condition = condition;
     }

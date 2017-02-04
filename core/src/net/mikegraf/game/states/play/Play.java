@@ -58,7 +58,6 @@ public class Play extends GameState {
         level.prepare(b2dr, b2dCam, cam, hudCam, sb, DEBUG_MODE);
     }
 
-
     @Override
     public void update(float dt) {
 
@@ -67,8 +66,8 @@ public class Play extends GameState {
         level.update(dt);
 
         if (level.isComplete()) {
-        	Vector2 levelCoords = level.getNextLevel();
-            setCurrentLevel((int)levelCoords.x, (int)levelCoords.y);
+            Vector2 levelCoords = level.getNextLevel();
+            setCurrentLevel((int) levelCoords.x, (int) levelCoords.y);
         }
     }
 
@@ -88,7 +87,8 @@ public class Play extends GameState {
         }
         b2dr.dispose();
     }
-    
+
     @Override
-    public void handleInput() { }
+    public void handleInput() {
+    }
 }

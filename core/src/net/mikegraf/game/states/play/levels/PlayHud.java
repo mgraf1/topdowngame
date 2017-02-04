@@ -55,17 +55,17 @@ public class PlayHud {
 
             Item item = playerInventory.get(i);
             if (item != null) {
-            	item.renderHud(sb, inventoryLocations[i], INVENTORY_SPACER, 1f);
+                item.renderHud(sb, inventoryLocations[i], INVENTORY_SPACER, 1f);
             }
         }
-        
+
         renderLivesCounter(sb);
-        
+
         sb.end();
     }
-    
+
     private void renderLivesCounter(SpriteBatch batch) {
-    	player.renderHud(batch, LIFE_COUNTER_PLAYER_ICON_X, LIFE_COUNTER_PLAYER_ICON_Y, LIFE_COUNTER_PLAYER_SCALE);
+        player.renderHud(batch, LIFE_COUNTER_PLAYER_ICON_X, LIFE_COUNTER_PLAYER_ICON_Y, LIFE_COUNTER_PLAYER_SCALE);
         hudFont.draw(batch, "x" + player.getNumLives(), LIFE_COUNTER_TEXT_X, LIFE_COUNTER_TEXT_Y);
     }
 }

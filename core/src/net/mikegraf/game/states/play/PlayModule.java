@@ -60,21 +60,21 @@ public class PlayModule extends AbstractModule {
         bind(PlayerInputHandler.class);
         bind(FontFactory.class).asEagerSingleton();
     }
-    
+
     @Provides
     public HashMap<String, FontData> providesStringToFontDataMap() {
-    	if (fontDataMap == null) {
-	    	FontParser fontParser = new FontParser();
-	    	fontDataMap = parseConfigFile(fontParser, FONT_DEF_PATH);
-    	}
-    	return fontDataMap;
+        if (fontDataMap == null) {
+            FontParser fontParser = new FontParser();
+            fontDataMap = parseConfigFile(fontParser, FONT_DEF_PATH);
+        }
+        return fontDataMap;
     }
 
     @Provides
     public HashMap<String, AnimationIndexData> provideStringToAnimationIndexDataMap() {
         if (animationDataMap == null) {
-	    	AnimationParser animationParser = new AnimationParser();
-	        animationDataMap = parseConfigFile(animationParser, ANIMATION_DEF_PATH);
+            AnimationParser animationParser = new AnimationParser();
+            animationDataMap = parseConfigFile(animationParser, ANIMATION_DEF_PATH);
         }
         return animationDataMap;
     }
@@ -82,8 +82,8 @@ public class PlayModule extends AbstractModule {
     @Provides
     public HashMap<String, BodyData> provideStringToBodyDataMap() {
         if (bodyDataMap == null) {
-	    	BodyParser bodyParser = new BodyParser();
-	        bodyDataMap = parseConfigFile(bodyParser, BODY_DEF_PATH);
+            BodyParser bodyParser = new BodyParser();
+            bodyDataMap = parseConfigFile(bodyParser, BODY_DEF_PATH);
         }
         return bodyDataMap;
     }
@@ -91,17 +91,17 @@ public class PlayModule extends AbstractModule {
     @Provides
     public LevelData[][] provideLevelDataArray() {
         if (levelData == null) {
-	    	WorldParser worldParser = new WorldParser();
-	        levelData = parseConfigFile(worldParser, WORLD_DEF_PATH);
+            WorldParser worldParser = new WorldParser();
+            levelData = parseConfigFile(worldParser, WORLD_DEF_PATH);
         }
         return levelData;
     }
 
     @Provides
     public HashMap<String, SoundData> provideTypeToSoundDataMap() {
-        if (soundDataMap == null) { 
-	    	SoundParser soundParser = new SoundParser();
-	        soundDataMap = parseConfigFile(soundParser, SOUND_DEF_PATH);
+        if (soundDataMap == null) {
+            SoundParser soundParser = new SoundParser();
+            soundDataMap = parseConfigFile(soundParser, SOUND_DEF_PATH);
         }
         return soundDataMap;
     }

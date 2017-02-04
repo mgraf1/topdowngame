@@ -10,21 +10,21 @@ public class CollisionInfo {
     private GameEntity otherEntity;
 
     public CollisionInfo(Level level, GameEntity thisEntity, GameEntity otherEntity) {
-    	this.level = level;
-    	this.thisEntity = thisEntity;
+        this.level = level;
+        this.thisEntity = thisEntity;
         this.otherEntity = otherEntity;
     }
-    
+
     public void setOtherEntity(GameEntity entity) {
-    	this.otherEntity = entity;
+        this.otherEntity = entity;
     }
 
     public Level getLevel() {
         return level;
     }
-    
+
     public GameEntity getThisEntity() {
-    	return thisEntity;
+        return thisEntity;
     }
 
     public GameEntity getOtherEntity() {

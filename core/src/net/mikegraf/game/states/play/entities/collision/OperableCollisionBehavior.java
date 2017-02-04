@@ -9,20 +9,20 @@ public class OperableCollisionBehavior implements ICollisionBehavior {
 
     @Override
     public void handleCollision(CollisionInfo info) {
-    	GameEntity entity = info.getOtherEntity();
-    	if (entity instanceof Player) {
-    		Player player = (Player)entity;
-    		player.touch((OperableGameEntity)info.getThisEntity());
-    	}
+        GameEntity entity = info.getOtherEntity();
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+            player.touch((OperableGameEntity) info.getThisEntity());
+        }
     }
 
     @Override
     public void handleEndCollision(CollisionInfo info) {
-    	GameEntity entity = info.getOtherEntity();
-    	if (entity instanceof Player) {
-    		Player player = (Player)entity;
-    		player.stopTouching((OperableGameEntity)info.getThisEntity());
-    	}
+        GameEntity entity = info.getOtherEntity();
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+            player.stopTouching((OperableGameEntity) info.getThisEntity());
+        }
     }
 
 }

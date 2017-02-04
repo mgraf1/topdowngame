@@ -20,8 +20,8 @@ public class ItemFactory extends GameEntityFactory {
     }
 
     @Override
-    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
-            IView view, Body body, MapProperties props, AssetManager assetManager) {
+    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller, IView view,
+            Body body, MapProperties props, AssetManager assetManager) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
         return new Item(collisionB, controller, view, body, type);
     }

@@ -30,8 +30,7 @@ public class Player extends GameEntity {
     private HashSet<OperableGameEntity> touchedObjects;
     private int numLives;
 
-    public Player(ICollisionBehavior collisionBehavior, IController controller,
-            IView view, Body body) {
+    public Player(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body) {
         super(collisionBehavior, controller, view, body);
 
         this.inventorySize = STARTING_INVENTORY_SIZE;
@@ -125,8 +124,8 @@ public class Player extends GameEntity {
     public Vector2 getPosition() {
         return body.getPosition();
     }
-    
+
     public int getNumLives() {
-    	return numLives;
+        return numLives;
     }
 }

@@ -11,14 +11,13 @@ import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.logic.ICondition;
 
 public class Door extends OperableGameEntity {
-	
-	private static final String UNLOCK_SFX = "unlock";
+
+    private static final String UNLOCK_SFX = "unlock";
 
     private ICondition<Player> condition;
 
-    public Door(ICollisionBehavior collisionBehavior, IController controller,
-            IView view, Body body, SoundEffectIndex soundEffectIndex,
-            ICondition<Player> condition) {
+    public Door(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
+            SoundEffectIndex soundEffectIndex, ICondition<Player> condition) {
         super(collisionBehavior, controller, view, body, soundEffectIndex);
         this.condition = condition;
     }

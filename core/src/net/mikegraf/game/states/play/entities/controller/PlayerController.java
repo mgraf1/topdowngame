@@ -47,11 +47,11 @@ public class PlayerController implements IController {
         }
 
         entity.move(movementVector);
-        
+
         if (inputData.operatePressed) {
-        	((Player)entity).operateTouchedObjects();
+            ((Player) entity).operateTouchedObjects();
         }
-        
+
         return movementVector;
     }
 

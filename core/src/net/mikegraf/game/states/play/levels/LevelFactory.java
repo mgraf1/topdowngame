@@ -46,7 +46,7 @@ public class LevelFactory {
 
     @Inject
     public LevelFactory(LevelData[][] data, GameEntityBuilding gameEntityBuilding, FontFactory fontFactory,
-    		LevelAssetLoader levelAssetLoader) {
+            LevelAssetLoader levelAssetLoader) {
         this.levelData = data;
         this.gameEntityBuilding = gameEntityBuilding;
         this.fontFactory = fontFactory;
@@ -57,16 +57,16 @@ public class LevelFactory {
     public Level buildLevel(int x, int y) throws IllegalArgumentException {
 
         if (!levelArgsAreValid(x, y)) {
-        	String errString = String.format("Cannot build level at invalid coods" + "x: %s, y: %s", x, y);
-        	throw new IllegalArgumentException(errString);
+            String errString = String.format("Cannot build level at invalid coods" + "x: %s, y: %s", x, y);
+            throw new IllegalArgumentException(errString);
         }
-        
+
         AssetManager assetManager = new AssetManager();
 
         World world = new World(GRAVITY_VECTOR, true);
         LevelData data = levelData[y][x];
         String name = data.getName();
-        
+
         TiledMap map = new TmxMapLoader().load(data.getFileName());
         MapLayers layers = map.getLayers();
         MapProperties mapProps = map.getProperties();
@@ -79,32 +79,32 @@ public class LevelFactory {
 
         Player player = getPlayerReference(idToEntityMap);
         PlayHud hud = createHud(player, assetManager);
-        
-        Level level = new Level(name, player, map, world, hud, idToEntityMap, assetManager);        
+
+        Level level = new Level(name, player, map, world, hud, idToEntityMap, assetManager);
         MyContactListener contactListener = new MyContactListener(level);
         world.setContactListener(contactListener);
 
         return level;
     }
-    
+
     private Player getPlayerReference(HashMap<Integer, GameEntity> idToEntityMap) {
         for (int id : idToEntityMap.keySet()) {
-        	GameEntity entity = idToEntityMap.get(id);
-        	if (entity instanceof Player) {
-        		return (Player)entity;
-        	}
+            GameEntity entity = idToEntityMap.get(id);
+            if (entity instanceof Player) {
+                return (Player) entity;
+            }
         }
         throw new IllegalStateException("No player found");
     }
-    
+
     private boolean levelArgsAreValid(int x, int y) {
-    	if (x < 0 || y < 0 || x > levelData[y].length - 1 || y > levelData.length - 1) {
+        if (x < 0 || y < 0 || x > levelData[y].length - 1 || y > levelData.length - 1) {
             return false;
         } else {
-        	return true;
+            return true;
         }
     }
-    
+
     private void placeMapStructures(MapLayers layers, MapProperties mapProps, World world) {
         float tileWidth = mapProps.get(TiledConstants.MAP_TILE_WIDTH, Integer.class) / B2dConstants.PPM;
         float tileHeight = mapProps.get(TiledConstants.MAP_TILE_HEIGHT, Integer.class) / B2dConstants.PPM;
@@ -120,9 +120,9 @@ public class LevelFactory {
         // Create border around the level.
         placeBorder(mapWidth, mapHeight, tileWidth, tileHeight, world, bDef, fDef);
     }
-    
+
     private HashMap<Integer, GameEntity> placeGameEntities(MapLayers layers, World world, AssetManager assetManager) {
-    	HashMap<Integer, GameEntity> idToEntityMap = new HashMap<Integer, GameEntity>();
+        HashMap<Integer, GameEntity> idToEntityMap = new HashMap<Integer, GameEntity>();
         for (MapLayer layer : layers) {
             if (!(layer instanceof TiledMapTileLayer)) {
                 GameEntityFactory factory = gameEntityBuilding.getGameEntityFactory(layer);

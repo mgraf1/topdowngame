@@ -19,8 +19,8 @@ public class PlayerFactory extends GameEntityFactory {
     }
 
     @Override
-    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
-            IView view, Body body, MapProperties props, AssetManager assetManager) {
+    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller, IView view,
+            Body body, MapProperties props, AssetManager assetManager) {
         return new Player(collisionB, controller, view, body);
     }
 

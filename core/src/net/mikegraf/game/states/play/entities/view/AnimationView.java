@@ -31,15 +31,15 @@ public class AnimationView implements IView {
         batch.draw(region, renderVector.x, renderVector.y);
         batch.end();
     }
-    
+
     @Override
     public void render(SpriteBatch batch, float x, float y, float scale) {
-    	batch.draw(region, x, y, width * scale, height * scale); 
+        batch.draw(region, x, y, width * scale, height * scale);
     }
-    
+
     @Override
     public void render(SpriteBatch batch, float x, float y) {
-    	batch.draw(region, x, y);
+        batch.draw(region, x, y);
     }
 
     @Override

@@ -11,8 +11,7 @@ public class Item extends GameEntity {
 
     private String type;
 
-    public Item(ICollisionBehavior collisionBehavior, IController controller,
-            IView view, Body body, String type) {
+    public Item(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body, String type) {
         super(collisionBehavior, controller, view, body);
         this.type = type;
     }

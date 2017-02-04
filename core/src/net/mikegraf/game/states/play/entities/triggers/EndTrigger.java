@@ -15,8 +15,8 @@ public class EndTrigger extends Trigger {
     private int destX;
     private int destY;
 
-    public EndTrigger(ICollisionBehavior collisionBehavior, IController movementBehavior,
-            IView renderBehavior, Body body, ICondition<Player> condition, int destX, int destY) {
+    public EndTrigger(ICollisionBehavior collisionBehavior, IController movementBehavior, IView renderBehavior,
+            Body body, ICondition<Player> condition, int destX, int destY) {
         super(collisionBehavior, movementBehavior, renderBehavior, body, condition);
         this.destX = destX;
         this.destY = destY;

@@ -29,7 +29,7 @@ public abstract class GameEntityFactory {
         IController controller = behaviorFactory.createController(props);
         IView view = behaviorFactory.createView(props, assetManager);
         int id = props.get(TiledConstants.ENTITY_ID, Integer.class);
-        
+
         GameEntity entity = constructGameEntity(collisionB, controller, view, body, props, assetManager);
         entity.setId(id);
         return entity;
@@ -38,6 +38,6 @@ public abstract class GameEntityFactory {
     public void finalizeEntities() {
     }
 
-    protected abstract GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
-            IView view, Body body, MapProperties props, AssetManager assetManager);
+    protected abstract GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller, IView view,
+            Body body, MapProperties props, AssetManager assetManager);
 }

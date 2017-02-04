@@ -8,11 +8,10 @@ public class NoRenderView implements IView {
     @Override
     public void render(SpriteBatch batch, float totalTime, Vector2 position) {
     }
-    
+
     @Override
-    public void render(SpriteBatch batch, float x, float y) {	
+    public void render(SpriteBatch batch, float x, float y) {
     }
-    
 
     @Override
     public void dispose() {
@@ -22,8 +21,8 @@ public class NoRenderView implements IView {
     public void setMode(String mode) {
     }
 
-	@Override
-	public void render(SpriteBatch batch, float x, float y, float scale) {	
-	}
+    @Override
+    public void render(SpriteBatch batch, float x, float y, float scale) {
+    }
 
 }

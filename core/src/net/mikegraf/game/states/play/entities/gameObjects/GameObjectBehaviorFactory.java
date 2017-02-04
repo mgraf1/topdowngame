@@ -32,12 +32,12 @@ public class GameObjectBehaviorFactory extends BehaviorFactory {
 
     @Override
     public ICollisionBehavior createCollisionBehavior(MapProperties props) {
-    	String type = props.get(TiledConstants.ENTITY_TYPE, String.class); 
-    	if (type.equals(TiledConstants.ENTITY_TYPE_DOOR)) {
-    		return new OperableCollisionBehavior();
-    	} else if (type.equals(TiledConstants.ENTITY_TYPE_SWITCH)) {
-    		return new OperableCollisionBehavior();
-    	}
+        String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
+        if (type.equals(TiledConstants.ENTITY_TYPE_DOOR)) {
+            return new OperableCollisionBehavior();
+        } else if (type.equals(TiledConstants.ENTITY_TYPE_SWITCH)) {
+            return new OperableCollisionBehavior();
+        }
         return new NoCollisionBehavior();
     }
 

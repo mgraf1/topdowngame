@@ -38,9 +38,9 @@ public class Level {
     private int nextLevelX;
     private int nextLevelY;
     private AssetManager assetManager;
-    
-    public Level(String name, Player player, TiledMap tMap, World w, PlayHud h, HashMap<Integer, 
-    		GameEntity> idToEntityMap, AssetManager assetManager) {
+
+    public Level(String name, Player player, TiledMap tMap, World w, PlayHud h,
+            HashMap<Integer, GameEntity> idToEntityMap, AssetManager assetManager) {
         this.map = tMap;
         this.player = player;
         this.name = name;
@@ -142,25 +142,25 @@ public class Level {
         sb.setProjectionMatrix(hudCam.combined);
         hud.render(sb);
     }
-    
+
     public boolean isComplete() {
-    	return nextLevelX != -1 && nextLevelY != -1;
+        return nextLevelX != -1 && nextLevelY != -1;
     }
-    
+
     public void setNextLevel(int x, int y) {
-    	nextLevelX = x;
-    	nextLevelY = y;
+        nextLevelX = x;
+        nextLevelY = y;
     }
-    
+
     public Vector2 getNextLevel() {
-    	return new Vector2(nextLevelX, nextLevelY);
+        return new Vector2(nextLevelX, nextLevelY);
     }
 
     public void dispose() {
         world.dispose();
         map.dispose();
         assetManager.dispose();
-        
+
         world = null;
         map = null;
         assetManager = null;
@@ -169,11 +169,11 @@ public class Level {
     public String getName() {
         return name;
     }
-    
+
     public GameEntity getEntity(String id) {
-    	if (idToEntityMap.containsKey(id)) {
-    		return idToEntityMap.get(id);
-    	}
-    	return null;
+        if (idToEntityMap.containsKey(id)) {
+            return idToEntityMap.get(id);
+        }
+        return null;
     }
 }

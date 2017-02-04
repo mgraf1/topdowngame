@@ -34,7 +34,8 @@ public class AnimationFactory {
         }
     }
 
-    private AnimationIndex createSpriteAnimationIndex(AnimationIndexData indexData, List<AnimationData> animationData, AssetManager assetManager) {
+    private AnimationIndex createSpriteAnimationIndex(AnimationIndexData indexData, List<AnimationData> animationData,
+            AssetManager assetManager) {
         Texture texture = assetManager.get(indexData.getTexturePath(), Texture.class);
         int sheetWidth = indexData.getSheetWidth();
         int sheetHeight = indexData.getSheetHeight();
@@ -61,7 +62,7 @@ public class AnimationFactory {
     }
 
     private AnimationIndex createDefaultSpriteAnimationIndex(AnimationIndexData indexData, AssetManager assetManager) {
-    	Texture texture = assetManager.get(indexData.getTexturePath(), Texture.class);
+        Texture texture = assetManager.get(indexData.getTexturePath(), Texture.class);
         AnimationIndex retVal = new AnimationIndex(texture);
         TextureRegion[][] tempFrames = TextureRegion.split(texture, texture.getWidth(), texture.getHeight());
         TextureRegion[] frames = new TextureRegion[1];

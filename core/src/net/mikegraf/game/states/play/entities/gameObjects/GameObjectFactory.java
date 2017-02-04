@@ -37,8 +37,8 @@ public class GameObjectFactory extends GameEntityFactory {
     }
 
     @Override
-    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller,
-            IView view, Body body, MapProperties props, AssetManager assetManager) {
+    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller, IView view,
+            Body body, MapProperties props, AssetManager assetManager) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
         int id = props.get(TiledConstants.ENTITY_ID, Integer.class);
         SoundEffectIndex soundEffectIndex = soundEffectFactory.createSoundEffectIndex(type, assetManager);
@@ -56,12 +56,12 @@ public class GameObjectFactory extends GameEntityFactory {
             return door;
 
         } else if (type.equals(TiledConstants.ENTITY_TYPE_SWITCH)) {
-        	String doorString = props.get(TiledConstants.ENTITY_SWITCH_PROP_DOOR, String.class);
-        	int door = Integer.parseInt(doorString);
+            String doorString = props.get(TiledConstants.ENTITY_SWITCH_PROP_DOOR, String.class);
+            int door = Integer.parseInt(doorString);
             Switch switchToReturn = new Switch(collisionB, controller, view, body, soundEffectIndex);
             int switchId = props.get(TiledConstants.ENTITY_ID, Integer.class);
             switchToReturn.setId(switchId);
-            
+
             switchToDoorIdMap.put(switchToReturn, door);
             return switchToReturn;
 

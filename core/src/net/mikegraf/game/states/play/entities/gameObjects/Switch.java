@@ -17,8 +17,8 @@ public class Switch extends OperableGameEntity {
     private boolean on;
     private Door door;
 
-    public Switch(ICollisionBehavior collisionBehavior, IController controller,
-            IView view, Body body, SoundEffectIndex soundEffectIndex) {
+    public Switch(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
+            SoundEffectIndex soundEffectIndex) {
         super(collisionBehavior, controller, view, body, soundEffectIndex);
         this.on = false;
     }
@@ -34,7 +34,7 @@ public class Switch extends OperableGameEntity {
         }
         soundEffectIndex.playSound(TURN_SFX);
         door.toggle();
-        
+
         return true;
     }
 

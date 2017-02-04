@@ -33,7 +33,7 @@ public abstract class BodyFactory {
         float height = props.get(TiledConstants.ENTITY_HEIGHT, Float.class);
         Box2dHelper.toBox2dCoords(bodyDef.position, new Vector2(x, y), width, height);
     }
-    
+
     public abstract Body createBody(World world, MapObject mapObject);
 
 }

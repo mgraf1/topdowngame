@@ -27,8 +27,8 @@ public class TriggerFactory extends GameEntityFactory {
     }
 
     @Override
-    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController moveB,
-            IView renderB, Body body, MapProperties props, AssetManager assetManager) {
+    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController moveB, IView renderB, Body body,
+            MapProperties props, AssetManager assetManager) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
         ICondition<Player> condition = new PlayerNoCondition();
 
