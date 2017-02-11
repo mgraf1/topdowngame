@@ -24,11 +24,12 @@ public class Player extends GameEntity {
     public static final float MAX_VELOCITY = 1.2f;
     public static final int STARTING_LIVES = 3;
 
+    private boolean dead;
     private Array<Item> inventory;
     private int inventorySize;
     private HashMap<String, String> vectorHashToAnimationMap;
     private HashSet<OperableGameEntity> touchedObjects;
-    private int numLives;
+    private PlayerProfile profile;
 
     public Player(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body) {
         super(collisionBehavior, controller, view, body);
@@ -38,7 +39,7 @@ public class Player extends GameEntity {
         this.vectorHashToAnimationMap = createMovementAnimationMap();
         this.touchedObjects = new HashSet<OperableGameEntity>();
         this.inventory = new Array<Item>(STARTING_INVENTORY_SIZE);
-        this.numLives = STARTING_LIVES;
+        this.dead = false;
     }
 
     private HashMap<String, String> createMovementAnimationMap() {
@@ -56,6 +57,19 @@ public class Player extends GameEntity {
         if (animation != null) {
             view.setMode(animation);
         }
+    }
+
+    public void setProfile(PlayerProfile profile) {
+        this.profile = profile;
+    }
+
+    public void die() {
+        profile.die();
+        dead = true;
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 
     public boolean pickupItem(Item item) {
@@ -126,6 +140,6 @@ public class Player extends GameEntity {
     }
 
     public int getNumLives() {
-        return numLives;
+        return profile.getNumLives();
     }
 }

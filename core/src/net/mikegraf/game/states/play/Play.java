@@ -11,6 +11,8 @@ import com.google.inject.Injector;
 import net.mikegraf.game.main.MyGdxGame;
 import net.mikegraf.game.main.constants.B2dConstants;
 import net.mikegraf.game.states.GameState;
+import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.player.PlayerProfile;
 import net.mikegraf.game.states.play.levels.Level;
 import net.mikegraf.game.states.play.levels.LevelFactory;
 
@@ -26,22 +28,25 @@ public class Play extends GameState {
     private Level level;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera b2dCam;
+    private int currLevelX;
+    private int currLevelY;
+    private PlayerProfile playerProfile;
 
     public Play(MyGdxGame g) {
         super(g);
 
         Injector injector = Guice.createInjector(new PlayModule(this));
-
         this.levelFactory = injector.getInstance(LevelFactory.class);
 
         // Box 2d render for debug purposes.
-        b2dr = new Box2DDebugRenderer();
+        this.b2dr = new Box2DDebugRenderer();
 
         // Set up box2d camera.
-        b2dCam = new OrthographicCamera();
-        b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / B2dConstants.PPM, MyGdxGame.V_HEIGHT / B2dConstants.PPM);
+        this.b2dCam = new OrthographicCamera();
+        this.b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / B2dConstants.PPM, MyGdxGame.V_HEIGHT / B2dConstants.PPM);
 
         // Get first level.
+        this.playerProfile = new PlayerProfile(Player.STARTING_LIVES);
         setCurrentLevel(START_WORLD_X, START_WORLD_Y);
     }
 
@@ -55,7 +60,9 @@ public class Play extends GameState {
         this.level = levelFactory.buildLevel(x, y);
 
         // Prepare the level to be rendered.
-        level.prepare(b2dr, b2dCam, cam, hudCam, sb, DEBUG_MODE);
+        level.prepare(playerProfile, b2dr, b2dCam, cam, hudCam, sb, DEBUG_MODE);
+        currLevelX = x;
+        currLevelY = y;
     }
 
     @Override
@@ -65,9 +72,15 @@ public class Play extends GameState {
 
         level.update(dt);
 
-        if (level.isComplete()) {
+        switch (level.getState()) {
+        case COMPLETE:
             Vector2 levelCoords = level.getNextLevel();
             setCurrentLevel((int) levelCoords.x, (int) levelCoords.y);
+            break;
+        case RESTARTING:
+            setCurrentLevel(currLevelX, currLevelY);
+            break;
+        case ACTIVE:
         }
     }
 

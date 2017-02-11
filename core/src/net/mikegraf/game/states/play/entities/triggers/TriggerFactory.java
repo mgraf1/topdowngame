@@ -19,6 +19,7 @@ import net.mikegraf.game.states.play.logic.PlayerNoCondition;
 public class TriggerFactory extends GameEntityFactory {
 
     private final String END_TRIGGER_TYPE = "end";
+    private final String DEATH_TRIGGER_TYPE = "death";
     private final String END_TRIGGER_DEST_X = "destX";
     private final String END_TRIGGER_DEST_Y = "destY";
 
@@ -27,15 +28,17 @@ public class TriggerFactory extends GameEntityFactory {
     }
 
     @Override
-    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController moveB, IView renderB, Body body,
-            MapProperties props, AssetManager assetManager) {
+    protected GameEntity constructGameEntity(ICollisionBehavior collisionB, IController controller, IView view,
+            Body body, MapProperties props, AssetManager assetManager) {
         String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
         ICondition<Player> condition = new PlayerNoCondition();
 
         if (type.equals(END_TRIGGER_TYPE)) {
             int dX = Integer.parseInt(props.get(END_TRIGGER_DEST_X, String.class));
             int dY = Integer.parseInt(props.get(END_TRIGGER_DEST_Y, String.class));
-            return new EndTrigger(collisionB, moveB, renderB, body, condition, dX, dY);
+            return new EndTrigger(collisionB, controller, view, body, condition, dX, dY);
+        } else if (type.equals(DEATH_TRIGGER_TYPE)) {
+            return new DeathTrigger(collisionB, controller, view, body, condition);
         } else {
             throw new IllegalArgumentException("No type: " + type);
         }

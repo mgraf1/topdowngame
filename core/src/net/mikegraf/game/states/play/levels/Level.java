@@ -17,6 +17,7 @@ import net.mikegraf.game.main.BoundedOrthoCamera;
 import net.mikegraf.game.main.constants.B2dConstants;
 import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.player.PlayerProfile;
 
 public class Level {
 
@@ -38,6 +39,7 @@ public class Level {
     private int nextLevelX;
     private int nextLevelY;
     private AssetManager assetManager;
+    private LevelState state;
 
     public Level(String name, Player player, TiledMap tMap, World w, PlayHud h,
             HashMap<Integer, GameEntity> idToEntityMap, AssetManager assetManager) {
@@ -53,26 +55,33 @@ public class Level {
     }
 
     /* Passes level all required objects to begin rendering. */
-    public void prepare(Box2DDebugRenderer bdr, OrthographicCamera bc, BoundedOrthoCamera c, OrthographicCamera hudC,
-            SpriteBatch batch, boolean debug) {
+    public void prepare(PlayerProfile playerProfile, Box2DDebugRenderer bdr, OrthographicCamera bc,
+            BoundedOrthoCamera c, OrthographicCamera hudC, SpriteBatch batch, boolean debug) {
 
-        tmr = new OrthogonalTiledMapRenderer(map);
-        debugMode = debug;
-        b2dr = bdr;
-        b2dCam = bc;
-        sb = batch;
-        actorBodies = new Array<Body>();
-        cam = c;
-        hudCam = hudC;
+        this.tmr = new OrthogonalTiledMapRenderer(map);
+        this.debugMode = debug;
+        this.b2dr = bdr;
+        this.b2dCam = bc;
+        this.sb = batch;
+        this.actorBodies = new Array<Body>();
+        this.cam = c;
+        this.hudCam = hudC;
+        this.state = LevelState.ACTIVE;
 
         int mapWidth = map.getProperties().get("width", Integer.class);
         int mapHeight = map.getProperties().get("height", Integer.class);
         int tileWidth = map.getProperties().get("tilewidth", Integer.class);
         int tileHeight = map.getProperties().get("tileheight", Integer.class);
-        cam.setBounds(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
+        this.cam.setBounds(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
+
+        this.player.setProfile(playerProfile);
     }
 
     public void update(float dt) {
+        if (player.isDead()) {
+            state = LevelState.RESTARTING;
+        }
+
         world.step(dt, B2dConstants.VEL_INTEGRATIONS, B2dConstants.POS_INTEGRATIONS);
 
         world.getBodies(actorBodies);
@@ -143,17 +152,18 @@ public class Level {
         hud.render(sb);
     }
 
-    public boolean isComplete() {
-        return nextLevelX != -1 && nextLevelY != -1;
-    }
-
     public void setNextLevel(int x, int y) {
         nextLevelX = x;
         nextLevelY = y;
+        state = LevelState.COMPLETE;
     }
 
     public Vector2 getNextLevel() {
         return new Vector2(nextLevelX, nextLevelY);
+    }
+
+    public LevelState getState() {
+        return state;
     }
 
     public void dispose() {
