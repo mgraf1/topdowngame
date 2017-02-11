@@ -1,6 +1,7 @@
 package net.mikegraf.game.states;
 
 import net.mikegraf.game.main.MyGdxGame;
+import net.mikegraf.game.states.gameOver.GameOver;
 import net.mikegraf.game.states.play.Play;
 
 public class GameStateFactory {
@@ -15,7 +16,8 @@ public class GameStateFactory {
         switch (state) {
         case PLAY:
             return new Play(game);
-
+        case GAME_OVER:
+            return new GameOver(game);
         default:
             throw new IllegalArgumentException("No state: " + state.name());
         }

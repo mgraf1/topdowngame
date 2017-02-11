@@ -9,6 +9,8 @@ import com.google.inject.Provides;
 import net.mikegraf.game.audio.SoundEffectFactory;
 import net.mikegraf.game.exceptions.ConfigFormatException;
 import net.mikegraf.game.menus.FontFactory;
+import net.mikegraf.game.menus.FontLoader;
+import net.mikegraf.game.menus.IFontLoader;
 import net.mikegraf.game.parsers.AnimationParser;
 import net.mikegraf.game.parsers.BodyParser;
 import net.mikegraf.game.parsers.FontParser;
@@ -49,6 +51,7 @@ public class PlayModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(IFontLoader.class).to(FontLoader.class);
         bind(BehaviorBuilding.class);
         bind(BodyBuilding.class);
         bind(ShapeFactory.class);

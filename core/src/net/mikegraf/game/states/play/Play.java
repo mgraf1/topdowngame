@@ -11,6 +11,7 @@ import com.google.inject.Injector;
 import net.mikegraf.game.main.MyGdxGame;
 import net.mikegraf.game.main.constants.B2dConstants;
 import net.mikegraf.game.states.GameState;
+import net.mikegraf.game.states.StateType;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.player.PlayerProfile;
 import net.mikegraf.game.states.play.levels.Level;
@@ -50,8 +51,12 @@ public class Play extends GameState {
         setCurrentLevel(START_WORLD_X, START_WORLD_Y);
     }
 
+    private void restartCurrentLevel() {
+        setCurrentLevel(currLevelX, currLevelY);
+    }
+
     // Construct the level at World coordinates (x,y).
-    public void setCurrentLevel(int x, int y) {
+    private void setCurrentLevel(int x, int y) {
 
         if (level != null) {
             level.dispose();
@@ -78,7 +83,11 @@ public class Play extends GameState {
             setCurrentLevel((int) levelCoords.x, (int) levelCoords.y);
             break;
         case RESTARTING:
-            setCurrentLevel(currLevelX, currLevelY);
+            if (playerProfile.getNumLives() > 0) {
+                restartCurrentLevel();
+            } else {
+                game.getGameStateManager().setState(StateType.GAME_OVER);
+            }
             break;
         case ACTIVE:
         }
@@ -97,6 +106,7 @@ public class Play extends GameState {
     public void dispose() {
         if (level != null) {
             level.dispose();
+            level = null;
         }
         b2dr.dispose();
     }

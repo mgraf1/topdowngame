@@ -25,6 +25,11 @@ public class GameStateManager {
         gameStates.peek().render(totalTime);
     }
 
+    public void setState(StateType state) {
+        popState();
+        pushState(state);
+    }
+
     public void pushState(StateType state) {
         gameStates.push(gameStateFactory.createState(state));
     }

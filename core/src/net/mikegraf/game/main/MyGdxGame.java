@@ -51,6 +51,10 @@ public class MyGdxGame extends ApplicationAdapter {
         }
     }
 
+    public GameStateManager getGameStateManager() {
+        return gsm;
+    }
+
     public BoundedOrthoCamera getCamera() {
         return cam;
     }

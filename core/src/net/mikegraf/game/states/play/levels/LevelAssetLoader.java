@@ -6,7 +6,6 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
@@ -14,8 +13,8 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.google.inject.Inject;
 
 import net.mikegraf.game.main.constants.TiledConstants;
+import net.mikegraf.game.menus.IFontLoader;
 import net.mikegraf.game.parsers.models.AnimationIndexData;
-import net.mikegraf.game.parsers.models.FontData;
 import net.mikegraf.game.parsers.models.SoundData;
 import net.mikegraf.game.parsers.models.SoundEffectData;
 
@@ -23,14 +22,14 @@ public class LevelAssetLoader {
 
     private HashMap<String, AnimationIndexData> animationDataMap;
     private HashMap<String, SoundData> soundDataMap;
-    private HashMap<String, FontData> fontDataMap;
+    private IFontLoader fontLoader;
 
     @Inject
     public LevelAssetLoader(HashMap<String, AnimationIndexData> animationDataMap,
-            HashMap<String, SoundData> soundDataMap, HashMap<String, FontData> fontDataMap) {
+            HashMap<String, SoundData> soundDataMap, IFontLoader fontLoader) {
         this.animationDataMap = animationDataMap;
         this.soundDataMap = soundDataMap;
-        this.fontDataMap = fontDataMap;
+        this.fontLoader = fontLoader;
     }
 
     public void loadAssets(MapLayers layers, AssetManager assetManager) {
@@ -43,14 +42,7 @@ public class LevelAssetLoader {
         MapLayer playerLayer = layers.get(TiledConstants.LAYER_PLAYER);
         loadAssetsForLayer(playerLayer, assetManager);
 
-        loadFontData(assetManager);
-    }
-
-    private void loadFontData(AssetManager assetManager) {
-        for (String key : fontDataMap.keySet()) {
-            FontData fontData = fontDataMap.get(key);
-            assetManager.load(fontData.getPath(), BitmapFont.class);
-        }
+        fontLoader.loadFontData(assetManager);
     }
 
     private void loadAssetsForLayer(MapLayer layer, AssetManager assetManager) {
