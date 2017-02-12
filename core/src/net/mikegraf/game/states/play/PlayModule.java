@@ -28,6 +28,7 @@ import net.mikegraf.game.states.play.entities.GameEntityBuilding;
 import net.mikegraf.game.states.play.entities.bodies.BodyBuilding;
 import net.mikegraf.game.states.play.entities.bodies.ShapeFactory;
 import net.mikegraf.game.states.play.entities.view.AnimationFactory;
+import net.mikegraf.game.states.play.hud.HudAssetHelper;
 import net.mikegraf.game.states.play.levels.LevelFactory;
 
 public class PlayModule extends AbstractModule {
@@ -61,6 +62,7 @@ public class PlayModule extends AbstractModule {
         bind(SoundEffectFactory.class).asEagerSingleton();
         bind(GameEntityBuilding.class);
         bind(PlayerInputHandler.class);
+        bind(HudAssetHelper.class);
         bind(FontFactory.class).asEagerSingleton();
     }
 

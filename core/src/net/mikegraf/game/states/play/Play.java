@@ -47,7 +47,7 @@ public class Play extends GameState {
         this.b2dCam.setToOrtho(false, MyGdxGame.V_WIDTH / B2dConstants.PPM, MyGdxGame.V_HEIGHT / B2dConstants.PPM);
 
         // Get first level.
-        this.playerProfile = new PlayerProfile(Player.STARTING_LIVES);
+        this.playerProfile = new PlayerProfile(Player.STARTING_LIVES, Player.STARTING_MAX_HEALTH);
         setCurrentLevel(START_WORLD_X, START_WORLD_Y);
     }
 

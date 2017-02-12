@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entities texturePath="textures/entities/">
 	<entity>
+		<type>health</type>
+		<texturePath>health.png</texturePath>
+		<sheetWidth>2</sheetWidth>
+		<sheetHeight>1</sheetHeight>
+		<animations>
+			<animation>
+				<name>full</name>
+				<startingFrame>0</startingFrame>
+				<endingFrame>0</endingFrame>
+			</animation>
+			<animation>
+				<name>empty</name>
+				<startingFrame>1</startingFrame>
+				<endingFrame>1</endingFrame>
+			</animation>
+		</animations>
+	</entity>
+	<entity>
 		<type>player</type>
 		<texturePath>player.png</texturePath>
 		<sheetWidth>2</sheetWidth>
@@ -27,6 +45,12 @@
 				<endingFrame>3</endingFrame>
 			</animation>
 		</animations>
+	</entity>
+	<entity>
+		<type>inventory</type>
+		<texturePath>inventory_slot.png</texturePath>
+		<sheetWidth>1</sheetWidth>
+		<sheetHeight>1</sheetHeight>
 	</entity>
 	<entity>
 		<type>redkey</type>

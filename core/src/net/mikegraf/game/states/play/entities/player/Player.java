@@ -23,6 +23,7 @@ public class Player extends GameEntity {
     public static final String MOVE_DOWN_ANIMATION_NAME = "moveDown";
     public static final float MAX_VELOCITY = 1.2f;
     public static final int STARTING_LIVES = 3;
+    public static final int STARTING_MAX_HEALTH = 3;
 
     private boolean dead;
     private Array<Item> inventory;
@@ -30,6 +31,7 @@ public class Player extends GameEntity {
     private HashMap<String, String> vectorHashToAnimationMap;
     private HashSet<OperableGameEntity> touchedObjects;
     private PlayerProfile profile;
+    private int currHealth;
 
     public Player(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body) {
         super(collisionBehavior, controller, view, body);
@@ -61,6 +63,7 @@ public class Player extends GameEntity {
 
     public void setProfile(PlayerProfile profile) {
         this.profile = profile;
+        this.currHealth = profile.getMaxHealth();
     }
 
     public void die() {
@@ -141,5 +144,13 @@ public class Player extends GameEntity {
 
     public int getNumLives() {
         return profile.getNumLives();
+    }
+
+    public int getMaxHealth() {
+        return profile.getMaxHealth();
+    }
+
+    public int getCurrentHealth() {
+        return currHealth;
     }
 }

@@ -18,6 +18,7 @@ import net.mikegraf.game.main.constants.B2dConstants;
 import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.player.PlayerProfile;
+import net.mikegraf.game.states.play.hud.PlayHud;
 
 public class Level {
 

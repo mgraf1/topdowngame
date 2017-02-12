@@ -2,9 +2,8 @@ package net.mikegraf.game.states.play.levels;
 
 import java.util.HashMap;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
@@ -33,6 +32,9 @@ import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.GameEntityBuilding;
 import net.mikegraf.game.states.play.entities.GameEntityFactory;
 import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.view.AnimationIndex;
+import net.mikegraf.game.states.play.hud.HudAssetHelper;
+import net.mikegraf.game.states.play.hud.PlayHud;
 
 public class LevelFactory {
 
@@ -43,14 +45,16 @@ public class LevelFactory {
     private GameEntityBuilding gameEntityBuilding;
     private FontFactory fontFactory;
     private LevelAssetLoader levelAssetLoader;
+    private HudAssetHelper hudHelper;
 
     @Inject
     public LevelFactory(LevelData[][] data, GameEntityBuilding gameEntityBuilding, FontFactory fontFactory,
-            LevelAssetLoader levelAssetLoader) {
+            LevelAssetLoader levelAssetLoader, HudAssetHelper hudHelper) {
         this.levelData = data;
         this.gameEntityBuilding = gameEntityBuilding;
         this.fontFactory = fontFactory;
         this.levelAssetLoader = levelAssetLoader;
+        this.hudHelper = hudHelper;
     }
 
     // Create the level at the given coordinates.
@@ -72,6 +76,7 @@ public class LevelFactory {
         MapProperties mapProps = map.getProperties();
 
         levelAssetLoader.loadAssets(layers, assetManager);
+        hudHelper.loadAssets(assetManager);
         assetManager.finishLoading();
         HashMap<Integer, GameEntity> idToEntityMap = placeGameEntities(layers, world, assetManager);
 
@@ -139,8 +144,10 @@ public class LevelFactory {
 
     // Create the PlayState's HUD.
     private PlayHud createHud(Player player, AssetManager assetManager) {
-        Texture texture = new Texture(Gdx.files.internal(INVENTORY_TEXTURE_PATH));
-        return new PlayHud(new TextureRegion(texture), player, fontFactory, assetManager);
+        TextureRegion inventoryTex = hudHelper.getTextureRegion(HudAssetHelper.INVENTORY_SLOT_TYPE, assetManager);
+        BitmapFont hudFont = fontFactory.createFont(FontFactory.NOVEMBER, assetManager);
+        AnimationIndex healthAnimation = hudHelper.getAnimationIndex(HudAssetHelper.HEALTH_TYPE, assetManager);
+        return new PlayHud(player, hudFont, inventoryTex, healthAnimation);
     }
 
     // Create bodies for tiles within the wall layer.
