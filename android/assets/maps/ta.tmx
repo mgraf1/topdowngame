@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="12">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="13">
  <tileset firstgid="1" name="dg_grounds32" tilewidth="32" tileheight="32" tilecount="171" columns="9">
   <image source="AngbandTk/AngbandTk/dg_grounds32.gif" width="288" height="608"/>
  </tileset>
  <layer name="foreground" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJzjYmBg4BrFwwIrDQI3jOJRPIoHFqvS0S4AcqMP1A==
+   eJzjYmBg4BrFwwIrDQI3jOJRPNyxzyBwAz6sSke7ALe7EBY=
   </data>
  </layer>
  <layer name="wall" width="20" height="20">
@@ -21,6 +21,11 @@
    </properties>
   </object>
   <object id="10" name="dt1" type="death" x="416" y="576" width="32" height="32"/>
+  <object id="12" name="damt1" type="damage" x="416" y="512" width="32" height="32">
+   <properties>
+    <property name="amount" value="1"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="items">
   <object id="2" name="rk1" type="redkey" x="102" y="598" width="32" height="32">

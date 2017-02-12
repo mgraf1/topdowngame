@@ -153,4 +153,11 @@ public class Player extends GameEntity {
     public int getCurrentHealth() {
         return currHealth;
     }
+
+    public void damage(int amount) {
+        this.currHealth -= amount;
+        if (currHealth <= 0) {
+            die();
+        }
+    }
 }

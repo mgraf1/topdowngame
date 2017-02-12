@@ -3,28 +3,26 @@ package net.mikegraf.game.states.play.entities.triggers;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.states.play.contact.CollisionInfo;
-import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.logic.ICondition;
 
-public abstract class Trigger extends GameEntity {
+public class DamageTrigger extends Trigger {
 
-    private ICondition<Player> condition;
+    private int damageAmount;
 
-    public Trigger(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
-            ICondition<Player> condition) {
-        super(collisionBehavior, controller, view, body);
-        this.condition = condition;
+    public DamageTrigger(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
+            ICondition<Player> condition, int damageAmount) {
+        super(collisionBehavior, controller, view, body, condition);
+        this.damageAmount = damageAmount;
     }
 
-    public abstract void execute(CollisionInfo info);
-
-    public boolean canExecute(CollisionInfo info) {
+    @Override
+    public void execute(CollisionInfo info) {
         Player player = (Player) info.getOtherEntity();
-        return condition.accepts(player);
+        player.damage(damageAmount);
     }
 
 }

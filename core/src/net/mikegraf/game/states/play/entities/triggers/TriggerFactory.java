@@ -20,8 +20,10 @@ public class TriggerFactory extends GameEntityFactory {
 
     private final String END_TRIGGER_TYPE = "end";
     private final String DEATH_TRIGGER_TYPE = "death";
+    private final String DAMAGE_TRIGGER_TYPE = "damage";
     private final String END_TRIGGER_DEST_X = "destX";
     private final String END_TRIGGER_DEST_Y = "destY";
+    private final String DAMAGE_TRIGGER_AMOUNT = "amount";
 
     public TriggerFactory(BodyFactory bodyFactory, BehaviorFactory behaviorFactory) {
         super(bodyFactory, behaviorFactory);
@@ -37,8 +39,14 @@ public class TriggerFactory extends GameEntityFactory {
             int dX = Integer.parseInt(props.get(END_TRIGGER_DEST_X, String.class));
             int dY = Integer.parseInt(props.get(END_TRIGGER_DEST_Y, String.class));
             return new EndTrigger(collisionB, controller, view, body, condition, dX, dY);
+
         } else if (type.equals(DEATH_TRIGGER_TYPE)) {
             return new DeathTrigger(collisionB, controller, view, body, condition);
+
+        } else if (type.equals(DAMAGE_TRIGGER_TYPE)) {
+            int amount = Integer.parseInt(props.get(DAMAGE_TRIGGER_AMOUNT, String.class));
+            return new DamageTrigger(collisionB, controller, view, body, condition, amount);
+
         } else {
             throw new IllegalArgumentException("No type: " + type);
         }

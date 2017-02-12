@@ -11,9 +11,9 @@ import net.mikegraf.game.states.play.logic.ICondition;
 
 public class DeathTrigger extends Trigger {
 
-    public DeathTrigger(ICollisionBehavior collisionBehavior, IController movementBehavior, IView renderBehavior,
-            Body body, ICondition<Player> condition) {
-        super(collisionBehavior, movementBehavior, renderBehavior, body, condition);
+    public DeathTrigger(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
+            ICondition<Player> condition) {
+        super(collisionBehavior, controller, view, body, condition);
     }
 
     @Override

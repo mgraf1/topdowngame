@@ -19,6 +19,7 @@ import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.OperableGameEntity;
 import net.mikegraf.game.states.play.entities.items.Item;
 import net.mikegraf.game.states.play.entities.player.Player;
+import net.mikegraf.game.states.play.entities.player.PlayerProfile;
 import net.mikegraf.game.states.play.entities.view.IView;
 
 public class PlayerTests {
@@ -113,7 +114,7 @@ public class PlayerTests {
 
     @Test
     public void isTouchingReturnsFalseIfPlayerDidntTouchObject() {
-    	int opId = 6;
+        int opId = 6;
         OperableGameEntity operable = mock(OperableGameEntity.class);
         when(operable.getId()).thenReturn(opId);
         player.touch(operable);
@@ -124,7 +125,7 @@ public class PlayerTests {
 
     @Test
     public void operableTouchedObjectsCallsOperateOnAll() {
-    	int opId = 6;
+        int opId = 6;
         int opId2 = 7;
         OperableGameEntity operable = mock(OperableGameEntity.class);
         when(operable.getId()).thenReturn(opId);
@@ -137,5 +138,25 @@ public class PlayerTests {
 
         verify(operable, times(1)).operate(player);
         verify(operable2, times(1)).operate(player);
+    }
+
+    @Test
+    public void damageKillsPlayerIfNoHealthLeft() {
+        PlayerProfile profile = new PlayerProfile(2, 1);
+        player.setProfile(profile);
+
+        player.damage(1);
+
+        assertTrue(player.isDead());
+    }
+
+    @Test
+    public void damageDoesntKillPlayerIfHealthLeft() {
+        PlayerProfile profile = new PlayerProfile(2, 2);
+        player.setProfile(profile);
+
+        player.damage(1);
+
+        assertFalse(player.isDead());
     }
 }
