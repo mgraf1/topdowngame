@@ -72,10 +72,10 @@ public class DamageTriggerTests {
 
     @Test
     public void executePlayerDamagedFor2WhenAmountIs2() {
-        trigger = new DamageTrigger(collisionBehavior, controller, view, body, condition, 1);
+        trigger = new DamageTrigger(collisionBehavior, controller, view, body, condition, 2);
 
         trigger.execute(info);
 
-        verify(player, times(1)).damage(1);
+        verify(player, times(1)).damage(2);
     }
 }
