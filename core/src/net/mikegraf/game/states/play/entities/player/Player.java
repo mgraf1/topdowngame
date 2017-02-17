@@ -12,6 +12,7 @@ import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.OperableGameEntity;
 import net.mikegraf.game.states.play.entities.items.Item;
+import net.mikegraf.game.states.play.entities.view.AnimationFactory;
 import net.mikegraf.game.states.play.entities.view.IView;
 
 public class Player extends GameEntity {
@@ -158,6 +159,8 @@ public class Player extends GameEntity {
         this.currHealth -= amount;
         if (currHealth <= 0) {
             die();
+        } else {
+            view.setMode(AnimationFactory.SHADER_FLASH);
         }
     }
 }

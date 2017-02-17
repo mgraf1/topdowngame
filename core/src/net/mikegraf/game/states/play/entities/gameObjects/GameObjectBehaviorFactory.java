@@ -1,6 +1,7 @@
 package net.mikegraf.game.states.play.entities.gameObjects;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.MapProperties;
 
 import net.mikegraf.game.main.constants.TiledConstants;
@@ -27,7 +28,8 @@ public class GameObjectBehaviorFactory extends BehaviorFactory {
     public IView createView(MapProperties props, AssetManager assetManager) {
         String texture = props.get(TiledConstants.ENTITY_TEXTURE, String.class);
         AnimationIndex animationIndex = animationFactory.createAnimationIndex(texture, assetManager);
-        return new AnimationView(animationIndex);
+        ShaderProgram flashShader = animationFactory.createShader(AnimationFactory.SHADER_FLASH);
+        return new AnimationView(animationIndex, flashShader);
     }
 
     @Override

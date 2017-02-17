@@ -36,6 +36,8 @@ public class MyGdxGame extends ApplicationAdapter {
         hudCam = new OrthographicCamera();
         hudCam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 
+        ShaderManager.createShaders();
+
         // Set up state manager.
         gsm = new GameStateManager(new GameStateFactory(this));
     }
@@ -46,7 +48,7 @@ public class MyGdxGame extends ApplicationAdapter {
         while (accum >= STEP) {
             accum -= STEP;
             gsm.update(STEP);
-            gsm.render(accum);
+            gsm.render(STEP);
             MyInput.update();
         }
     }
