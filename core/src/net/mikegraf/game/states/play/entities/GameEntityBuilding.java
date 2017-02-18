@@ -38,7 +38,7 @@ public class GameEntityBuilding {
         } else if (layerName.equals(TiledConstants.LAYER_OBJECT)) {
             return new GameObjectFactory(bodyFactory, behaviorFactory, soundEffectFactory);
         } else if (layerName.equals(TiledConstants.LAYER_PLAYER)) {
-            return new PlayerFactory(bodyFactory, behaviorFactory);
+            return new PlayerFactory(bodyFactory, behaviorFactory, soundEffectFactory);
         } else {
             throw new IllegalArgumentException("No layer named: " + layerName);
         }

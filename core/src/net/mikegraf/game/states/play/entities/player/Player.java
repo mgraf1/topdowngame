@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 
+import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
@@ -25,6 +26,7 @@ public class Player extends GameEntity {
     public static final float MAX_VELOCITY = 1.2f;
     public static final int STARTING_LIVES = 3;
     public static final int STARTING_MAX_HEALTH = 3;
+    public static final String HIT_SFX = "hit";
 
     private boolean dead;
     private Array<Item> inventory;
@@ -33,8 +35,10 @@ public class Player extends GameEntity {
     private HashSet<OperableGameEntity> touchedObjects;
     private PlayerProfile profile;
     private int currHealth;
+    private SoundEffectIndex soundEffectIndex;
 
-    public Player(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body) {
+    public Player(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
+            SoundEffectIndex soundEffectIndex) {
         super(collisionBehavior, controller, view, body);
 
         this.inventorySize = STARTING_INVENTORY_SIZE;
@@ -43,6 +47,7 @@ public class Player extends GameEntity {
         this.touchedObjects = new HashSet<OperableGameEntity>();
         this.inventory = new Array<Item>(STARTING_INVENTORY_SIZE);
         this.dead = false;
+        this.soundEffectIndex = soundEffectIndex;
     }
 
     private HashMap<String, String> createMovementAnimationMap() {
@@ -156,11 +161,12 @@ public class Player extends GameEntity {
     }
 
     public void damage(int amount) {
-        this.currHealth -= amount;
+        currHealth -= amount;
         if (currHealth <= 0) {
             die();
         } else {
             view.setMode(AnimationFactory.SHADER_FLASH);
+            soundEffectIndex.playSound(HIT_SFX);
         }
     }
 }

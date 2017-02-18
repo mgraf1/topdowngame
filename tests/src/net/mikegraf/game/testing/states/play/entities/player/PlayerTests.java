@@ -14,6 +14,7 @@ import org.junit.Test;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
+import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.OperableGameEntity;
@@ -29,6 +30,7 @@ public class PlayerTests {
     private IController controller;
     private IView view;
     private Body body;
+    private SoundEffectIndex soundEffectIndex;
 
     @Before
     public void myBefore() {
@@ -36,7 +38,8 @@ public class PlayerTests {
         controller = mock(IController.class);
         view = mock(IView.class);
         body = mock(Body.class);
-        player = new Player(collB, controller, view, body);
+        soundEffectIndex = mock(SoundEffectIndex.class);
+        player = new Player(collB, controller, view, body, soundEffectIndex);
     }
 
     @After
@@ -158,5 +161,25 @@ public class PlayerTests {
         player.damage(1);
 
         assertFalse(player.isDead());
+    }
+
+    @Test
+    public void damageKillsPlayerHitSfxNotPlayed() {
+        PlayerProfile profile = new PlayerProfile(2, 1);
+        player.setProfile(profile);
+
+        player.damage(1);
+
+        verify(soundEffectIndex, times(0)).playSound(Player.HIT_SFX);
+    }
+
+    @Test
+    public void damageDoesntKillPlayerHitSfxPlayed() {
+        PlayerProfile profile = new PlayerProfile(2, 2);
+        player.setProfile(profile);
+
+        player.damage(1);
+
+        verify(soundEffectIndex, times(1)).playSound(Player.HIT_SFX);
     }
 }

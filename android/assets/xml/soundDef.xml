@@ -18,4 +18,13 @@
 			</sound>
 		</sounds>
 	</objectWithSound>
+	<objectWithSound>
+		<type>player</type>
+		<sounds>
+			<sound>
+				<name>hit</name>
+				<path>hit1.mp3</path>
+			</sound>
+		</sounds>
+	</objectWithSound>
 </objectsWithSound>
