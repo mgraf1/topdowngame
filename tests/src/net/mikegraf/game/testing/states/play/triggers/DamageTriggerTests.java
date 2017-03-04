@@ -9,11 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
 import net.mikegraf.game.states.play.contact.CollisionInfo;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.triggers.DamageTrigger;
 import net.mikegraf.game.states.play.entities.view.IView;
@@ -25,10 +23,9 @@ import net.mikegraf.game.testing.GdxTestRunner;
 @RunWith(GdxTestRunner.class)
 public class DamageTriggerTests {
 
-    private ICollisionBehavior collisionBehavior;
-    private IController controller;
+    private PhysicsModel physModel;
     private IView view;
-    private Body body;
+    private IController controller;
 
     private Level level;
     private Player player;
@@ -38,11 +35,9 @@ public class DamageTriggerTests {
 
     @Before
     public void myBefore() {
-        collisionBehavior = mock(ICollisionBehavior.class);
-        controller = mock(IController.class);
+        physModel = mock(PhysicsModel.class);
         view = mock(IView.class);
-        body = mock(Body.class);
-
+        controller = mock(IController.class);
         level = mock(Level.class);
         player = mock(Player.class);
         condition = mock(PlayerNoCondition.class);
@@ -51,10 +46,9 @@ public class DamageTriggerTests {
 
     @After
     public void myAfter() {
-        collisionBehavior = null;
-        controller = null;
+        physModel = null;
         view = null;
-        body = null;
+        controller = null;
         level = null;
         player = null;
         info = null;
@@ -63,7 +57,7 @@ public class DamageTriggerTests {
 
     @Test
     public void executePlayerDamagedFor1WhenAmountIs1() {
-        trigger = new DamageTrigger(collisionBehavior, controller, view, body, condition, 1);
+        trigger = new DamageTrigger(physModel, view, controller, condition, 1);
 
         trigger.execute(info);
 
@@ -72,7 +66,7 @@ public class DamageTriggerTests {
 
     @Test
     public void executePlayerDamagedFor2WhenAmountIs2() {
-        trigger = new DamageTrigger(collisionBehavior, controller, view, body, condition, 2);
+        trigger = new DamageTrigger(physModel, view, controller, condition, 2);
 
         trigger.execute(info);
 

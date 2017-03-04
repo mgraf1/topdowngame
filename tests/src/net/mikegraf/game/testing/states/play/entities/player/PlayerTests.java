@@ -12,13 +12,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 
 import net.mikegraf.game.audio.SoundEffectIndex;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.OperableGameEntity;
 import net.mikegraf.game.states.play.entities.items.Item;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.player.PlayerProfile;
 import net.mikegraf.game.states.play.entities.view.IView;
@@ -26,28 +25,25 @@ import net.mikegraf.game.states.play.entities.view.IView;
 public class PlayerTests {
 
     private Player player;
-    private ICollisionBehavior collB;
-    private IController controller;
+    private PhysicsModel physModel;
     private IView view;
-    private Body body;
+    private IController controller;
     private SoundEffectIndex soundEffectIndex;
 
     @Before
     public void myBefore() {
-        collB = mock(ICollisionBehavior.class);
-        controller = mock(IController.class);
+        physModel = mock(PhysicsModel.class);
         view = mock(IView.class);
-        body = mock(Body.class);
+        controller = mock(IController.class);
         soundEffectIndex = mock(SoundEffectIndex.class);
-        player = new Player(collB, controller, view, body, soundEffectIndex);
+        player = new Player(physModel, view, controller, soundEffectIndex);
     }
 
     @After
     public void myAfter() {
-        collB = null;
-        controller = null;
+        physModel = null;
         view = null;
-        body = null;
+        controller = null;
         player = null;
     }
 

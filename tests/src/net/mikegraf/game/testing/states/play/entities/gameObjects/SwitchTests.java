@@ -9,23 +9,20 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
 import net.mikegraf.game.audio.SoundEffectIndex;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.Door;
 import net.mikegraf.game.states.play.entities.gameObjects.Switch;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.view.IView;
 
 public class SwitchTests {
 
     private Switch s;
-    private ICollisionBehavior collB;
-    private IController controller;
+    private PhysicsModel physModel;
     private IView view;
-    private Body body;
+    private IController controller;
     private Player player;
     private Door door;
     private SoundEffectIndex soundEffectIndex;
@@ -33,22 +30,20 @@ public class SwitchTests {
     @Before
     public void myBefore() {
         player = mock(Player.class);
-        collB = mock(ICollisionBehavior.class);
-        controller = mock(IController.class);
+        physModel = mock(PhysicsModel.class);
         view = mock(IView.class);
-        body = mock(Body.class);
+        controller = mock(IController.class);
         door = mock(Door.class);
         soundEffectIndex = mock(SoundEffectIndex.class);
-        s = new Switch(collB, controller, view, body, soundEffectIndex);
+        s = new Switch(physModel, view, controller, soundEffectIndex);
         s.setDoor(door);
     }
 
     @After
     public void myAfter() {
-        collB = null;
-        controller = null;
+        physModel = null;
         view = null;
-        body = null;
+        controller = null;
         player = null;
         door = null;
         soundEffectIndex = null;

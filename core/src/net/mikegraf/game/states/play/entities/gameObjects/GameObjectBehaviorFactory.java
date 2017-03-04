@@ -2,7 +2,10 @@ package net.mikegraf.game.states.play.entities.gameObjects;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 
 import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.states.play.entities.BehaviorFactory;
@@ -11,6 +14,8 @@ import net.mikegraf.game.states.play.entities.collision.NoCollisionBehavior;
 import net.mikegraf.game.states.play.entities.collision.OperableCollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.DefaultController;
 import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.physics.BodyFactory;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.view.AnimationFactory;
 import net.mikegraf.game.states.play.entities.view.AnimationIndex;
 import net.mikegraf.game.states.play.entities.view.AnimationView;
@@ -19,9 +24,11 @@ import net.mikegraf.game.states.play.entities.view.IView;
 public class GameObjectBehaviorFactory extends BehaviorFactory {
 
     private AnimationFactory animationFactory;
+    private BodyFactory bodyFactory;
 
-    public GameObjectBehaviorFactory(AnimationFactory animationFactory) {
+    public GameObjectBehaviorFactory(AnimationFactory animationFactory, BodyFactory bodyFactory) {
         this.animationFactory = animationFactory;
+        this.bodyFactory = bodyFactory;
     }
 
     @Override
@@ -33,19 +40,24 @@ public class GameObjectBehaviorFactory extends BehaviorFactory {
     }
 
     @Override
-    public ICollisionBehavior createCollisionBehavior(MapProperties props) {
-        String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
-        if (type.equals(TiledConstants.ENTITY_TYPE_DOOR)) {
-            return new OperableCollisionBehavior();
-        } else if (type.equals(TiledConstants.ENTITY_TYPE_SWITCH)) {
-            return new OperableCollisionBehavior();
-        }
-        return new NoCollisionBehavior();
+    public IController createController(MapProperties props) {
+        return new DefaultController();
     }
 
     @Override
-    public IController createController(MapProperties props) {
-        return new DefaultController();
+    public PhysicsModel createPhysicsModel(World world, MapObject mapObject) {
+        Body body = bodyFactory.createBody(world, mapObject);
+
+        MapProperties props = mapObject.getProperties();
+        String type = props.get(TiledConstants.ENTITY_TYPE, String.class);
+
+        ICollisionBehavior collisionBehavior;
+        if (type.equals(TiledConstants.ENTITY_TYPE_DOOR) || type.equals(TiledConstants.ENTITY_TYPE_SWITCH)) {
+            collisionBehavior = new OperableCollisionBehavior();
+        } else {
+            collisionBehavior = new NoCollisionBehavior();
+        }
+        return new PhysicsModel(body, collisionBehavior);
     }
 
 }

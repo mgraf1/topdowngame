@@ -1,10 +1,8 @@
 package net.mikegraf.game.states.play.entities.gameObjects;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
 import net.mikegraf.game.audio.SoundEffectIndex;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.view.IView;
 
@@ -17,9 +15,8 @@ public class Switch extends OperableGameEntity {
     private boolean on;
     private Door door;
 
-    public Switch(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
-            SoundEffectIndex soundEffectIndex) {
-        super(collisionBehavior, controller, view, body, soundEffectIndex);
+    public Switch(PhysicsModel physModel, IView view, IController controller, SoundEffectIndex soundEffectIndex) {
+        super(physModel, view, controller, soundEffectIndex);
         this.on = false;
     }
 

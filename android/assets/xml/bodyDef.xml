@@ -4,25 +4,30 @@
 		<type>player</type>
 		<damp>0</damp>
 		<bodytype>dynamic</bodytype>
+		<velocity>1.2</velocity>
 	</entity>
 	<entity>
 		<type>redkey</type>
 		<damp>0</damp>
 		<bodytype>dynamic</bodytype>
+		<velocity>0</velocity>
 	</entity>
 	<entity>
 		<type>door</type>
 		<damp>0</damp>
 		<bodytype>static</bodytype>
+		<velocity>0</velocity>
 	</entity>
 	<entity>
 		<type>crate</type>
 		<damp>100</damp>
 		<bodytype>dynamic</bodytype>
+		<velocity>0</velocity>
 	</entity>
 	<entity>
 		<type>switch</type>
 		<damp>0</damp>
 		<bodytype>static</bodytype>
+		<velocity>0</velocity>
 	</entity>
 </entities>

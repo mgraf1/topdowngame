@@ -1,11 +1,9 @@
 package net.mikegraf.game.states.play.entities.gameObjects;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
 import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.entities.GameEntityState;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.logic.ICondition;
@@ -16,9 +14,9 @@ public class Door extends OperableGameEntity {
 
     private ICondition<Player> condition;
 
-    public Door(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
-            SoundEffectIndex soundEffectIndex, ICondition<Player> condition) {
-        super(collisionBehavior, controller, view, body, soundEffectIndex);
+    public Door(PhysicsModel physModel, IView view, IController controller, SoundEffectIndex soundEffectIndex,
+            ICondition<Player> condition) {
+        super(physModel, view, controller, soundEffectIndex);
         this.condition = condition;
     }
 

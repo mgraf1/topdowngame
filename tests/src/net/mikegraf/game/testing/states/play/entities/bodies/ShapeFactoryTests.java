@@ -19,7 +19,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import net.mikegraf.game.main.constants.B2dConstants;
-import net.mikegraf.game.states.play.entities.bodies.ShapeFactory;
+import net.mikegraf.game.states.play.entities.physics.ShapeFactory;
 import net.mikegraf.game.testing.GdxTestRunner;
 
 @RunWith(GdxTestRunner.class)

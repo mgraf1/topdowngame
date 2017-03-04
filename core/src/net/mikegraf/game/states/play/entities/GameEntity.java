@@ -2,12 +2,11 @@ package net.mikegraf.game.states.play.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 import net.mikegraf.game.states.play.contact.CollisionInfo;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.view.IView;
 
 public abstract class GameEntity {
@@ -15,30 +14,28 @@ public abstract class GameEntity {
     public GameEntityState state;
 
     private int id;
-    protected ICollisionBehavior collisionBehavior;
+    protected PhysicsModel physModel;
     protected IView view;
     protected IController controller;
-    protected Body body;
-    protected float velocity;
 
-    public GameEntity(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body) {
-        this.collisionBehavior = collisionBehavior;
+    public GameEntity(PhysicsModel physModel, IView view, IController controller) {
         this.view = view;
         this.controller = controller;
         this.state = GameEntityState.VISIBLE;
-        this.body = body;
-        body.setUserData(this);
+        this.physModel = physModel;
+        this.physModel.setBodyUserData(this);
     }
 
     public void update(float deltaTime) {
         Vector2 movementVector = controller.update(this, deltaTime);
+        physModel.move(movementVector);
         afterUpdate(movementVector);
     }
 
     public void render(SpriteBatch batch, float totalTime) {
-        if (body.isActive()) {
+        if (physModel.isActive()) {
             beforeRender(totalTime);
-            Vector2 position = body.getPosition();
+            Vector2 position = physModel.getPosition();
             view.render(batch, totalTime, position);
         }
     }
@@ -47,36 +44,28 @@ public abstract class GameEntity {
         view.render(batch, x, y, scale);
     }
 
-    public void move(Vector2 movementVector) {
-        body.setLinearVelocity(movementVector.x * velocity, movementVector.y * velocity);
-    }
-
     public void handleCollision(CollisionInfo info) {
-        collisionBehavior.handleCollision(info);
+        physModel.handleCollision(info);
     }
 
     public void handleEndCollision(CollisionInfo info) {
-        collisionBehavior.handleEndCollision(info);
+        physModel.handleEndCollision(info);
     }
 
     public void hide() {
-        body.setActive(false);
+        physModel.setActive(false);
         state = GameEntityState.HIDDEN;
     }
 
     public void show() {
-        body.setActive(true);
+        physModel.setActive(true);
         state = GameEntityState.VISIBLE;
     }
 
     public void dispose(World world) {
         state = GameEntityState.DISPOSED;
-        world.destroyBody(body);
+        physModel.dispose(world);
         view.dispose();
-    }
-
-    public int getId() {
-        return id;
     }
 
     public void afterUpdate(Vector2 movementVector) {
@@ -85,8 +74,8 @@ public abstract class GameEntity {
     public void beforeRender(float totalTime) {
     }
 
-    public void setVelocity(float value) {
-        velocity = value;
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {

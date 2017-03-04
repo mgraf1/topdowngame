@@ -9,11 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
 import net.mikegraf.game.states.play.contact.CollisionInfo;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.triggers.DeathTrigger;
 import net.mikegraf.game.states.play.entities.view.IView;
@@ -25,10 +23,9 @@ import net.mikegraf.game.testing.GdxTestRunner;
 @RunWith(GdxTestRunner.class)
 public class DeathTriggerTests {
 
-    private ICollisionBehavior collisionBehavior;
-    private IController controller;
+    private PhysicsModel physModel;
     private IView view;
-    private Body body;
+    private IController controller;
 
     private Level level;
     private Player player;
@@ -38,24 +35,22 @@ public class DeathTriggerTests {
 
     @Before
     public void myBefore() {
-        collisionBehavior = mock(ICollisionBehavior.class);
+        physModel = mock(PhysicsModel.class);
         controller = mock(IController.class);
         view = mock(IView.class);
-        body = mock(Body.class);
 
         level = mock(Level.class);
         player = mock(Player.class);
         condition = mock(PlayerNoCondition.class);
-        trigger = new DeathTrigger(collisionBehavior, controller, view, body, condition);
+        trigger = new DeathTrigger(physModel, view, controller, condition);
         info = new CollisionInfo(level, trigger, player);
     }
 
     @After
     public void myAfter() {
-        collisionBehavior = null;
-        controller = null;
+        physModel = null;
         view = null;
-        body = null;
+        controller = null;
         level = null;
         player = null;
         info = null;

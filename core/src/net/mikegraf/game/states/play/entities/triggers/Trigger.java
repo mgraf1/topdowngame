@@ -1,11 +1,9 @@
 package net.mikegraf.game.states.play.entities.triggers;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
 import net.mikegraf.game.states.play.contact.CollisionInfo;
 import net.mikegraf.game.states.play.entities.GameEntity;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.logic.ICondition;
@@ -14,9 +12,8 @@ public abstract class Trigger extends GameEntity {
 
     private ICondition<Player> condition;
 
-    public Trigger(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
-            ICondition<Player> condition) {
-        super(collisionBehavior, controller, view, body);
+    public Trigger(PhysicsModel physModel, IView view, IController controller, ICondition<Player> condition) {
+        super(physModel, view, controller);
         this.condition = condition;
     }
 

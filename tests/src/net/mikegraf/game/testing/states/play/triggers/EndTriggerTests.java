@@ -12,11 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
 import net.mikegraf.game.states.play.contact.CollisionInfo;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.triggers.EndTrigger;
 import net.mikegraf.game.states.play.entities.view.IView;
@@ -31,10 +29,9 @@ public class EndTriggerTests {
     private static final int DEST_X = 2;
     private static final int DEST_Y = 1;
 
-    private ICollisionBehavior collisionBehavior;
-    private IController controller;
+    private PhysicsModel physModel;
     private IView view;
-    private Body body;
+    private IController controller;
 
     private Level level;
     private Player player;
@@ -44,24 +41,22 @@ public class EndTriggerTests {
 
     @Before
     public void myBefore() {
-        collisionBehavior = mock(ICollisionBehavior.class);
-        controller = mock(IController.class);
+        physModel = mock(PhysicsModel.class);
         view = mock(IView.class);
-        body = mock(Body.class);
+        controller = mock(IController.class);
 
         level = mock(Level.class);
         player = mock(Player.class);
         condition = mock(PlayerNoCondition.class);
-        trigger = new EndTrigger(collisionBehavior, controller, view, body, condition, DEST_X, DEST_Y);
+        trigger = new EndTrigger(physModel, view, controller, condition, DEST_X, DEST_Y);
         info = new CollisionInfo(level, trigger, player);
     }
 
     @After
     public void myAfter() {
-        collisionBehavior = null;
-        controller = null;
+        physModel = null;
         view = null;
-        body = null;
+        controller = null;
         level = null;
         player = null;
         info = null;

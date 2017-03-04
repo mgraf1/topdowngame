@@ -46,8 +46,6 @@ public class PlayerController implements IController {
             movementVector.x = 1;
         }
 
-        entity.move(movementVector);
-
         if (inputData.operatePressed) {
             ((Player) entity).operateTouchedObjects();
         }

@@ -1,10 +1,8 @@
 package net.mikegraf.game.states.play.entities.triggers;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
 import net.mikegraf.game.states.play.contact.CollisionInfo;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.levels.Level;
@@ -15,9 +13,9 @@ public class EndTrigger extends Trigger {
     private int destX;
     private int destY;
 
-    public EndTrigger(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
-            ICondition<Player> condition, int destX, int destY) {
-        super(collisionBehavior, controller, view, body, condition);
+    public EndTrigger(PhysicsModel physModel, IView view, IController controller, ICondition<Player> condition,
+            int destX, int destY) {
+        super(physModel, view, controller, condition);
         this.destX = destX;
         this.destY = destY;
     }

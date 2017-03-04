@@ -8,13 +8,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.badlogic.gdx.physics.box2d.Body;
-
 import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.entities.GameEntityState;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.Door;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.player.Player;
 import net.mikegraf.game.states.play.entities.view.IView;
 import net.mikegraf.game.states.play.logic.ICondition;
@@ -25,10 +23,9 @@ public class DoorTests {
     private final String ITEM_TYPE = "itemType";
 
     private Door door;
-    private ICollisionBehavior collB;
-    private IController controller;
+    private PhysicsModel physModel;
     private IView view;
-    private Body body;
+    private IController controller;
     private ICondition<Player> cond;
     private SoundEffectIndex soundEffectIndex;
     private Player player;
@@ -36,22 +33,20 @@ public class DoorTests {
     @Before
     public void myBefore() {
         soundEffectIndex = mock(SoundEffectIndex.class);
-        collB = mock(ICollisionBehavior.class);
-        controller = mock(IController.class);
+        physModel = mock(PhysicsModel.class);
         view = mock(IView.class);
-        body = mock(Body.class);
+        controller = mock(IController.class);
         cond = new PlayerItemCondition(ITEM_TYPE, false);
-        door = new Door(collB, controller, view, body, soundEffectIndex, cond);
+        door = new Door(physModel, view, controller, soundEffectIndex, cond);
         player = mock(Player.class);
     }
 
     @After
     public void myAfter() {
         door = null;
-        collB = null;
-        controller = null;
+        physModel = null;
         view = null;
-        body = null;
+        controller = null;
         soundEffectIndex = null;
         cond = null;
         player = null;

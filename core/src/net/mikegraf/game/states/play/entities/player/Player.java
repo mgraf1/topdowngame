@@ -4,15 +4,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 
 import net.mikegraf.game.audio.SoundEffectIndex;
 import net.mikegraf.game.states.play.entities.GameEntity;
-import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.IController;
 import net.mikegraf.game.states.play.entities.gameObjects.OperableGameEntity;
 import net.mikegraf.game.states.play.entities.items.Item;
+import net.mikegraf.game.states.play.entities.physics.PhysicsModel;
 import net.mikegraf.game.states.play.entities.view.AnimationFactory;
 import net.mikegraf.game.states.play.entities.view.IView;
 
@@ -37,12 +36,10 @@ public class Player extends GameEntity {
     private int currHealth;
     private SoundEffectIndex soundEffectIndex;
 
-    public Player(ICollisionBehavior collisionBehavior, IController controller, IView view, Body body,
-            SoundEffectIndex soundEffectIndex) {
-        super(collisionBehavior, controller, view, body);
+    public Player(PhysicsModel physModel, IView view, IController controller, SoundEffectIndex soundEffectIndex) {
+        super(physModel, view, controller);
 
         this.inventorySize = STARTING_INVENTORY_SIZE;
-        this.velocity = MAX_VELOCITY;
         this.vectorHashToAnimationMap = createMovementAnimationMap();
         this.touchedObjects = new HashSet<OperableGameEntity>();
         this.inventory = new Array<Item>(STARTING_INVENTORY_SIZE);
@@ -145,7 +142,7 @@ public class Player extends GameEntity {
     }
 
     public Vector2 getPosition() {
-        return body.getPosition();
+        return physModel.getPosition();
     }
 
     public int getNumLives() {
