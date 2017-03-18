@@ -7,6 +7,12 @@
 		<velocity>1.2</velocity>
 	</entity>
 	<entity>
+		<type>badguy</type>
+		<damp>0</damp>
+		<bodytype>dynamic</bodytype>
+		<velocity>1.2</velocity>
+	</entity>
+	<entity>
 		<type>redkey</type>
 		<damp>0</damp>
 		<bodytype>dynamic</bodytype>

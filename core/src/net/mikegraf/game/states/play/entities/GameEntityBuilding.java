@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 
 import net.mikegraf.game.audio.SoundEffectFactory;
 import net.mikegraf.game.main.constants.TiledConstants;
+import net.mikegraf.game.states.play.entities.badGuys.BadGuyFactory;
 import net.mikegraf.game.states.play.entities.gameObjects.GameObjectFactory;
 import net.mikegraf.game.states.play.entities.items.ItemFactory;
 import net.mikegraf.game.states.play.entities.player.PlayerFactory;
@@ -33,6 +34,8 @@ public class GameEntityBuilding {
             return new GameObjectFactory(behaviorFactory, soundEffectFactory);
         } else if (layerName.equals(TiledConstants.LAYER_PLAYER)) {
             return new PlayerFactory(behaviorFactory, soundEffectFactory);
+        } else if (layerName.equals(TiledConstants.LAYER_BADGUYS)) {
+            return new BadGuyFactory(behaviorFactory);
         } else {
             throw new IllegalArgumentException("No layer named: " + layerName);
         }

@@ -28,7 +28,6 @@ public abstract class GameEntity {
 
     public void update(float deltaTime) {
         Vector2 movementVector = controller.update(this, deltaTime);
-        physModel.move(movementVector);
         afterUpdate(movementVector);
     }
 
@@ -38,6 +37,14 @@ public abstract class GameEntity {
             Vector2 position = physModel.getPosition();
             view.render(batch, totalTime, position);
         }
+    }
+
+    public void move(Vector2 movementVector) {
+        physModel.move(movementVector);
+    }
+
+    public Vector2 applySteering(Vector2 steeringVector, float time) {
+        return physModel.applySteering(steeringVector, time);
     }
 
     public void renderHud(SpriteBatch batch, float x, float y, float scale) {

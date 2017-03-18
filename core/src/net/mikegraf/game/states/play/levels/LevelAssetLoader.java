@@ -42,6 +42,9 @@ public class LevelAssetLoader {
         MapLayer playerLayer = layers.get(TiledConstants.LAYER_PLAYER);
         loadAssetsForLayer(playerLayer, assetManager);
 
+        MapLayer badGuyLayer = layers.get(TiledConstants.LAYER_BADGUYS);
+        loadAssetsForLayer(badGuyLayer, assetManager);
+
         fontLoader.loadFontData(assetManager);
     }
 
@@ -52,9 +55,10 @@ public class LevelAssetLoader {
             String entityType = props.get(TiledConstants.ENTITY_TYPE, String.class);
 
             AnimationIndexData animationData = animationDataMap.get(textureProp);
-            String texturePath = animationData.getTexturePath();
-
-            assetManager.load(texturePath, Texture.class);
+            if (animationData != null) {
+                String texturePath = animationData.getTexturePath();
+                assetManager.load(texturePath, Texture.class);
+            }
 
             if (soundDataMap.containsKey(entityType)) {
                 SoundData soundData = soundDataMap.get(entityType);

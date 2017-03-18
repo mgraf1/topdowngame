@@ -2,6 +2,10 @@ package net.mikegraf.game.main.constants;
 
 public final class TiledConstants {
 
+    public final static String BADGUY_TYPE_BADGUY = "badguy";
+    public final static String BADGUY_WAYPOINT = "waypoint";
+    public final static String BADGUY_WAYPOINT_BADGUY_ID = "badGuyId";
+
     public final static String ENTITY_ID = "id";
     public final static String ENTITY_TYPE = "type";
     public final static String ENTITY_TEXTURE = "texture";
@@ -11,9 +15,12 @@ public final class TiledConstants {
     public final static String ENTITY_SWITCH_PROP_DOOR = "door";
     public static final String ENTITY_HEIGHT = "height";
     public static final String ENTITY_WIDTH = "width";
+    public static final String ENTITY_X = "x";
+    public static final String ENTITY_Y = "y";
 
     public final static String ID_PLAYER = "player";
 
+    public final static String LAYER_BADGUYS = "badguys";
     public final static String LAYER_ITEM = "items";
     public final static String LAYER_OBJECT = "objects";
     public static final String LAYER_PLAYER = "player";

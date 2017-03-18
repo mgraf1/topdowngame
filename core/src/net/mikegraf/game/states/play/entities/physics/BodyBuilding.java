@@ -28,6 +28,8 @@ public class BodyBuilding {
             return new SolidBodyFactory(shapeFactory, typeToBodyDataMap);
         } else if (layerName.equals(TiledConstants.LAYER_PLAYER)) {
             return new SolidBodyFactory(shapeFactory, typeToBodyDataMap);
+        } else if (layerName.equals(TiledConstants.LAYER_BADGUYS)) {
+            return new SolidBodyFactory(shapeFactory, typeToBodyDataMap);
         } else {
             throw new IllegalArgumentException("No layer named: " + layerName);
         }

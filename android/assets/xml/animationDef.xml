@@ -47,6 +47,34 @@
 		</animations>
 	</entity>
 	<entity>
+		<type>badguy</type>
+		<texturePath>badguy.png</texturePath>
+		<sheetWidth>2</sheetWidth>
+		<sheetHeight>2</sheetHeight>
+		<animations>
+			<animation>
+				<name>moveLeft</name>
+				<startingFrame>0</startingFrame>
+				<endingFrame>0</endingFrame>
+			</animation>
+			<animation>
+				<name>moveUp</name>
+				<startingFrame>1</startingFrame>
+				<endingFrame>1</endingFrame>
+			</animation>
+			<animation>
+				<name>moveRight</name>
+				<startingFrame>2</startingFrame>
+				<endingFrame>2</endingFrame>
+			</animation>
+			<animation>
+				<name>moveDown</name>
+				<startingFrame>3</startingFrame>
+				<endingFrame>3</endingFrame>
+			</animation>
+		</animations>
+	</entity>
+	<entity>
 		<type>inventory</type>
 		<texturePath>inventory_slot.png</texturePath>
 		<sheetWidth>1</sheetWidth>

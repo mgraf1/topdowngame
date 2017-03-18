@@ -13,9 +13,6 @@ import net.mikegraf.game.main.helpers.Box2dHelper;
 
 public abstract class BodyFactory {
 
-    protected static final String BODY_X = "x";
-    protected static final String BODY_Y = "y";
-
     protected BodyDef bodyDef;
     protected FixtureDef fixtureDef;
     protected ShapeFactory shapeFactory;
@@ -27,8 +24,8 @@ public abstract class BodyFactory {
     }
 
     protected void setBodyDefPosition(MapProperties props) {
-        float x = props.get(BODY_X, Float.class);
-        float y = props.get(BODY_Y, Float.class);
+        float x = props.get(TiledConstants.ENTITY_X, Float.class);
+        float y = props.get(TiledConstants.ENTITY_Y, Float.class);
         float width = props.get(TiledConstants.ENTITY_WIDTH, Float.class);
         float height = props.get(TiledConstants.ENTITY_HEIGHT, Float.class);
         Box2dHelper.toBox2dCoords(bodyDef.position, new Vector2(x, y), width, height);

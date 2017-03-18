@@ -64,8 +64,7 @@ public class GameObjectFactory extends GameEntityFactory {
             return door;
 
         } else if (type.equals(TiledConstants.ENTITY_TYPE_SWITCH)) {
-            String doorString = props.get(TiledConstants.ENTITY_SWITCH_PROP_DOOR, String.class);
-            int door = Integer.parseInt(doorString);
+            int door = Integer.parseInt(props.get(TiledConstants.ENTITY_SWITCH_PROP_DOOR, String.class));
             Switch switchToReturn = new Switch(physModel, view, controller, soundEffectIndex);
             int switchId = props.get(TiledConstants.ENTITY_ID, Integer.class);
             switchToReturn.setId(switchId);

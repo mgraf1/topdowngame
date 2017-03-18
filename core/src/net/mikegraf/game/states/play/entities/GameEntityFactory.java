@@ -23,10 +23,13 @@ public abstract class GameEntityFactory {
         PhysicsModel physModel = behaviorFactory.createPhysicsModel(world, mapObject);
         IController controller = behaviorFactory.createController(props);
         IView view = behaviorFactory.createView(props, assetManager);
+
         int id = props.get(TiledConstants.ENTITY_ID, Integer.class);
 
         GameEntity entity = constructGameEntity(physModel, view, controller, props, assetManager);
-        entity.setId(id);
+        if (entity != null) {
+            entity.setId(id);
+        }
         return entity;
     }
 

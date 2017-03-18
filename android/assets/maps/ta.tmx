@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="13">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="21">
  <tileset firstgid="1" name="dg_grounds32" tilewidth="32" tileheight="32" tilecount="171" columns="9">
   <image source="AngbandTk/AngbandTk/dg_grounds32.gif" width="288" height="608"/>
  </tileset>
@@ -16,14 +16,14 @@
  <objectgroup name="triggers">
   <object id="1" name="et1" type="end" x="479" y="160" width="32" height="32">
    <properties>
-    <property name="destX" value="0"/>
-    <property name="destY" value="0"/>
+    <property name="destX" type="int" value="0"/>
+    <property name="destY" type="int" value="0"/>
    </properties>
   </object>
   <object id="10" name="dt1" type="death" x="416" y="576" width="32" height="32"/>
   <object id="12" name="damt1" type="damage" x="416" y="512" width="32" height="32">
    <properties>
-    <property name="amount" value="1"/>
+    <property name="amount" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>
@@ -62,7 +62,7 @@
   </object>
   <object id="7" name="bsw1" type="switch" x="295" y="590" width="32" height="32">
    <properties>
-    <property name="door" value="6"/>
+    <property name="door" type="int" value="6"/>
     <property name="texture" value="blueswitch"/>
    </properties>
   </object>
@@ -70,6 +70,20 @@
    <properties>
     <property name="texture" value="browncrate"/>
    </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="badguys">
+  <object id="13" name="bg1" type="badguy" x="529" y="432" width="32" height="32">
+   <properties>
+    <property name="texture" value="badguy"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="19" name="bg1-wp1" type="waypoint" x="112" y="447">
+   <properties>
+    <property name="badGuyId" type="int" value="13"/>
+   </properties>
+   <ellipse/>
   </object>
  </objectgroup>
 </map>

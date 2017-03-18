@@ -168,4 +168,30 @@ public class PhysicsModel implements Steerable<Vector2> {
     public void dispose(World world) {
         world.destroyBody(body);
     }
+
+    public Vector2 applySteering(Vector2 steeringVector, float time) {
+        Vector2 linearVelocity = body.getLinearVelocity();
+
+        // Update position and linear velocity. Velocity is trimmed to maximum
+        // speed
+        body.getPosition().mulAdd(linearVelocity, time);
+        linearVelocity.mulAdd(steeringVector, time).limit(this.getMaxLinearSpeed());
+
+        float newOrientation = calculateOrientationFromLinearVelocity(linearVelocity);
+        if (newOrientation != this.orientation) {
+            body.setAngularVelocity((newOrientation - this.orientation) * time);
+            this.orientation = newOrientation;
+        }
+
+        body.setLinearVelocity(linearVelocity);
+        return linearVelocity;
+    }
+
+    private float calculateOrientationFromLinearVelocity(Vector2 linearVelocity) {
+        // If we haven't got any velocity, then we can do nothing.
+        if (linearVelocity.isZero(this.getZeroLinearSpeedThreshold()))
+            return this.getOrientation();
+
+        return this.vectorToAngle(linearVelocity);
+    }
 }

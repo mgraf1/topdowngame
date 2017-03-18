@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 
 import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.states.play.controls.PlayerInputHandler;
+import net.mikegraf.game.states.play.entities.badGuys.BadGuyBehaviorFactory;
 import net.mikegraf.game.states.play.entities.gameObjects.GameObjectBehaviorFactory;
 import net.mikegraf.game.states.play.entities.items.ItemBehaviorFactory;
 import net.mikegraf.game.states.play.entities.physics.BodyBuilding;
@@ -37,6 +38,8 @@ public class BehaviorBuilding {
             return new GameObjectBehaviorFactory(animationFactory, bodyFactory);
         } else if (layerName.equals(TiledConstants.LAYER_PLAYER)) {
             return new PlayerBehaviorFactory(animationFactory, bodyFactory, inputHandler);
+        } else if (layerName.equals(TiledConstants.LAYER_BADGUYS)) {
+            return new BadGuyBehaviorFactory(animationFactory, bodyFactory);
         } else {
             throw new IllegalArgumentException("No layer named: " + layerName);
         }

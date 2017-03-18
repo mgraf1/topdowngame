@@ -133,8 +133,10 @@ public class LevelFactory {
                 GameEntityFactory factory = gameEntityBuilding.getGameEntityFactory(layer);
                 for (MapObject mo : layer.getObjects()) {
                     GameEntity entity = factory.createGameEntity(world, mo, assetManager);
-                    int id = entity.getId();
-                    idToEntityMap.put(id, entity);
+                    if (entity != null) {
+                        int id = entity.getId();
+                        idToEntityMap.put(id, entity);
+                    }
                 }
                 factory.finalizeEntities();
             }
