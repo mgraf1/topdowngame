@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.main.helpers.Box2dHelper;
 import net.mikegraf.game.states.play.entities.BehaviorFactory;
+import net.mikegraf.game.states.play.entities.collision.DamagePlayerCollisionBehavior;
 import net.mikegraf.game.states.play.entities.collision.ICollisionBehavior;
 import net.mikegraf.game.states.play.entities.collision.KillPlayerCollisionBehavior;
 import net.mikegraf.game.states.play.entities.controller.BadGuyController;
@@ -25,6 +26,8 @@ import net.mikegraf.game.states.play.entities.view.AnimationView;
 import net.mikegraf.game.states.play.entities.view.IView;
 
 public class BadGuyBehaviorFactory extends BehaviorFactory {
+
+    private final int DAMAGE_AMOUNT = 1;
 
     private AnimationFactory animationFactory;
     private BodyFactory bodyFactory;
@@ -54,7 +57,7 @@ public class BadGuyBehaviorFactory extends BehaviorFactory {
         }
 
         Body body = bodyFactory.createBody(world, mapObject);
-        ICollisionBehavior collisionBehavior = new KillPlayerCollisionBehavior();
+        ICollisionBehavior collisionBehavior = new DamagePlayerCollisionBehavior(DAMAGE_AMOUNT);
         PhysicsModel physModel = new PhysicsModel(body, collisionBehavior, 1);
         physModel.setMaxLinearAcceleration(1f);
         physModel.setMaxLinearSpeed(1f);

@@ -3,6 +3,10 @@
 *.jar
 !gradle-wrapper.jar
 
+# IntelliJ Stuff
+*.iml
+.idea/
+
 # Absolute path to android sdk.
 local.properties
 
