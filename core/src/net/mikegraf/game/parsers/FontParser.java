@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
 import net.mikegraf.game.exceptions.ConfigFormatException;
-import net.mikegraf.game.parsers.models.FontData;
 
 public class FontParser extends Parser<HashMap<String, FontData>> {
 

@@ -10,8 +10,6 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
 import net.mikegraf.game.exceptions.ConfigFormatException;
-import net.mikegraf.game.parsers.models.SoundData;
-import net.mikegraf.game.parsers.models.SoundEffectData;
 
 /* Responsible for parsing the Sound Definition file. */
 public class SoundParser extends Parser<HashMap<String, SoundData>> {

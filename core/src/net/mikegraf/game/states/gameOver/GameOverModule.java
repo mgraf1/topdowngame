@@ -10,9 +10,9 @@ import net.mikegraf.game.exceptions.ConfigFormatException;
 import net.mikegraf.game.menus.FontFactory;
 import net.mikegraf.game.menus.FontLoader;
 import net.mikegraf.game.menus.IFontLoader;
+import net.mikegraf.game.parsers.FontData;
 import net.mikegraf.game.parsers.FontParser;
 import net.mikegraf.game.parsers.Parser;
-import net.mikegraf.game.parsers.models.FontData;
 
 public class GameOverModule extends AbstractModule {
 

@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
 import net.mikegraf.game.exceptions.ConfigFormatException;
-import net.mikegraf.game.parsers.models.BodyData;
 
 public class BodyParser extends Parser<HashMap<String, BodyData>> {
 

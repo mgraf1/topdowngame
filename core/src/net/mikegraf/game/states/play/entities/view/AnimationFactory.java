@@ -1,8 +1,5 @@
 package net.mikegraf.game.states.play.entities.view;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -11,8 +8,11 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.google.inject.Inject;
 
 import net.mikegraf.game.main.ShaderManager;
-import net.mikegraf.game.parsers.models.AnimationData;
-import net.mikegraf.game.parsers.models.AnimationIndexData;
+import net.mikegraf.game.parsers.AnimationData;
+import net.mikegraf.game.parsers.AnimationIndexData;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class AnimationFactory {
 

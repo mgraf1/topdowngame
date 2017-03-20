@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.google.inject.Inject;
 
 import net.mikegraf.game.main.constants.TiledConstants;
-import net.mikegraf.game.parsers.models.BodyData;
+import net.mikegraf.game.parsers.BodyData;
 
 public class BodyBuilding {
 

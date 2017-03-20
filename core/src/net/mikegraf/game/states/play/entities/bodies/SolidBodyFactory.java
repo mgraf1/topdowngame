@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.google.inject.Inject;
 
 import net.mikegraf.game.main.constants.TiledConstants;
-import net.mikegraf.game.parsers.models.BodyData;
+import net.mikegraf.game.parsers.BodyData;
 
 public class SolidBodyFactory extends BodyFactory {
 

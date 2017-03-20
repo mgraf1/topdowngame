@@ -11,17 +11,7 @@ import net.mikegraf.game.exceptions.ConfigFormatException;
 import net.mikegraf.game.menus.FontFactory;
 import net.mikegraf.game.menus.FontLoader;
 import net.mikegraf.game.menus.IFontLoader;
-import net.mikegraf.game.parsers.AnimationParser;
-import net.mikegraf.game.parsers.BodyParser;
-import net.mikegraf.game.parsers.FontParser;
-import net.mikegraf.game.parsers.Parser;
-import net.mikegraf.game.parsers.SoundParser;
-import net.mikegraf.game.parsers.WorldParser;
-import net.mikegraf.game.parsers.models.AnimationIndexData;
-import net.mikegraf.game.parsers.models.BodyData;
-import net.mikegraf.game.parsers.models.FontData;
-import net.mikegraf.game.parsers.models.LevelData;
-import net.mikegraf.game.parsers.models.SoundData;
+import net.mikegraf.game.parsers.*;
 import net.mikegraf.game.states.play.controls.PlayerInputHandler;
 import net.mikegraf.game.states.play.entities.BehaviorBuilding;
 import net.mikegraf.game.states.play.entities.GameEntityBuilding;
@@ -112,14 +102,13 @@ public class PlayModule extends AbstractModule {
     }
 
     private <T> T parseConfigFile(Parser<T> parser, String path) {
-        T data = null;
         try {
-            data = parser.parseFile(path);
+            return parser.parseFile(path);
         } catch (ConfigFormatException e) {
-            e.printStackTrace();
+            throw new AssertionError(e.getMessage());
+            //throw new IOException(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new AssertionError(e.getMessage());
         }
-        return data;
     }
 }

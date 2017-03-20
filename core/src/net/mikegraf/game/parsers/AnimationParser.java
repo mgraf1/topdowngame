@@ -10,8 +10,6 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
 import net.mikegraf.game.exceptions.ConfigFormatException;
-import net.mikegraf.game.parsers.models.AnimationData;
-import net.mikegraf.game.parsers.models.AnimationIndexData;
 
 public class AnimationParser extends Parser<HashMap<String, AnimationIndexData>> {
 

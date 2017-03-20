@@ -26,7 +26,7 @@ import com.google.inject.Inject;
 import net.mikegraf.game.main.constants.B2dConstants;
 import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.menus.FontFactory;
-import net.mikegraf.game.parsers.models.LevelData;
+import net.mikegraf.game.parsers.LevelData;
 import net.mikegraf.game.states.play.contact.MyContactListener;
 import net.mikegraf.game.states.play.entities.GameEntity;
 import net.mikegraf.game.states.play.entities.GameEntityBuilding;

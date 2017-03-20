@@ -5,8 +5,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.google.inject.Inject;
-
-import net.mikegraf.game.parsers.models.FontData;
+import net.mikegraf.game.parsers.FontData;
 
 public class FontLoader implements IFontLoader {
 

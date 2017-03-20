@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.google.inject.Inject;
 
-import net.mikegraf.game.parsers.models.AnimationIndexData;
+import net.mikegraf.game.parsers.AnimationIndexData;
 import net.mikegraf.game.states.play.entities.view.AnimationFactory;
 import net.mikegraf.game.states.play.entities.view.AnimationIndex;
 

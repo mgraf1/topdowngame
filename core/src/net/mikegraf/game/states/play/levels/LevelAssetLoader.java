@@ -14,9 +14,9 @@ import com.google.inject.Inject;
 
 import net.mikegraf.game.main.constants.TiledConstants;
 import net.mikegraf.game.menus.IFontLoader;
-import net.mikegraf.game.parsers.models.AnimationIndexData;
-import net.mikegraf.game.parsers.models.SoundData;
-import net.mikegraf.game.parsers.models.SoundEffectData;
+import net.mikegraf.game.parsers.AnimationIndexData;
+import net.mikegraf.game.parsers.SoundData;
+import net.mikegraf.game.parsers.SoundEffectData;
 
 public class LevelAssetLoader {
 

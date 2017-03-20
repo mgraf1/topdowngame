@@ -5,9 +5,8 @@ import java.util.HashMap;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.google.inject.Inject;
-
-import net.mikegraf.game.parsers.models.SoundData;
-import net.mikegraf.game.parsers.models.SoundEffectData;
+import net.mikegraf.game.parsers.SoundData;
+import net.mikegraf.game.parsers.SoundEffectData;
 
 public class SoundEffectFactory {
 
@@ -19,15 +18,15 @@ public class SoundEffectFactory {
     }
 
     public SoundEffectIndex createSoundEffectIndex(String type, AssetManager assetManager) {
-        HashMap<String, Sound> soundEffectNametoSoundMap = new HashMap<String, Sound>();
+        HashMap<String, Sound> soundEffectNameToSoundMap = new HashMap<String, Sound>();
         SoundData data = typeToSoundDataMap.get(type);
 
         if (data != null) {
             for (SoundEffectData effectData : data.getSoundEffectData()) {
                 Sound sound = assetManager.get(effectData.getPath(), Sound.class);
-                soundEffectNametoSoundMap.put(effectData.getName(), sound);
+                soundEffectNameToSoundMap.put(effectData.getName(), sound);
             }
-            return new SoundEffectIndex(soundEffectNametoSoundMap);
+            return new SoundEffectIndex(soundEffectNameToSoundMap);
         } else {
             return null;
         }
