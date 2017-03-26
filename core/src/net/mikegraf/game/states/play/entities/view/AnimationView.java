@@ -10,7 +10,8 @@ import net.mikegraf.game.main.helpers.Box2dHelper;
 public class AnimationView implements IView {
 
     private static final String FLASH_MODE = "flash";
-    private static final float FLASH_TIME = 1f;
+    private static final float FLASH_TIME = .5f;
+    private static final float FLASH_FREQUENCY = .5f;
 
     private AnimationIndex animationIndex;
     private float height;
@@ -62,8 +63,7 @@ public class AnimationView implements IView {
     // Gets a value of a sin curve between -1 <-> 1
     private float pulse(float time) {
         float pi = 3.14f;
-        float frequency = FLASH_TIME; // Frequency in Hz
-        return 0.5f * (1 + (float) (Math.sin(2 * pi * frequency * (time - .25f))));
+        return 0.5f * (1 + (float) (Math.sin(2 * pi * FLASH_FREQUENCY * (time + .25f))));
     }
 
     @Override
