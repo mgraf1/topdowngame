@@ -38,7 +38,7 @@ public class TriggerBehaviorFactory extends BehaviorFactory {
     public PhysicsModel createPhysicsModel(World world, MapObject mapObject) {
         Body body = bodyFactory.createBody(world, mapObject);
         ICollisionBehavior collisionBehavior = new TriggerCollisionBehavior();
-        return new PhysicsModel(body, collisionBehavior);
+        return new PhysicsModel(body, collisionBehavior, 0);
     }
 
 }

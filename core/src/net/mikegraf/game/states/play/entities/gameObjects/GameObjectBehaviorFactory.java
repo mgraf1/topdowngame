@@ -57,7 +57,7 @@ public class GameObjectBehaviorFactory extends BehaviorFactory {
         } else {
             collisionBehavior = new NoCollisionBehavior();
         }
-        return new PhysicsModel(body, collisionBehavior);
+        return new PhysicsModel(body, collisionBehavior, 0);
     }
 
 }

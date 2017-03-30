@@ -39,9 +39,13 @@ public abstract class GameEntity {
         }
     }
 
+    public Vector2 getPosition() { return physModel.getPosition(); }
+
     public void move(Vector2 movementVector) {
         physModel.move(movementVector);
     }
+
+    public void push(Vector2 sourceLocation, float force) { physModel.push(sourceLocation, force); }
 
     public Vector2 applySteering(Vector2 steeringVector, float time) {
         return physModel.applySteering(steeringVector, time);

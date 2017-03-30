@@ -6,8 +6,10 @@ import net.mikegraf.game.states.play.entities.player.Player
 class DamagePlayerCollisionBehavior(val damageAmount: Int) : ICollisionBehavior {
     override fun handleCollision(info: CollisionInfo?) {
         val entity = info?.otherEntity
-        if (entity != null && entity is Player) {
+        val thisEntity = info?.thisEntity
+        if (thisEntity != null && entity != null && entity is Player) {
             entity.damage(damageAmount)
+            entity.push(thisEntity.position, 10f)
         }
     }
 

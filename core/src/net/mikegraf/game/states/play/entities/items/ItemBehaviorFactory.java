@@ -47,7 +47,7 @@ public class ItemBehaviorFactory extends BehaviorFactory {
     public PhysicsModel createPhysicsModel(World world, MapObject mapObject) {
         Body body = bodyFactory.createBody(world, mapObject);
         ICollisionBehavior collisionBehavior = new ItemCollisionBehavior();
-        return new PhysicsModel(body, collisionBehavior);
+        return new PhysicsModel(body, collisionBehavior, 0);
     }
 
 }

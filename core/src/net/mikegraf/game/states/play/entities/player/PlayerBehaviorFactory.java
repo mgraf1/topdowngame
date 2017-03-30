@@ -54,6 +54,7 @@ public class PlayerBehaviorFactory extends BehaviorFactory {
         float velocity = bodyFactory.getVelocity(mapObject);
         ICollisionBehavior collisionBehavior = new PlayerCollisionBehavior();
         return new PhysicsModel(body, collisionBehavior, velocity);
+        //return new PhysicsModel(body, collisionBehavior, velocity);
     }
 
 }
